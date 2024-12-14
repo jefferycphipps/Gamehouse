@@ -1,10 +1,16 @@
 package com.gamehouse.project.models;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 
 public abstract class AbstractEntity {
 
+    @Id
+    @GeneratedValue
     private int id;
+
 
     private String name;
 
