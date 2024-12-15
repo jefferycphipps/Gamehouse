@@ -2,9 +2,12 @@ package com.gamehouse.project.models;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class AbstractEntity {
 
     @Id
@@ -12,6 +15,7 @@ public abstract class AbstractEntity {
     private int id;
 
 
+    @NotBlank (message = "Name is required")
     private String name;
 
     public int getId() {
