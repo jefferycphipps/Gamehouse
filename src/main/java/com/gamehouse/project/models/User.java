@@ -1,5 +1,8 @@
 package com.gamehouse.project.models;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class User extends AbstractEntity{
 
     private String pwHash;
