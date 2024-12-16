@@ -1,6 +1,8 @@
 package com.gamehouse.project.models;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Game extends AbstractEntity{
@@ -9,23 +11,26 @@ public class Game extends AbstractEntity{
 
     private String gameDescription;
 
-    private Image boxArt;
+    //private Image boxArt;
 
-    private GameReviews gameReviews;
+    @ManyToMany
+    private List<GameReviews> gameReviews;
 
+    @OneToOne
     private GameCategory gameCategory;
 
-    private GamePlatforms gamePlatforms;
+    @ManyToMany
+    private List<GamePlatform> gamePlatforms;
 
     public Game(){}
 
 
-    public Game(String name, String gameRating, String gameDescription, Image boxArt, GameReviews gameReviews, GameCategory gameCategory, GamePlatforms gamePlatforms) {
+    public Game(String name, String gameRating, String gameDescription, List<GameReviews> gameReviews, GameCategory gameCategory, List<GamePlatform> gamePlatforms) {
         super();
         this.setName(name);
         this.gameRating = gameRating;
         this.gameDescription = gameDescription;
-        this.boxArt = boxArt;
+        //this.boxArt = boxArt;
         this.gameReviews = gameReviews;
         this.gameCategory = gameCategory;
         this.gamePlatforms = gamePlatforms;
@@ -47,19 +52,19 @@ public class Game extends AbstractEntity{
         this.gameDescription = gameDescription;
     }
 
-    public Image getBoxArt() {
-        return boxArt;
-    }
+//    public Image getBoxArt() {
+//        return boxArt;
+//    }
+//
+//    public void setBoxArt(Image boxArt) {
+//        this.boxArt = boxArt;
+//    }
 
-    public void setBoxArt(Image boxArt) {
-        this.boxArt = boxArt;
-    }
-
-    public GameReviews getGameReviews() {
+    public List<GameReviews> getGameReviews() {
         return gameReviews;
     }
 
-    public void setGameReviews(GameReviews gameReviews) {
+    public void setGameReviews(List<GameReviews> gameReviews) {
         this.gameReviews = gameReviews;
     }
 
@@ -71,11 +76,11 @@ public class Game extends AbstractEntity{
         this.gameCategory = gameCategory;
     }
 
-    public GamePlatforms getGamePlatforms() {
+    public List<GamePlatform> getGamePlatform() {
         return gamePlatforms;
     }
 
-    public void setGamePlatforms(GamePlatforms gamePlatforms) {
+    public void setGamePlatforms(List<GamePlatform> gamePlatforms) {
         this.gamePlatforms = gamePlatforms;
     }
 }

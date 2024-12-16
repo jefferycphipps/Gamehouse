@@ -1,4 +1,4 @@
-package com.gamehouse.project.data;
+package com.gamehouse.project.models.data;
 
 import com.gamehouse.project.models.User;
 import org.springframework.data.repository.CrudRepository;

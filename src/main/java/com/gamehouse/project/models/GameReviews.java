@@ -7,7 +7,9 @@ public class GameReviews extends AbstractEntity{
 
     private String gameReview;
 
-    public GameReviews(String gameReview) {
+    public GameReviews(String name, String gameReview) {
+        super();
+        this.setName(name);
         this.gameReview = gameReview;
     }
 

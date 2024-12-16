@@ -9,17 +9,17 @@ public class User extends AbstractEntity{
 
     private String email;
 
-    private Image profileImage;
+    //private Image profileImage;
 
     public User(){}
 
 
-    public User(String name, String pwHash, String email, Image profileImage) {
+    public User(String name, String pwHash, String email) {
         super();
         this.setName(name);
         this.pwHash = pwHash;
         this.email = email;
-        this.profileImage = profileImage;
+        //this.profileImage = profileImage;
     }
 
     public String getPwHash() {
@@ -38,11 +38,12 @@ public class User extends AbstractEntity{
         this.email = email;
     }
 
-    public Image getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(Image profileImage) {
-        this.profileImage = profileImage;
-    }
+        //WILL IMPLEMENT LATER
+//    public Image getProfileImage() {
+//        return profileImage;
+//    }
+//
+//    public void setProfileImage(Image profileImage) {
+//        this.profileImage = profileImage;
+//    }
 }
