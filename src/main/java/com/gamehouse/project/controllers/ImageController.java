@@ -26,7 +26,7 @@ public class ImageController {
 
     @PostMapping("/saveImage")
     public ResponseEntity<?> uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
-        String uploadImage = imageService.uploadImageToFileDirectoy(file);
+        String uploadImage = imageService.uploadImageToFileDirectroy(file);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }
