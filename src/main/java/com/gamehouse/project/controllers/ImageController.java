@@ -5,6 +5,7 @@ import com.gamehouse.project.models.data.ImageRepository;
 import com.gamehouse.project.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,20 +24,21 @@ public class ImageController {
     @Autowired
     private ImageRepository imageRepository;
 
-    @PostMapping("/getImages/save")
-    public ResponseEntity<Image> saveImage(@RequestBody MultipartFile image) throws IOException {
-
-        String uploadDirectory = "src/main/resources/static/images";
-        String imagesString = "";
-
-        imagesString = imageService.saveImageToStorage(uploadDirectory, image);
-        Image temp = new Image(imagesString, image.getOriginalFilename());
-        imageRepository.save(temp);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(temp);
-
+    @PostMapping("/saveImage")
+    public ResponseEntity<?> uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
+        String uploadImage = imageService.uploadImageToFileDirectoy(file);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(uploadImage);
     }
 
+    @GetMapping("/{fileName}")
+    public ResponseEntity<?> downloadImage(@PathVariable String fileName) throws IOException {
+        byte[] imageData=imageService.downloadImageFromFileSystem(fileName);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/*"))
+                .body(imageData);
+
+    }
 
 
 }

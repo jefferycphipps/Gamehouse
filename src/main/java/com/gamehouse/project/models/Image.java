@@ -1,23 +1,41 @@
 package com.gamehouse.project.models;
 
-import com.gamehouse.project.models.data.ImageRepository;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+
+
 
 @Entity
 public class Image extends AbstractEntity{
 
-    private String fileName;
+    private String type;
 
+    private String filePath;
 
     public Image() {
     }
 
-    public Image(String name, String fileName){
+    public Image(String name, String type,String filePath){
         super();
         this.setName(name);
-        this.fileName = fileName;
+        this.type = type;
+        this.filePath = filePath;
     }
 
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 }
