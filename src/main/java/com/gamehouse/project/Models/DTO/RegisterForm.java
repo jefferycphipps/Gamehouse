@@ -1,6 +1,6 @@
 package com.gamehouse.project.Models.DTO;
 
-public class RegistorForm extends LoginForm{
+public class RegisterForm extends LoginForm{
     private String verifyPassword;
 
     public String getVerifyPassword() {
