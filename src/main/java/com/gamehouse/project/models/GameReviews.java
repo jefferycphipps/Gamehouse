@@ -1,25 +1,25 @@
 package com.gamehouse.project.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+
+import java.util.List;
 
 @Entity
 public class GameReviews extends AbstractEntity{
 
-    private String gameReview;
+
+
+
+    @ManyToMany
+    List<Game> gamesList;
+
 
     public GameReviews(String name, String gameReview) {
         super();
         this.setName(name);
-        this.gameReview = gameReview;
     }
 
     public GameReviews() {}
 
-    public String getGameReview() {
-        return gameReview;
-    }
-
-    public void setGameReview(String gameReview) {
-        this.gameReview = gameReview;
-    }
 }

@@ -11,13 +11,14 @@ public class Game extends AbstractEntity{
 
     private String gameDescription;
 
-    //private Image boxArt;
+    private Image boxArt;
 
     @ManyToMany
     private List<GameReviews> gameReviews;
 
-    @OneToOne
-    private GameCategory gameCategory;
+    //Needs to be changed to list of game categories.
+    @ManyToMany
+    private List<GameCategory> gameCategories;
 
     @ManyToMany
     private List<GamePlatform> gamePlatforms;
@@ -25,14 +26,14 @@ public class Game extends AbstractEntity{
     public Game(){}
 
 
-    public Game(String name, String gameRating, String gameDescription, List<GameReviews> gameReviews, GameCategory gameCategory, List<GamePlatform> gamePlatforms) {
+    public Game(String name, String gameRating, String gameDescription, List<GameReviews> gameReviews, List<GameCategory> gameCategories, List<GamePlatform> gamePlatforms) {
         super();
         this.setName(name);
         this.gameRating = gameRating;
         this.gameDescription = gameDescription;
-        //this.boxArt = boxArt;
+        this.boxArt = boxArt;
         this.gameReviews = gameReviews;
-        this.gameCategory = gameCategory;
+        this.gameCategories = gameCategories;
         this.gamePlatforms = gamePlatforms;
     }
 
@@ -52,13 +53,13 @@ public class Game extends AbstractEntity{
         this.gameDescription = gameDescription;
     }
 
-//    public Image getBoxArt() {
-//        return boxArt;
-//    }
-//
-//    public void setBoxArt(Image boxArt) {
-//        this.boxArt = boxArt;
-//    }
+    public Image getBoxArt() {
+        return boxArt;
+    }
+
+    public void setBoxArt(Image boxArt) {
+        this.boxArt = boxArt;
+    }
 
     public List<GameReviews> getGameReviews() {
         return gameReviews;
@@ -68,15 +69,15 @@ public class Game extends AbstractEntity{
         this.gameReviews = gameReviews;
     }
 
-    public GameCategory getGameCategory() {
-        return gameCategory;
+    public List<GameCategory> getGameCategories() {
+        return gameCategories;
     }
 
-    public void setGameCategory(GameCategory gameCategory) {
-        this.gameCategory = gameCategory;
+    public void setGameCategories(List<GameCategory> gameCategories) {
+        this.gameCategories = gameCategories;
     }
 
-    public List<GamePlatform> getGamePlatform() {
+    public List<GamePlatform> getGamePlatforms() {
         return gamePlatforms;
     }
 
