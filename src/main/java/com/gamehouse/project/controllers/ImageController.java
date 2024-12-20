@@ -26,7 +26,7 @@ public class ImageController {
 
     @PostMapping("/saveImage")
     public ResponseEntity<?> uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
-        String uploadImage = imageService.uploadImageToFileDirectroy(file);
+        String uploadImage = imageService.uploadImageToFileDirectory(file);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }
@@ -34,8 +34,9 @@ public class ImageController {
     @GetMapping("/{fileName}")
     public ResponseEntity<?> downloadImage(@PathVariable String fileName) throws IOException {
         byte[] imageData=imageService.downloadImageFromFileSystem(fileName);
+        String fileType = imageService.getFileExtension(imageRepository.findByName(fileName));
         return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.valueOf("image/*"))
+                .contentType(MediaType.valueOf(fileType))
                 .body(imageData);
 
     }

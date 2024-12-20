@@ -11,7 +11,7 @@ public class Game extends AbstractEntity{
 
     private String gameDescription;
 
-    private Image boxArt;
+    //private Image boxArt;
 
     @ManyToMany
     private List<GameReviews> gameReviews;
@@ -31,7 +31,7 @@ public class Game extends AbstractEntity{
         this.setName(name);
         this.gameRating = gameRating;
         this.gameDescription = gameDescription;
-        this.boxArt = boxArt;
+        //this.boxArt = boxArt;
         this.gameReviews = gameReviews;
         this.gameCategories = gameCategories;
         this.gamePlatforms = gamePlatforms;
@@ -53,13 +53,13 @@ public class Game extends AbstractEntity{
         this.gameDescription = gameDescription;
     }
 
-    public Image getBoxArt() {
-        return boxArt;
-    }
-
-    public void setBoxArt(Image boxArt) {
-        this.boxArt = boxArt;
-    }
+//    public Image getBoxArt() {
+//        return boxArt;
+//    }
+//
+//    public void setBoxArt(Image boxArt) {
+//        this.boxArt = boxArt;
+//    }
 
     public List<GameReviews> getGameReviews() {
         return gameReviews;

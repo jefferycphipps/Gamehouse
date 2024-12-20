@@ -14,6 +14,7 @@ public class GameCategory extends AbstractEntity {
 
     @ManyToMany
     List<Game> gamesList;
+
     private GameCategory(){}
 
 
