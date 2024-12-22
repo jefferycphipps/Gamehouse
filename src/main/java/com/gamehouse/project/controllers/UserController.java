@@ -111,7 +111,7 @@ public class UserController {
         setUserInSession(request.getSession(), newUser);
 
 
-        return "index";
+        return "redirect:/user";
     }
 
     @GetMapping("/login")

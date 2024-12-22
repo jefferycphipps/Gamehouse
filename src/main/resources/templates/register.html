@@ -38,9 +38,8 @@
         <label>Email
             <input class="form-control" th:field="${registerFormDTO.email}" type="email">
         </label>
-        <p class="error" th:error="${registerFormDTO.email}"></p>
+        <p class="error" th:errors="${registerFormDTO.email}"></p>
     </div>
-
     <input type="submit" class="btn btn-primary" value="Register" />
 </form>
 

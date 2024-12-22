@@ -3,11 +3,15 @@ package com.gamehouse.project.Models.DTO;
 import com.gamehouse.project.Models.AbstractEntity;
 import com.gamehouse.project.Models.User;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class LoginForm  {
 
-private String username;
-private String password;
+    private String username;
+
+    @NotBlank(message = "Password is required.")
+    @Size(min = 3, max = 12, message = "Keep between 3 to 12 characters.")
+    private String password;
 
 public LoginForm(String username, String password){
     this.username=username;

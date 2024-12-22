@@ -3,23 +3,22 @@ package com.gamehouse.project.Models.DTO;
 import com.gamehouse.project.Models.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class RegisterForm extends LoginForm {
 
+    @NotEmpty(message = "Email is required.")
+    @Email(message = "Has to be a valid email.")
     private String email;
 
+    @NotBlank(message = "Name is required.")
+    @Size(min = 3, max = 100, message = "You need a minimum of 3 characters.")
     private String name;
 
-    @NotBlank(message = "Please confirm your password")
+    @NotBlank(message = "Verify password is required.")
     private String verifyPassword;
 
-//    public RegisterForm(String verifyPassword, String name, String email){
-//        super();
-//        this.verifyPassword=verifyPassword;
-//        this.name=name;
-//        this.email=email;
-//    }
 
     public String getEmail() {
         return email;
