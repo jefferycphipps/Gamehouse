@@ -38,12 +38,14 @@ public class UserController {
         if (user.isEmpty()) {
             return null;
         }
-        return user.get();
+        return user.orElse(null);
+    }
+    private static void setUserInSession(HttpSession session, User user) {
+        session.setAttribute(userSessionKey, user.getId());
+
     }
 
-    private static void setUserSession(HttpSession session, User user) {
-        session.setAttribute(userSessionKey, user.getId());
-    }
+
 
     @GetMapping("/register")
     public String displayform(Model model) {
@@ -109,7 +111,8 @@ public class UserController {
         newUser.setPwHash(encodedPassword);
 
         userRepository.save(newUser);
-        System.out.println("Saving new user: " + newUser);
+        setUserInSession(request.getSession(), newUser);
+
 
         return "index";
     }
@@ -123,7 +126,7 @@ public class UserController {
         return "login";
     }
     @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute("loginFormDTO") @Valid LoginForm loginFormDTO, Errors errors,Model model){
+    public String processLoginForm(@ModelAttribute("loginFormDTO") @Valid LoginForm loginFormDTO, Errors errors,Model model, HttpServletRequest request){
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Login");
@@ -145,8 +148,44 @@ public class UserController {
             model.addAttribute("title", "Log In");
             return "login";
         }
-        return "index";
+        setUserInSession(request.getSession(), users);
+
+        HttpSession session = request.getSession(false); // Use false to avoid creating a new session if it doesn't exist
+        if (session != null) {
+            System.out.println("Session is active. Session ID: " + session.getId());
+        } else {
+            System.out.println("No active session.");
+        }
+        return "redirect:/user";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        HttpSession session = request.getSession(false);
+
+        // Check if the session is active and print session information
+        if (session != null) {
+            System.out.println("Logging out. Session ID: " + session.getId());
+        } else {
+            System.out.println("No active session to log out.");
+        }
+        return "logout";
+
+    }
+
+    @GetMapping("/user")
+    public String Displayuser(HttpSession session, Model model){
+        User user = getUserFromSession(session);
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("title", "Dashboard");
+        model.addAttribute("user", user);
+        return "user";
+    }
+
+
 
 
 }
