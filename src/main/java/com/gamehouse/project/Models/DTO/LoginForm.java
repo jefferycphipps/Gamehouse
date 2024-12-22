@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class LoginForm  {
-
+    @NotBlank(message = "Username is required.")
     private String username;
 
     @NotBlank(message = "Password is required.")

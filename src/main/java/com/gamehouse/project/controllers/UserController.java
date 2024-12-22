@@ -133,7 +133,7 @@ public class UserController {
 
         User users = userRepository.findByUsername(loginFormDTO.getUsername());
         if (users == null) {
-            errors.rejectValue("username", "username.alreadyexists", "username is invalid");
+            errors.rejectValue("username", "username.alreadyexists", "Username is invalid");
             model.addAttribute("title", "Login");
             return "login";
         }
