@@ -45,8 +45,6 @@ public class UserController {
 
     }
 
-
-
     @GetMapping("/register")
     public String displayform(Model model) {
         model.addAttribute("registerFormDTO", new RegisterForm());
@@ -59,7 +57,6 @@ public class UserController {
     public String processRegistrationForm(@ModelAttribute("registerFormDTO") @Valid RegisterForm registerFormDTO,
                                           Errors errors, HttpServletRequest request,
                                           Model model) {
-
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
@@ -125,6 +122,7 @@ public class UserController {
 
         return "login";
     }
+
     @PostMapping("/login")
     public String processLoginForm(@ModelAttribute("loginFormDTO") @Valid LoginForm loginFormDTO, Errors errors,Model model, HttpServletRequest request){
 
@@ -141,7 +139,6 @@ public class UserController {
         }
 
         String password = loginFormDTO.getPassword();
-
 
         if (!users.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
@@ -164,13 +161,12 @@ public class UserController {
         request.getSession().invalidate();
         HttpSession session = request.getSession(false);
 
-        // Check if the session is active and print session information
         if (session != null) {
             System.out.println("Logging out. Session ID: " + session.getId());
         } else {
             System.out.println("No active session to log out.");
         }
-        return "logout";
+        return "redirect:/login";
 
     }
 
@@ -184,8 +180,5 @@ public class UserController {
         model.addAttribute("user", user);
         return "user";
     }
-
-
-
 
 }
