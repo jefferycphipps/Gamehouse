@@ -10,10 +10,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class ProjectApplication {
 
     public static void main(String[] args) throws Exception {
-        APICallService test = new APICallService();
-        test.getCover(352610);
-        //test.syncGson("metal gear solid");
-        //SpringApplication.run(ProjectApplication.class, args);
+//        APICallService test = new APICallService();
+//        test.getCover(352610);
+//        test.getGames("metal gear solid");
+        SpringApplication.run(ProjectApplication.class, args);
     }
 
 }

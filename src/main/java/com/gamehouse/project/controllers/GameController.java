@@ -26,14 +26,23 @@ public class GameController {
 
     }
 
+    @PostMapping("/saveGames")
+    public ResponseEntity<?> newGames(@RequestBody List<Game> games) throws URISyntaxException{
+        for (int x = 0; x< games.size(); x++){
+            Game newGame = gameRepository.save(games.get(x));
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("saved list");
+
+    }
 
     @GetMapping("/games")
-    public List<Game> getEvents() {
+    public List<Game> getGames() {
         return (List<Game>) gameRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Game getEvent(@PathVariable int id) {
+    public Game getGame(@PathVariable int id) {
         return gameRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 

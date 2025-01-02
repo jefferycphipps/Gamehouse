@@ -47,7 +47,7 @@ public class APICallService {
     };
 
 
-    public List<GameJson> syncGson(String searchTerm) throws Exception {
+    public List<GameJson> getGames(String searchTerm) throws Exception {
         String response = searchGames(searchTerm);
         List<GameJson> gameJsons = gson.fromJson(response, new TypeToken<List<GameJson>>(){}.getType());
         System.out.println(gameJsons);
@@ -80,7 +80,7 @@ public class APICallService {
         int back = response.body().lastIndexOf("\"" );
         String url = response.body().substring(front,back);
         System.out.println(url);
-        return response.body();
+        return url;
     }
 }
 
