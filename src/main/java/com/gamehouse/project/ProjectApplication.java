@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication()
 public class ProjectApplication {
 
-    public static void main(String[] args) {
-//        APICallService test = new APICallService();
-//        test.searchGames("God of War");
+    public static void main(String[] args) throws Exception {
+        //APICallService test = new APICallService();
+        //test.syncGson("metal gear solid");
         SpringApplication.run(ProjectApplication.class, args);
     }
 

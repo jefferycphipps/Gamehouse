@@ -7,15 +7,26 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamehouse.project.models.GameJson;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 public class APICallService {
 
+    ObjectMapper objectMapper = new ObjectMapper();
+    Gson gson = new GsonBuilder().create();
 
-    public void searchGames(String searchItem) {
+    public String searchGames(String searchItem) {
         HttpResponse<String> response = null;
+
         try {
 
-            String searchTerm = "fields name; search \"" + searchItem + "\";";
+            String searchTerm = "fields name, category, platforms, age_ratings, summary, cover; search \"" + searchItem + "\";";
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://api.igdb.com/v4/games/"))
                     .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
@@ -31,10 +42,19 @@ public class APICallService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(response.body());
+
+        return response.body();
     };
 
+
+    public List<GameJson> syncGson(String searchTerm) throws Exception {
+        String response = searchGames(searchTerm);
+        List<GameJson> gameJsons = gson.fromJson(response, new TypeToken<List<GameJson>>(){}.getType());
+        System.out.println(gameJsons);
+        return gameJsons;
+    }
 }
+
 
 
 /*public HttpResponse http(String url, String body) {
