@@ -53,6 +53,35 @@ public class APICallService {
         System.out.println(gameJsons);
         return gameJsons;
     }
+
+    public String getCover(int coverID){
+        HttpResponse<String> response = null;
+
+        try {
+
+            String searchTerm = "fields url; where id = " + coverID + ";";
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.igdb.com/v4/covers/"))
+                    .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
+                    .header("Authorization", "Bearer 5ib2itgwj5h9bf18ywvthaal9n1nqy")
+                    .setHeader("Content-Type", "application/json")
+                    .method("POST", HttpRequest.BodyPublishers.ofString(searchTerm))
+                    .build();
+
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(response.body());
+        int front = response.body().indexOf("//")+2;
+        int back = response.body().lastIndexOf("\"" );
+        String url = response.body().substring(front,back);
+        System.out.println(url);
+        return response.body();
+    }
 }
 
 
