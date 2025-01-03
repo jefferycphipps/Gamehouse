@@ -11,18 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -42,7 +37,6 @@ public class UserController {
     }
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getId());
-
     }
 
     @GetMapping("/register")
@@ -52,8 +46,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> processRegisterFrom (@RequestBody @Valid RegisterForm registerFormDTO,
-                                                       HttpServletRequest request) {
+    public ResponseEntity<String> processRegisterFrom (@RequestBody @Valid RegisterForm registerFormDTO, HttpServletRequest request) {
+
         if (userRepository.findByName(registerFormDTO.getName()) != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Name already exists.");
         }
@@ -69,45 +63,6 @@ public class UserController {
         if (!registerFormDTO.getPassword().equals(registerFormDTO.getVerifyPassword())) {
             return ResponseEntity.badRequest().body("Passwords do not match.");
         }
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Register");
-//            return "register";
-//        }
-//
-//        User existingName = userRepository.findByName(registerFormDTO.getName());
-//        if (existingName != null) {
-//            errors.rejectValue("name", "name.alreadyexists", "name cannot be empty");
-//            model.addAttribute("title", "Register");
-//            return "register";
-//        }
-//
-//
-//        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
-//        if (existingUser != null) {
-//            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
-//            model.addAttribute("title", "Register");
-//            return "register";
-//        }
-//
-//        User existingEmail = userRepository.findByEmail(registerFormDTO.getEmail());
-//        if (existingEmail != null) {
-//            errors.rejectValue("email", "email.alreadyexists", "A user with this email already exists.");
-//            model.addAttribute("title", "Register");
-//            return "register";
-//        }
-//
-//
-//        if (registerFormDTO.getPassword() == null || registerFormDTO.getPassword().trim().isEmpty()) {
-//            errors.rejectValue("password", "password.empty", "Password cannot be empty");
-//            model.addAttribute("title", "Register");
-//            return "register";
-//        }
-//
-//        if (!registerFormDTO.getPassword().equals(registerFormDTO.getVerifyPassword())) {
-//            errors.rejectValue("verifyPassword", "passwords.mismatch", "Passwords do not match");
-//            model.addAttribute("title", "Register");
-//            return "register";
-//        }
 
         BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncode.encode(registerFormDTO.getPassword());
@@ -120,7 +75,6 @@ public class UserController {
 
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
-
 
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
     }
@@ -138,34 +92,9 @@ public class UserController {
         if (user == null || !user.isMatchingPassword(loginFormDTO.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         }
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Login");
-//            return "login";
-//        }
-//
-//        User users = userRepository.findByUsername(loginFormDTO.getUsername());
-//        if (users == null) {
-//            errors.rejectValue("username", "username.alreadyexists", "Username is invalid");
-//            model.addAttribute("title", "Login");
-//            return "login";
-//        }
-//
-//        String password = loginFormDTO.getPassword();
-//
-//        if (!users.isMatchingPassword(password)) {
-//            errors.rejectValue("password", "password.invalid", "Invalid password");
-//            model.addAttribute("title", "Log In");
-//            return "login";
-//        }
+
         setUserInSession(request.getSession(), user);
 
-
-//        if (session != null) {
-//            System.out.println("Session is active. Session ID: " + session.getId());
-//        } else {
-//            System.out.println("No active session.");
-//        }
         return ResponseEntity.ok("Login successful.");
     }
 
@@ -174,18 +103,12 @@ public class UserController {
         request.getSession().invalidate();
 
         return ResponseEntity.ok("Logged out successfully.");
-
     }
 
     @GetMapping(value = "/{username}")
     public ResponseEntity<String> Displayuser(@PathVariable String username, HttpSession session){
         User loginuser = getUserFromSession(session);
-//        if (user == null) {
-//            return "redirect:/login";
-//        }
-//        model.addAttribute("title", "Dashboard");
-//        model.addAttribute("user", user);
-//        return "user"
+
         if (loginuser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You need to login.");
         }
