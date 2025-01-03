@@ -160,7 +160,7 @@ public class UserController {
 //        }
         setUserInSession(request.getSession(), user);
 
-        HttpSession session = request.getSession(false);
+
 //        if (session != null) {
 //            System.out.println("Session is active. Session ID: " + session.getId());
 //        } else {
