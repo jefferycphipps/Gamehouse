@@ -50,6 +50,9 @@ public class APICallService {
     public List<GameJson> getGames(String searchTerm) throws Exception {
         String response = searchGames(searchTerm);
         List<GameJson> gameJsons = gson.fromJson(response, new TypeToken<List<GameJson>>(){}.getType());
+        for (int x = 0; x<gameJsons.size();x++){
+            gameJsons.get(x).setBoxartURL(getCover(gameJsons.get(x).getCover()));
+        }
         System.out.println(gameJsons);
         return gameJsons;
     }
