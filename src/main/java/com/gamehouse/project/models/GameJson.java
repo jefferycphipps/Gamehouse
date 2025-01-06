@@ -7,7 +7,7 @@ public class GameJson {
      String name;
      long id;
      int[] age_ratings;
-     int category;
+     int[] genres; // we call this GameCategory
      int cover;
      String boxartURL;
      int[] platforms;
@@ -15,11 +15,11 @@ public class GameJson {
 
      public GameJson(){}
 
-     public GameJson(String name, long id, int[] age_ratings, int category, int cover, int[] platforms, String summary) {
+     public GameJson(String name, long id, int[] age_ratings, int[] genres, int cover, int[] platforms, String summary) {
           this.name = name;
           this.id = id;
           this.age_ratings = age_ratings;
-          this.category = category;
+          this.genres = genres;
           this.cover = cover;
           this.platforms = platforms;
           this.summary = summary;
@@ -50,12 +50,12 @@ public class GameJson {
           this.age_ratings = age_ratings;
      }
 
-     public int getCategory() {
-          return category;
+     public int[] getGenres() {
+          return genres;
      }
 
-     public void setCategory(int category) {
-          this.category = category;
+     public void setGenres(int[] genres) {
+          this.genres = genres;
      }
 
      public int[] getPlatforms() {
@@ -97,7 +97,7 @@ public class GameJson {
                   "name='" + name + '\'' + ", \n" +
                   "id=" + id + ", \n" +
                   "age_ratings=" + Arrays.toString(age_ratings) + ", \n" +
-                  "category=" + category + ", \n" +
+                  "category=" + genres + ", \n" +
                   "cover=" + cover + ", \n" +
                   "platforms=" + Arrays.toString(platforms) + ", \n" +
                   "summary='" + summary + '\'' + "\n" +

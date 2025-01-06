@@ -17,9 +17,34 @@ public class GamePlatform extends AbstractEntity{
     public GamePlatform(){}
 
 
-    public GamePlatform(String gameName) {
+    public GamePlatform(String gameName, int igdbCode) {
         super();
         this.setName(gameName);
+        this.igdbCode = igdbCode;
     }
 
+    public int getIgdbCode() {
+        return igdbCode;
+    }
+
+    public void setIgdbCode(int igdbCode) {
+        this.igdbCode = igdbCode;
+    }
+
+    public List<Game> getGamesList() {
+        return gamesList;
+    }
+
+    public void setGamesList(List<Game> gamesList) {
+        this.gamesList = gamesList;
+    }
+
+
+    @Override
+    public String toString() {
+        return "GamePlatform{" +
+                "platform=" + getName() +
+                " igdbCode=" + igdbCode +
+                " }";
+    }
 }
