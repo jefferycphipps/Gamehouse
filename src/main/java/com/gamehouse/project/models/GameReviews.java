@@ -12,7 +12,7 @@ public class GameReviews extends AbstractEntity{
 
 
     @ManyToMany(mappedBy = "gameReviews")
-    List<Game> gamesList;
+    private List<Game> gamesList;
 
 
     public GameReviews(String name, String gameReview) {

@@ -12,7 +12,7 @@ public class GamePlatform extends AbstractEntity{
     private int igdbCode;
 
     @ManyToMany(mappedBy = "gamePlatforms")
-    List<Game> gamesList;
+    private List<Game> gamesList;
 
     public GamePlatform(){}
 
