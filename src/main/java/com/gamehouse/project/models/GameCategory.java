@@ -11,7 +11,7 @@ public class GameCategory extends AbstractEntity {
 
     private int igdbCode;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "gameCategories")
     List<Game> gamesList;
 
     public GameCategory(){}

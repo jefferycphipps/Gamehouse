@@ -11,7 +11,7 @@ public class GameReviews extends AbstractEntity{
 
 
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "gameReviews")
     List<Game> gamesList;
 
 

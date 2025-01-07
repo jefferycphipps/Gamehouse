@@ -3,7 +3,6 @@ package com.gamehouse.project.services;
 
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -22,13 +21,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class APICallService {
 
-//    HttpRequest request = HttpRequest.newBuilder()
-//            .uri(URI.create("https://api.igdb.com/v4/games/"))
-//            .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
-//            .header("Authorization", "Bearer 5ib2itgwj5h9bf18ywvthaal9n1nqy")
-//            .setHeader("Content-Type", "application/json")
-//            //.method("POST", HttpRequest.BodyPublishers.ofString(searchTerm))
-//            .build();
+
     ObjectMapper objectMapper = new ObjectMapper();
     Gson gson = new GsonBuilder().create();
 
