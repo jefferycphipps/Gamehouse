@@ -3,6 +3,7 @@ package com.gamehouse.project.services;
 
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -51,12 +52,55 @@ public class APICallService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(response.body());
         return response.body();
     };
 
+    public String getIDGBGameByID(Long IDGBCode) {
+        HttpResponse<String> response = null;
 
-    public List<Game> getGames(String searchTerm) throws Exception {
+        try {
+
+            String searchTerm = "fields name, genres, platforms, age_ratings, summary, cover; where id = " + IDGBCode + ";";
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.igdb.com/v4/games/"))
+                    .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
+                    .header("Authorization", "Bearer 5ib2itgwj5h9bf18ywvthaal9n1nqy")
+                    .setHeader("Content-Type", "application/json")
+                    .method("POST", HttpRequest.BodyPublishers.ofString(searchTerm))
+                    .build();
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return response.body();
+    };
+
+    public Game getGamebyIDGBCODE(long IDGBCode) throws Exception {
+        String response = getIDGBGameByID(IDGBCode);
+        List<GameJson> gameJsons = gson.fromJson(response, new TypeToken<List<GameJson>>(){}.getType());
+        //GameJson[] gameJsons = gson.fromJson(response, GameJson[].class);
+        //System.out.println(gameJsons.get(0));
+        Game tempGame = new Game();
+        tempGame.setName(gameJsons.get(0).getName());
+        tempGame.setBoxArtURL(getCover(gameJsons.get(0).getCover()));
+        tempGame.setGameRating(getRating(gameJsons.get(0).getAge_ratings()));
+        tempGame.setGameCategories(getGenre(gameJsons.get(0).getGenres()));
+        tempGame.setGameDescription(gameJsons.get(0).getSummary());
+        tempGame.setGamePlatforms(getPlatforms(gameJsons.get(0).getPlatforms()));
+
+        //System.out.println(tempGame);
+        return tempGame; //return the list of games
+    }
+
+
+
+
+
+    public List<Game> getGamesbyList(String searchTerm) throws Exception {
         String response = searchGames(searchTerm);
         List<GameJson> gameJsons = gson.fromJson(response, new TypeToken<List<GameJson>>(){}.getType());
         List <Game> games = new ArrayList<>();
@@ -64,16 +108,32 @@ public class APICallService {
         for (int x = 0; x<gameJsons.size();x++){
             Game tempGame = new Game();
             tempGame.setName(gameJsons.get(x).getName());
-            tempGame.setBoxArt(getCover(gameJsons.get(x).getCover()));
+            tempGame.setBoxArtURL(getCover(gameJsons.get(x).getCover()));
             tempGame.setGameRating(getRating(gameJsons.get(x).getAge_ratings()));
             tempGame.setGameCategories(getGenre(gameJsons.get(x).getGenres()));
             tempGame.setGameDescription(gameJsons.get(x).getSummary());
             tempGame.setGamePlatforms(getPlatforms(gameJsons.get(x).getPlatforms()));
             games.add(tempGame);
         }
-        System.out.println(games);
         return games; //return the list of games
     }
+
+    public List<Game> getGamesLight(String searchTerm) throws Exception {
+        String response = searchGames(searchTerm);
+        List<GameJson> gameJsons = gson.fromJson(response, new TypeToken<List<GameJson>>(){}.getType());
+        List <Game> games = new ArrayList<>();
+
+        for (int x = 0; x<gameJsons.size();x++){
+            Game tempGame = new Game();
+            tempGame.setName(gameJsons.get(x).getName());
+            tempGame.setIGDBCode(gameJsons.get(x).getId());
+            tempGame.setBoxArtURL(getCover(gameJsons.get(x).getCover()));
+            games.add(tempGame);
+        }
+        return games; //return the list of games
+    }
+
+
 
     public String getCover(int coverID){
         HttpResponse<String> response = null;
@@ -98,7 +158,7 @@ public class APICallService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(response.body());
+        //System.out.println(response.body());
         int front = response.body().lastIndexOf("b/" )+2;
         int last = response.body().lastIndexOf("g")+1;
         String url = response.body().substring(front, last);
@@ -159,7 +219,6 @@ public class APICallService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(ESRB);
         return ESRB;
     }
 
@@ -185,7 +244,6 @@ public class APICallService {
                 genre = genre.replaceAll("\"", "");
                 genre = genre.replaceAll("}","");
                 genre = genre.replaceAll("\n","");
-                System.out.println(genre);
                 GameCategory category = new GameCategory();
                 category.setName(genre);
                 category.setIgdbCode(genreList[x]);
@@ -198,7 +256,6 @@ public class APICallService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(genres);
         return genres;
     }
 
@@ -238,49 +295,9 @@ public class APICallService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(gamePlatforms);
         return gamePlatforms;
     }
 
 
 
 }
-
-
-
-/*public HttpResponse http(String url, String body) {
-
-    try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-        HttpPost request = new HttpPost(url);
-        StringEntity params = new StringEntity(body);
-        request.addHeader("content-type", "application/json");
-        request.setEntity(params);
-        HttpResponse result = httpClient.execute(request);
-
-        String json = EntityUtils.toString(result.getEntity(), "UTF-8");
-        try {
-            JSONParser parser = new JSONParser();
-            Object resultObject = parser.parse(json);
-
-            if (resultObject instanceof JSONArray) {
-                JSONArray array=(JSONArray)resultObject;
-                for (Object object : array) {
-                    JSONObject obj =(JSONObject)object;
-                    System.out.println(obj.get("example"));
-                    System.out.println(obj.get("fr"));
-                }
-
-            }else if (resultObject instanceof JSONObject) {
-                JSONObject obj =(JSONObject)resultObject;
-                System.out.println(obj.get("example"));
-                System.out.println(obj.get("fr"));
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-
-    } catch (IOException ex) {
-    }
-    return null;
-}*/

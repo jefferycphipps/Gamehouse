@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 public class GameCategory extends AbstractEntity {
 
-    //private String gameCategory;
 
     private int igdbCode;
 
@@ -21,7 +20,6 @@ public class GameCategory extends AbstractEntity {
     public GameCategory(String name, int igdbCode) {
         super();
         this.setName(name);
-        //this.gameCategory = gameCategory;
         this.igdbCode = igdbCode;
     }
 

@@ -10,26 +10,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class ProjectApplication {
 
     public static void main(String[] args) throws Exception {
-        APICallService test = new APICallService();
-        //test.getCover(352610);
-        //test.searchGames("god of war");
-        int [] testRatings  = {38388,
-                60651,
-                91200,
-                97358};
-        //test.getRating(testRatings);
-        int[] geners = { 8,
-                25,
-                31};
-        //test.getGenre(geners);
-        int[] testPlatforms = {
-                6,
-                46,
-                48,
-                130
-        };
-        //test.getPlatforms(testPlatforms);
-       SpringApplication.run(ProjectApplication.class, args);
+//        APICallService test = new APICallService();
+//        long gameID = 251833;
+//        test.getGamebyIDGBCODE(gameID);
+      SpringApplication.run(ProjectApplication.class, args);
     }
 
 }

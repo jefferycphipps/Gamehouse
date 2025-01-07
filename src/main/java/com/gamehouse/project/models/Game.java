@@ -9,6 +9,8 @@ public class Game extends AbstractEntity{
 
     private String gameRating;
 
+    private long IGDBCode;
+
     private String gameDescription;
 
     private String boxArtURL;
@@ -37,6 +39,13 @@ public class Game extends AbstractEntity{
         this.gamePlatforms = gamePlatforms;
     }
 
+    public Game(String name, int IBGDCode, String boxArtURL){
+        super();
+        this.setName(name);
+        this.IGDBCode = IBGDCode;
+        this.boxArtURL = boxArtURL;
+    }
+
     public String getGameRating() {
         return gameRating;
     }
@@ -53,12 +62,20 @@ public class Game extends AbstractEntity{
         this.gameDescription = gameDescription;
     }
 
-    public String getBoxArt() {
+    public String getBoxArtURL() {
         return boxArtURL;
     }
 
-    public void setBoxArt(String boxArtURL) {
+    public void setBoxArtURL(String boxArtURL) {
         this.boxArtURL = boxArtURL;
+    }
+
+    public long getIGDBCode() {
+        return IGDBCode;
+    }
+
+    public void setIGDBCode(long IGDBCode) {
+        this.IGDBCode = IGDBCode;
     }
 
     public List<GameReviews> getGameReviews() {

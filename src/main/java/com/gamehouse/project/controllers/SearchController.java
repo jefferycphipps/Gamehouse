@@ -16,8 +16,14 @@ public class SearchController {
     public List<Game> gameSearch(@RequestParam("searchItem") String searchItem) throws Exception {
         APICallService caller = new APICallService();
 
-        return caller.getGames(searchItem);
+        return caller.getGamesLight(searchItem);
     }
 
+    @PostMapping("/getGamesbyCode")
+    public Game gameSearchbyIDGBCode(@RequestParam("IDGBCode") long IDGBCode) throws Exception {
+        APICallService caller = new APICallService();
+
+        return caller.getGamebyIDGBCODE(IDGBCode);
+    }
 
 }

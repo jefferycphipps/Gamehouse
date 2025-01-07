@@ -9,7 +9,6 @@ public class GameJson {
      int[] age_ratings;
      int[] genres; // we call this GameCategory
      int cover;
-     String boxartURL;
      int[] platforms;
      String summary;
 
@@ -83,13 +82,7 @@ public class GameJson {
      }
 
 
-     public String getBoxartURL() {
-          return boxartURL;
-     }
 
-     public void setBoxartURL(String boxartURL) {
-          this.boxartURL = boxartURL;
-     }
 
      @Override
      public String toString() {
