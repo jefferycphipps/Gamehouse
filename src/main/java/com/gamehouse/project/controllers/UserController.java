@@ -1,5 +1,6 @@
 package com.gamehouse.project.controllers;
 
+
 import com.gamehouse.project.Models.DTO.LoginForm;
 import com.gamehouse.project.Models.DTO.RegisterForm;
 import com.gamehouse.project.Models.User;
@@ -78,6 +79,7 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
     }
+  
     @GetMapping("/login")
     public ResponseEntity<LoginForm> getLoginForm() {
         LoginForm form = new LoginForm();
@@ -117,5 +119,3 @@ public class UserController {
         }
         return ResponseEntity.ok("Hello," + loginuser.getUsername());
     }
-
-}
