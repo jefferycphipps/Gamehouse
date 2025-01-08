@@ -1,5 +1,6 @@
 package com.gamehouse.project.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 
@@ -11,7 +12,11 @@ public class GameReviews extends AbstractEntity{
 
 
 
-    @ManyToMany(mappedBy = "gameReviews")
+    @ManyToMany(mappedBy = "gameReviews",
+            cascade = {
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST
+            })
     List<Game> gamesList;
 
 

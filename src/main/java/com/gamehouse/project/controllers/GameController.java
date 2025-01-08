@@ -2,7 +2,12 @@ package com.gamehouse.project.controllers;
 
 
 import com.gamehouse.project.models.Game;
+import com.gamehouse.project.models.GameCategory;
+import com.gamehouse.project.models.data.GameCategoryRepository;
+import com.gamehouse.project.models.data.GamePlatformRepository;
 import com.gamehouse.project.models.data.GameRepository;
+import com.gamehouse.project.models.data.GameReviewsRepository;
+import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +23,22 @@ public class GameController {
     @Autowired
     private GameRepository gameRepository;
 
+    @Autowired
+    private GameCategoryRepository  gameCategoryRepository;
+
+    @Autowired
+    private GamePlatformRepository gamePlatformRepository;
+
+    @Autowired
+    private GameReviewsRepository gameReviewsRepository;
+
     //Create new game
     @PostMapping("/saveGame")
-    public ResponseEntity<Game> newGame(@RequestBody Game game) throws URISyntaxException{
+    public ResponseEntity<Game> newGame(@RequestBody Game game) throws Exception {
+         //have to save all categoires into the repo
+        //save all platforms into the repo
+        //save new reviews
+
         Game newGame = gameRepository.save(game);
         return ResponseEntity.status(HttpStatus.CREATED).body(newGame);
 
