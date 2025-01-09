@@ -35,7 +35,7 @@ public class GameController {
     //Create new game
     @PostMapping("/saveGame")
     public ResponseEntity<Game> newGame(@RequestBody Game game) throws Exception {
-         //have to save all categoires into the repo
+         //have to save all categories into the repo
         //save all platforms into the repo
         //save new reviews
 

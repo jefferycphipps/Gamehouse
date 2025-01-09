@@ -22,7 +22,7 @@ public class SearchController {
     @Autowired
     private GamePlatformRepository gamePlatformRepository;
 
-    @PostMapping("/startup")
+    @GetMapping("/startup")
     public void startUp() throws Exception {
         APICallService caller = new APICallService();
         if(gameCategoryRepository.count()==0) {
