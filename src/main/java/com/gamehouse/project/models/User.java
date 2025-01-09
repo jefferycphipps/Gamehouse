@@ -1,33 +1,32 @@
 package com.gamehouse.project.models;
 
 import jakarta.persistence.Entity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Entity
-public class User extends AbstractEntity{
-
+public class User extends AbstractEntity {
+  private static final   BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
+    private String username;
+    private String email;
     private String pwHash;
 
-    private String email;
+    public User(String username, String email, String pwHash) {
+        super();
 
-    //private Image profileImage;
+        this.username = username;
+        this.email = email;
+        this.pwHash = pwHash;
 
+    }
     public User(){}
 
-
-    public User(String name, String pwHash, String email) {
-        super();
-        this.setName(name);
-        this.pwHash = pwHash;
-        this.email = email;
-        //this.profileImage = profileImage;
+    public String getUsername() {
+        return username;
     }
 
-    public String getPwHash() {
-        return pwHash;
-    }
-
-    public void setPwHash(String pwHash) {
-        this.pwHash = pwHash;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -38,12 +37,15 @@ public class User extends AbstractEntity{
         this.email = email;
     }
 
-        //WILL IMPLEMENT LATER
-//    public Image getProfileImage() {
-//        return profileImage;
-//    }
-//
-//    public void setProfileImage(Image profileImage) {
-//        this.profileImage = profileImage;
-//    }
+    public String getPwHash() {
+        return pwHash;
+    }
+
+    public void setPwHash(String pwHash) {
+        this.pwHash = pwHash;
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return passwordEncode.matches(password,pwHash);
+    }
 }

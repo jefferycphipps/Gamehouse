@@ -1,10 +1,10 @@
 package com.gamehouse.project.controllers;
 
 
-import com.gamehouse.project.Models.DTO.LoginForm;
-import com.gamehouse.project.Models.DTO.RegisterForm;
-import com.gamehouse.project.Models.User;
-import com.gamehouse.project.Models.data.UserRepository;
+import com.gamehouse.project.models.dto.LoginForm;
+import com.gamehouse.project.models.dto.RegisterForm;
+import com.gamehouse.project.models.User;
+import com.gamehouse.project.models.data.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -36,18 +36,19 @@ public class UserController {
         }
         return user.orElse(null);
     }
+
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getId());
     }
 
     @GetMapping("/register")
     public ResponseEntity<RegisterForm> getRegisterForm() {
-    RegisterForm form = new RegisterForm();
-    return ResponseEntity.ok(form);
+        RegisterForm form = new RegisterForm();
+        return ResponseEntity.ok(form);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> processRegisterFrom (@RequestBody @Valid RegisterForm registerFormDTO, HttpServletRequest request) {
+    public ResponseEntity<String> processRegisterFrom(@RequestBody @Valid RegisterForm registerFormDTO, HttpServletRequest request) {
 
         if (userRepository.findByName(registerFormDTO.getName()) != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Name already exists.");
@@ -79,7 +80,7 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
     }
-  
+
     @GetMapping("/login")
     public ResponseEntity<LoginForm> getLoginForm() {
         LoginForm form = new LoginForm();
@@ -87,7 +88,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> processLoginForm(@RequestBody @Valid LoginForm loginFormDTO, HttpServletRequest request){
+    public ResponseEntity<String> processLoginForm(@RequestBody @Valid LoginForm loginFormDTO, HttpServletRequest request) {
 
         User user = userRepository.findByName(loginFormDTO.getUsername());
 
@@ -108,7 +109,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{username}")
-    public ResponseEntity<String> Displayuser(@PathVariable String username, HttpSession session){
+    public ResponseEntity<String> Displayuser(@PathVariable String username, HttpSession session) {
         User loginuser = getUserFromSession(session);
 
         if (loginuser == null) {
@@ -119,3 +120,4 @@ public class UserController {
         }
         return ResponseEntity.ok("Hello," + loginuser.getUsername());
     }
+}

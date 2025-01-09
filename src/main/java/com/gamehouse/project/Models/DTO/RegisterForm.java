@@ -1,6 +1,6 @@
-package com.gamehouse.project.Models.DTO;
+package com.gamehouse.project.models.dto;
 
-import com.gamehouse.project.Models.User;
+import com.gamehouse.project.models.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

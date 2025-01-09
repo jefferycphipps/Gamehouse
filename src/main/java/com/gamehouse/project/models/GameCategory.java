@@ -12,17 +12,15 @@ public class GameCategory extends AbstractEntity {
 
     private int igdbCode;
 
-<<<<<<< HEAD
+
     @ManyToMany(mappedBy = "gameCategories",
     cascade = {
             CascadeType.MERGE,
             CascadeType.PERSIST
     })
     List<Game> gamesList;
-=======
     @ManyToMany(mappedBy = "gameCategories")
-    private List<Game> gamesList;
->>>>>>> 98228a0dad96f3a5c95a9bc953a2555fac586f8e
+    private List<Game> gamesListCategories;
 
     public GameCategory(){}
 

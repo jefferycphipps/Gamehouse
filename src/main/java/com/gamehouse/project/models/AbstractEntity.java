@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
+
 @MappedSuperclass
 public abstract class AbstractEntity {
 
@@ -20,6 +21,10 @@ public abstract class AbstractEntity {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,3 +48,5 @@ public abstract class AbstractEntity {
         return Objects.hashCode(id);
     }
 }
+
+

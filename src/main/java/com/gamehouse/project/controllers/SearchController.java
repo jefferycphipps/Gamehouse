@@ -22,8 +22,8 @@ public class SearchController {
     @Autowired
     private GamePlatformRepository gamePlatformRepository;
 
-    @PostMapping("/getGames")
-    public List<GameLight> gameSearch(@RequestParam("searchItem") String searchItem) throws Exception {
+    @PostMapping("/startup")
+    public void startUp() throws Exception {
         APICallService caller = new APICallService();
         if(gameCategoryRepository.count()==0) {
             gameCategoryRepository.saveAll(caller.saveGameGenres());
@@ -31,12 +31,16 @@ public class SearchController {
         if(gamePlatformRepository.count()==0){
             gamePlatformRepository.saveAll(caller.saveGamePlatforms());
         }
+    }
 
+    @PostMapping("/getGames")
+    public List<GameLight> gameSearch(@RequestParam("searchItem") String searchItem) throws Exception {
+        APICallService caller = new APICallService();
 
         return caller.getGamesLight(searchItem);
     }
 
-    @PostMapping("/getGamesbyCode")
+    @PostMapping("/getGamebyCode")
     public Game gameSearchbyIDGBCode(@RequestParam("IDGBCode") long IDGBCode) throws Exception {
         APICallService caller = new APICallService();
 
