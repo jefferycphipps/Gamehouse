@@ -96,10 +96,10 @@ function Nav(props) {
                 </Link>
               </li>
               <li>
-                <Link>Edit Account</Link>
+                <Link>Edit Account (temp)</Link>
               </li>
               <li>
-                <Link>Logout</Link>
+                <Link to={"/welcome"}>Logout</Link>
               </li>
             </ul>
           </div>

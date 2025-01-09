@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import AppLayout from "./components/AppLayout";
 import GamePage from "./pages/GamePage";
 import ProfilePage from "./pages/ProfilePage";
+import SignInPage from "./pages/SignInPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/profile/:profileId",
         element: <ProfilePage />,
+      },
+      {
+        path: "/welcome",
+        element: <SignInPage />,
       },
     ],
   },
