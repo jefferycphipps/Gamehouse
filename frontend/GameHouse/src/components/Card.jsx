@@ -1,10 +1,13 @@
 /* eslint react/prop-types: 0 */
 
+import { Link } from "react-router";
+
 function Card(props) {
   return (
     <>
       {props.games.map((game) => (
-        <div
+        <Link
+          to={`/games/${game?.id}`}
           className="card bg-base-100 hover:bg-base-300 hover:cursor-pointer hover:scale-110 hover:z-40 w-56 y-10 shadow-xl"
           key={game.id}
         >
@@ -34,7 +37,7 @@ function Card(props) {
               </button>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </>
   );

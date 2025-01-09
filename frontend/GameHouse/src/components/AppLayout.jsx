@@ -6,7 +6,7 @@ function AppLayout() {
   const [games, setGames] = useState([]);
   const [searchValue, setSearchValue] = useState();
 
-  const getMovieRequest = async (searchValue) => {
+  const getSearchRequest = async (searchValue) => {
     // const url = "https://api.igdb.com/v4/games";
 
     const response = await fetch(
@@ -34,7 +34,7 @@ function AppLayout() {
   };
 
   useEffect(() => {
-    getMovieRequest(searchValue);
+    getSearchRequest(searchValue);
   }, [searchValue]);
 
   return (

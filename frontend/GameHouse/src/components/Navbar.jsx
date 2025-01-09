@@ -1,6 +1,6 @@
 /* eslint react/prop-types: 0 */
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function Nav(props) {
   const [theme, setTheme] = useState(
@@ -22,13 +22,20 @@ function Nav(props) {
     document.documentElement.setAttribute("data-theme", localTheme);
   }, [theme]);
 
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    props.setSearchValue(e.target.value);
+    navigate("/");
+  };
+
   return (
-    <div className="bg-base-200 mb-5 flex justify-center">
+    <div className="bg-base-200  flex justify-center">
       <div className="navbar w-3/5 mx-5">
         <div className="flex-auto">
-          <Link to={"/"} className="btn btn-ghost text-xl">
+          <a href="/" className="btn btn-ghost text-xl">
             GameHouse
-          </Link>
+          </a>
         </div>
         <div className="flex-auto gap-2">
           <div className="form-control w-full">
@@ -37,7 +44,7 @@ function Nav(props) {
               value={props.value}
               placeholder="Search"
               className="input input-bordered w-24 md:w-auto rounded-full"
-              onChange={() => props.setSearchValue(event.target.value)}
+              onChange={handleSearch}
             />
           </div>
         </div>
@@ -89,10 +96,10 @@ function Nav(props) {
                 </Link>
               </li>
               <li>
-                <a>Edit Account</a>
+                <Link>Edit Account</Link>
               </li>
               <li>
-                <a>Logout</a>
+                <Link>Logout</Link>
               </li>
             </ul>
           </div>
