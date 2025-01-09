@@ -3,19 +3,19 @@
 function Card(props) {
   return (
     <>
-      {props.games.map((game, index) => (
+      {props.games.map((game) => (
         <div
-          className="card bg-base-100 hover:bg-base-300 hover:cursor-pointer w-48 y-20 shadow-xl"
-          key={index}
+          className="card bg-base-100 hover:bg-base-300 hover:cursor-pointer hover:scale-110 hover:z-40 w-56 y-10 shadow-xl"
+          key={game.id}
         >
-          <figure>
-            <img src={game.background_image} alt="Shoes" />
+          <figure className="w-full h-1/2">
+            <img src={game.background_image} alt="Shoes" className="w-full " />
           </figure>
-          <div className="card-body p-5">
-            <h2 className="card-title text-sm">{game.name}</h2>
+          <div className="card-body p-5 flex-col justify-center items-center mx-auto">
+            <h2 className="card-title text-base text-center">{game.name}</h2>
 
             <div className="card-actions ">
-              <button className="btn btn-primary btn-sm">
+              <button className="btn btn-primary btn-sm text-xs ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -30,7 +30,7 @@ function Card(props) {
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                   />
                 </svg>
-                Bookmark
+                Wishlist
               </button>
             </div>
           </div>

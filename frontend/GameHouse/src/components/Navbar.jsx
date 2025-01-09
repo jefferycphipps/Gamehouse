@@ -1,5 +1,6 @@
 /* eslint react/prop-types: 0 */
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 
 function Nav(props) {
   const [theme, setTheme] = useState(
@@ -25,7 +26,9 @@ function Nav(props) {
     <div className="bg-base-200 mb-5 flex justify-center">
       <div className="navbar w-3/5 mx-5">
         <div className="flex-auto">
-          <a className="btn btn-ghost text-xl">GameHouse</a>
+          <Link to={"/"} className="btn btn-ghost text-xl">
+            GameHouse
+          </Link>
         </div>
         <div className="flex-auto gap-2">
           <div className="form-control w-full">
@@ -81,10 +84,12 @@ function Nav(props) {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a className="justify-between">Profile</a>
+                <Link to={"/profile/:profileid"} className="justify-between">
+                  Profile
+                </Link>
               </li>
               <li>
-                <a>Bookmarks</a>
+                <a>Edit Account</a>
               </li>
               <li>
                 <a>Logout</a>
