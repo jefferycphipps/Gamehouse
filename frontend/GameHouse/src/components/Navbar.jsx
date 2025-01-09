@@ -30,8 +30,8 @@ function Nav(props) {
   };
 
   return (
-    <div className="bg-base-200  flex justify-center">
-      <div className="navbar w-3/5 mx-5">
+    <div className="bg-base-200  mx-auto flex justify-center">
+      <div className="navbar w-4/5 mx-5">
         <div className="flex-auto">
           <a href="/" className="btn btn-ghost text-xl">
             GameHouse

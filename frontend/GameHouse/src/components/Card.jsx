@@ -8,10 +8,10 @@ function Card(props) {
       {props.games.map((game) => (
         <Link
           to={`/games/${game?.id}`}
-          className="card bg-base-100 hover:bg-base-300 hover:cursor-pointer hover:scale-110 hover:z-40 w-56 y-10 shadow-xl"
+          className="card bg-base-100 relative hover:bg-base-300 hover:cursor-pointer hover:scale-110 hover:z-40 w-56 h-80 shadow-xl "
           key={game.id}
         >
-          <figure className="w-full h-1/2">
+          <figure className="w-full h-4/5">
             <img src={game.background_image} alt="Shoes" className="w-full " />
           </figure>
           <div className="card-body p-5 flex-col justify-center items-center mx-auto">

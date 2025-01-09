@@ -26,8 +26,8 @@ function Home() {
   //   //     mode: "no-cors",
   //   //     headers: {
   //   //       Accept: "application/json",
-  //   //       "Client-ID": "gvb54zek7ktgnsveftpboeiej9xzgg",
-  //   //       Authorization: "Bearer 6dczfi3eooojgi4fh4qgdvf1xz4bau",
+  //   //       "Client-ID": "",
+  //   //       Authorization: "Bearer ",
   //   //     },
   //   //     body: ["fields name", `search ${searchValue}`, "limit 20"],
   //   //   }
@@ -57,7 +57,7 @@ function Home() {
       </div>
       <div className="m-auto ">
         {context.searchValue ? (
-          <div className="grid grid-rows-5 grid-flow-col w-3/5 mx-auto gap-4 ">
+          <div className="grid grid-rows-5 grid-flow-col w-3/5 mx-auto gap-4 justify-between">
             <Card games={context.games} />
           </div>
         ) : (
@@ -67,7 +67,7 @@ function Home() {
         )}
       </div>
       {context.searchValue ? (
-        <div className="flex ">
+        <div className="flex my-10">
           <Pagination />
         </div>
       ) : (
