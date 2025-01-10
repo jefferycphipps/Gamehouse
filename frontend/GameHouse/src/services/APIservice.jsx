@@ -7,17 +7,26 @@ const apiClient = axios.create({
 
 
 
-  export const fetchEndpoint1 = () => {
+/*  export const fetchEndpoint1 = () => {
     return apiClient.get('/endpoint1');
-  };
+  }; this is an example of an endpoint */
+
+
   export const registerUser = (data) => {
     console.log(data);
     return apiClient.post('/register', data);
-  };
+  };//register user
   export const loginUser = (data) => {
     console.log(data);
     return apiClient.post('/login', data);
-  };
+  };//login user
+
+
+ export const startup = () => {
+  const starter = "go";
+  console.log(starter);
+  return apiClient.post('search/startup');
+ }
 
 export const search = (data) =>{
     console.log("im here");

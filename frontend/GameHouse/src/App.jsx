@@ -5,6 +5,7 @@ import AppLayout from "./components/AppLayout";
 import GamePage from "./pages/GamePage";
 import ProfilePage from "./pages/ProfilePage";
 import SignInPage from "./pages/SignInPage";
+import { startup } from "./services/APIservice";
 import Test from "./pages/Test";
 
 const router = createBrowserRouter([
@@ -30,9 +31,18 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+export const response =  () => {
+  const start = "go";
+  const repsonser =  startup(start);
+  console.log(repsonser);
+};
 
 function App() {
-  return (<RouterProvider router={router} />);
+  return (
+    <>{response()}
+    <RouterProvider router={router} />
+    </>
+  );
 
 }
 

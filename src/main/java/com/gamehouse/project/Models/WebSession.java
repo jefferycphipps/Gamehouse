@@ -1,4 +1,4 @@
-package com.gamehouse.project.Models;
+package com.gamehouse.project.models;
 
 import org.springframework.context.annotation.Configuration;
 
