@@ -20,10 +20,10 @@ const apiClient = axios.create({
   };
 
 export const search = (data) =>{
+    console.log("im here");
     console.log(data);
-
-    return apiClient.post('search/getGames', {params: {searchItem, data}});
-    };//to call, must send
+    return apiClient.post('search/getGames', data);
+    };
 
   apiClient.interceptors.response.use(
     response => response,

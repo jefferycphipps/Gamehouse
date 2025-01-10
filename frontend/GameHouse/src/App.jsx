@@ -5,6 +5,7 @@ import AppLayout from "./components/AppLayout";
 import GamePage from "./pages/GamePage";
 import ProfilePage from "./pages/ProfilePage";
 import SignInPage from "./pages/SignInPage";
+import Test from "./pages/Test";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (<RouterProvider router={router} />);
+
 }
 
 export default App;
+//
+//<><Test /></>
