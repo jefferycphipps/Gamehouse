@@ -1,7 +1,6 @@
-package com.gamehouse.project.models.data;
-
+package com.gamehouse.project.Models.data;
 import org.springframework.data.repository.CrudRepository;
-import com.gamehouse.project.models.User;
+import com.gamehouse.project.Models.User;
 import org.springframework.stereotype.Repository;
 
 @Repository

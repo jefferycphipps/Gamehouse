@@ -1,4 +1,4 @@
-package com.gamehouse.project.models;
+package com.gamehouse.project.Models;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

@@ -1,11 +1,11 @@
-package com.gamehouse.project.models;
+package com.gamehouse.project.Models;
 
 import jakarta.persistence.Entity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
-public class User extends AbstractEntity {
+public class User extends AbstractEntity{
   private static final   BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
     private String username;
     private String email;
