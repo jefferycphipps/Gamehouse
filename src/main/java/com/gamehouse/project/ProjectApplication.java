@@ -1,5 +1,6 @@
 package com.gamehouse.project;
 
+
 import com.gamehouse.project.services.APICallService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,5 +19,6 @@ public class ProjectApplication {
        //System.out.println(test.saveGameGenres());
       SpringApplication.run(ProjectApplication.class, args);
     }
+
 
 }
