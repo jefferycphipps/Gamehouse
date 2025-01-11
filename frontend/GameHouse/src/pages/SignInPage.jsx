@@ -13,14 +13,17 @@ const navigate = useNavigate();
                 username: values.username,
                 password: values.password
                 });
-            const {username, password} = response.data;
+
+            const {username} = response.data;
+            localStorage.setItem("username", values.username)
 
             alert("login successful");
-            navigate("/profile/:profileId");
-
+            navigate(`/profile/${values.username}`);
 
             } catch (error) {
                 console.error("login Failed", error)
+            alert("Login failed, wrong Username or Password.")
+
             }finally {
                 setSubmitting(false);
             }
@@ -33,13 +36,13 @@ const navigate = useNavigate();
           {({ isSubmitting }) => (
               <Form>
                  <div className="mb-5">
-                     <label htmlFor="username">Username</label>
+                     <label htmlFor="username">Username: </label>
                      <Field type="text"
                             name="username"
                             id="username"/>
                  </div>
                  <div className="mb-5">
-                     <label htmlFor="password">Password</label>
+                     <label htmlFor="password">Password: </label>
                      <Field type="password"
                             name="password"
                             id="password"/>
