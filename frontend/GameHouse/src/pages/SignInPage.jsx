@@ -6,24 +6,25 @@ import {useNavigate} from "react-router-dom";
 function SignInPage() {
 
 const navigate = useNavigate();
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values, {setSubmitting}) => {
 
         try{
-            const response = await axios.post("http://localhost:8080/api/users/login",{
+            const response = await axios.post("http://localhost:8080/user/login",{
                 username: values.username,
                 password: values.password
                 });
-            const {profileId, username} = response.data;
+            const {username, password} = response.data;
 
             alert("login successful");
-            navigate("/profile/${profileId}");
+            navigate("/profile/:profileId");
 
 
             } catch (error) {
-                console.error("login Failed", error)}
-            setSubmitting(false);
-
-            };
+                console.error("login Failed", error)
+            }finally {
+                setSubmitting(false);
+            }
+        }
 
   return (
     <div className="mt-20 text-2xl mx-auto w-4/5 text-center">
@@ -39,7 +40,7 @@ const navigate = useNavigate();
                  </div>
                  <div className="mb-5">
                      <label htmlFor="password">Password</label>
-                     <Field type="text"
+                     <Field type="password"
                             name="password"
                             id="password"/>
                  </div>
