@@ -1,4 +1,4 @@
-package com.gamehouse.project.Models;
+package com.gamehouse.project.models;
 
 import jakarta.persistence.Entity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
