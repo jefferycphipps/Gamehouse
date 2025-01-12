@@ -14,7 +14,6 @@ const navigate = useNavigate();
                 password: values.password
                 });
 
-            const {username} = response.data;
             localStorage.setItem("username", values.username)
 
             alert("login successful");

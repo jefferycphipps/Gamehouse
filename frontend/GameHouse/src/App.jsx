@@ -7,6 +7,7 @@ import ProfilePage from "./pages/ProfilePage";
 import SignInPage from "./pages/SignInPage";
 import { startup } from "./services/APIservice";
 import Test from "./pages/Test";
+import RegisterPage from "./pages/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: "/welcome",
         element: <SignInPage />,
       },
+      {
+          path: "/register",
+          element: <RegisterPage />,
+          },
     ],
   },
 ]);
