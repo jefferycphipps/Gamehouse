@@ -39,4 +39,13 @@ public class GameLight {
     public void setIGDBCode(long IGDBCode) {
         this.IGDBCode = IGDBCode;
     }
+
+    @Override
+    public String toString() {
+        return "GameLight{" +
+                "name='" + name + '\'' +
+                ", boxArtUrl='" + boxArtUrl + '\'' +
+                ", IGDBCode=" + IGDBCode +
+                '}';
+    }
 }

@@ -13,11 +13,12 @@ import org.springframework.context.annotation.ComponentScan;
 public class ProjectApplication {
 
     public static void main(String[] args) throws Exception {
-        //APICallService test = new APICallService();
-//        long gameID = 251833;
-//        test.getGamebyIDGBCODE(gameID);
-       //System.out.println(test.saveGameGenres());
-      SpringApplication.run(ProjectApplication.class, args);
+        APICallService test = new APICallService();
+        long gameID = 251833;
+        String string = "god of war";
+        test.getGamesLight(string);
+       System.out.println(test.saveGameGenres());
+      //SpringApplication.run(ProjectApplication.class, args);
     }
 
 
