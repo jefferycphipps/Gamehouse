@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,5 +54,16 @@ public class SearchController {
 
         return caller.getGamebyIDGBCODE(IDGBCode);
     }
+
+    @PostMapping("/getGamebyCodes")
+    public List<Game> gameSearchbyIDGBCodes(@RequestBody long[] IDGBCodes) throws Exception {
+        APICallService caller = new APICallService();
+        List<Game> gameList = new ArrayList<>();
+        for (int x = 0; x < IDGBCodes.length; x++) {
+            gameList.add(caller.getGamebyIDGBCODE(IDGBCodes[x]));
+        }
+        return gameList;
+    }
+
 
 }
