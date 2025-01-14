@@ -48,14 +48,14 @@ public class SearchController {
         return caller.getGamesLight(searchItem);
     }
 
-    @PostMapping("/getGamebyCode")
+    @PostMapping("/getGamebyID")
     public Game gameSearchbyIDGBCode(@RequestBody long IDGBCode) throws Exception {
         APICallService caller = new APICallService();
 
         return caller.getGamebyIDGBCODE(IDGBCode);
     }
 
-    @PostMapping("/getGamebyCodes")
+    @PostMapping("/getGamebyIDs")
     public List<Game> gameSearchbyIDGBCodes(@RequestBody long[] IDGBCodes) throws Exception {
         APICallService caller = new APICallService();
         List<Game> gameList = new ArrayList<>();
