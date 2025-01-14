@@ -104,11 +104,12 @@ public class APICallService {
             tempGame.setName(gameJsons.get(x).getName());
             tempGame.setBoxArtURL(getCover(gameJsons.get(x).getCover()));
             //List<Age_Ratings> ratings = gameJsons.get(x).getAge_ratings(); game ratings needs to be dealt with. there are multiple ratings per game.
-
+            tempGame.setGameRating(getGameRating(gameJsons.get(x).getAge_ratings()));
             tempGame.setGameCategories(getGenre(gameJsons.get(x).getGenres()));
             tempGame.setGameDescription(gameJsons.get(x).getSummary());
             tempGame.setGamePlatforms(getPlatforms(gameJsons.get(x).getPlatforms()));
             games.add(tempGame);
+            System.out.println(tempGame);
         }
         return games; //return the list of games
     }
@@ -212,32 +213,41 @@ public class APICallService {
         return url2;
     }
 
-    public String getGameRating(Age_Ratings age_ratings){
-        int rating = age_ratings.getRating();
+    public String getGameRating(List<Age_Ratings> age_ratings){
+
+
+        int x = 0;
         String ESRB = "";
-        switch (rating){
-            case 6:
-                ESRB = "RP";
-                break;
-            case 7:
-                ESRB = "EC";
-                break;
-            case 8:
-                ESRB = "E";
-                break;
-            case 9:
-                ESRB = "E10";
-                break;
-            case 10:
-                ESRB = "T";
-                break;
-            case 11:
-                ESRB = "M";
-                break;
-            case 12:
-                ESRB = "AO";
-                break;
-        }
+        do {
+            int rating = age_ratings.get(x).getRating();
+            switch (rating) {
+                case 6:
+                    ESRB = "RP";
+                    break;
+                case 7:
+                    ESRB = "EC";
+                    break;
+                case 8:
+                    ESRB = "E";
+                    break;
+                case 9:
+                    ESRB = "E10";
+                    break;
+                case 10:
+                    ESRB = "T";
+                    break;
+                case 11:
+                    ESRB = "M";
+                    break;
+                case 12:
+                    ESRB = "AO";
+                    break;
+                default:
+                    ESRB = "dummy";
+
+            }
+            x++;
+        }while (ESRB.equals("dummy")&&x <age_ratings.size());
         return ESRB;
     }
 

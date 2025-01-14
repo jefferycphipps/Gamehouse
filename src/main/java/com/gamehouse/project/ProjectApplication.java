@@ -1,11 +1,15 @@
 package com.gamehouse.project;
 
 
+import com.gamehouse.project.models.Age_Ratings;
 import com.gamehouse.project.services.APICallService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -14,10 +18,11 @@ public class ProjectApplication {
 
     public static void main(String[] args) throws Exception {
         APICallService test = new APICallService();
-        long gameID = 251833;
         String string = "god of war";
-        test.getGamesLight(string);
-       System.out.println(test.saveGameGenres());
+        //test.getGamesLight(string);
+        test.getGamesbyList(string);
+
+        //System.out.println(test.getGameRating(ratings));
       //SpringApplication.run(ProjectApplication.class, args);
     }
 

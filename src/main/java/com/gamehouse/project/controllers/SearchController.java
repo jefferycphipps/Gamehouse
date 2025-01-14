@@ -48,7 +48,7 @@ public class SearchController {
     }
 
     @PostMapping("/getGamebyCode")
-    public Game gameSearchbyIDGBCode(@RequestParam("IDGBCode") long IDGBCode) throws Exception {
+    public Game gameSearchbyIDGBCode(@RequestBody long IDGBCode) throws Exception {
         APICallService caller = new APICallService();
 
         return caller.getGamebyIDGBCODE(IDGBCode);

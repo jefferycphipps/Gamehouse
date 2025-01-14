@@ -101,4 +101,17 @@ public class Game extends AbstractEntity{
     public void setGamePlatforms(List<GamePlatform> gamePlatforms) {
         this.gamePlatforms = gamePlatforms;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "gameRating='" + gameRating + '\'' +
+                ", IGDBCode=" + IGDBCode +
+                ", gameDescription='" + gameDescription + '\'' +
+                ", boxArtURL='" + boxArtURL + '\'' +
+                ", gameReviews=" + gameReviews +
+                ", gameCategories=" + gameCategories +
+                ", gamePlatforms=" + gamePlatforms +
+                '}';
+    }
 }
