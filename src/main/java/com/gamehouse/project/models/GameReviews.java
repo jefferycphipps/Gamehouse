@@ -2,7 +2,6 @@ package com.gamehouse.project.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,20 +24,25 @@ public class GameReviews {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User usernameReviewer;
+    private User username;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
-    private Game gameReviewed;
+    private Game game;
 
     private String gameReview;
+
+    private int igdbCode;
 
 
 
     /* CONSTRUCTORS */
 
-    public GameReviews(String gameReview) {
+    public GameReviews(String gameReview, int igdbCode, User username, Game game) {
         this.gameReview = gameReview;
+        this.igdbCode = igdbCode;
+        this.username = username;
+        this.game = game;
     }
 
     public GameReviews() {}
@@ -59,14 +63,29 @@ public class GameReviews {
         this.gameReview = gameReview;
     }
 
-    public User getUsernameReviewer() {
-        return usernameReviewer;
+    public int getIgdbCode() {
+        return igdbCode;
     }
 
-    public Game getGameReviewed() {
-        return gameReviewed;
+    public void setIgdbCode(int igdbCode) {
+        this.igdbCode = igdbCode;
     }
 
+    public User getUsername() {
+        return username;
+    }
+
+    public void setUsername(User username) {
+        this.username = username;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
 
 

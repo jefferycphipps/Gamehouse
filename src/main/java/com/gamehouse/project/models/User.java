@@ -14,7 +14,7 @@ public class User extends AbstractEntity {
     private String email;
     private String pwHash;
 
-    @OneToMany (mappedBy = "usernameReviewer")
+    @OneToMany (mappedBy = "username")
     private List<GameReviews> gameReviews;
 
     public User(String username, String email, String pwHash) {
