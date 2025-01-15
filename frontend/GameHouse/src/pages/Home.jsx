@@ -6,6 +6,7 @@ import { useOutletContext } from "react-router";
 import Card from "../components/Card";
 // import Nav from "../components/Navbar";
 import Pagination from "../components/Pagination";
+import {useNavigate} from "react-router-dom";
 
 function Home() {
   // const [games, setGames] = useState([]);
@@ -41,12 +42,20 @@ function Home() {
   // useEffect(() => {
   //   getMovieRequest(props.searchValue);
   // }, [props.searchValue]);
-
+const navigate = useNavigate();
   const context = useOutletContext();
+const handleSignIn = () => {
+    navigate("/welcome");
+    };
+const handleRegister = () => {
+    navigate("/register");
+    };
 
   return (
     <>
+
       <div>
+
         {context.searchValue ? (
           <h1 className="mx-auto w-3/5 text-xl mt-20 mb-5">
             Results for: {context.searchValue}
@@ -63,6 +72,7 @@ function Home() {
         ) : (
           <div className="flex">
             <h1 className="mx-auto mt-5">Search for your favorite games!</h1>
+
           </div>
         )}
       </div>
@@ -73,6 +83,10 @@ function Home() {
       ) : (
         <></>
       )}
+  <div className="flex justify-center mt-40 space-x-4 w-full">
+                      <button type="submit" class="btn btn-primary" onClick={handleSignIn}>Sign In</button>
+                      <button type="submit" class="btn btn-primary" onClick={handleRegister}>Register</button>
+              </div>
     </>
   );
 }

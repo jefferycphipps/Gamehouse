@@ -7,6 +7,9 @@ function Nav(props) {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
+const [username, setUsername] = useState(
+    localStorage.getItem("username")
+    );
   const handleTheme = (e) => {
     if (e.target.checked) {
       setTheme("dark");
@@ -28,6 +31,13 @@ function Nav(props) {
     props.setSearchValue(e.target.value);
     navigate("/");
   };
+//   handle logout to clear localStorage.
+    const handleLogout = () =>{
+        localStorage.removeItem("username");
+
+        navigate("/");
+        alert("You have been logged out.");
+        };
 
   return (
     <div className="bg-base-200  mx-auto flex justify-center">
@@ -91,7 +101,7 @@ function Nav(props) {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <Link to={"/profile/:profileid"} className="justify-between">
+                <Link to={`/profile/${username}`} className="justify-between">
                   Profile
                 </Link>
               </li>
@@ -99,7 +109,9 @@ function Nav(props) {
                 <Link>Edit Account (temp)</Link>
               </li>
               <li>
-                <Link to={"/welcome"}>Logout</Link>
+{/*                   <a href="#" onClick={handleLogout} className="logout-link"> */}
+{/*                       Logout</a> */}
+                     <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
           </div>

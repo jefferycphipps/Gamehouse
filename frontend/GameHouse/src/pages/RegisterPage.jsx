@@ -48,7 +48,7 @@ const validation = Yup.object({
     verifyPassword: Yup.string()
     .required("Please verify your password")
     .oneOf([Yup.ref("password")], "Passwords must match")
-    })
+    });
 
 
 return (
