@@ -4,9 +4,11 @@ import org.springframework.data.repository.CrudRepository;
 import com.gamehouse.project.models.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends CrudRepository <User,Integer> {
-    User findByUsername(String username);
-    User findByEmail(String email);
-    User findByName(String name);
+    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+    Optional<User> findByName(String name);
 }

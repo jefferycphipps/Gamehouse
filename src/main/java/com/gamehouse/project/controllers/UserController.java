@@ -90,13 +90,13 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> processLoginForm(@RequestBody @Valid LoginForm loginFormDTO, HttpServletRequest request) {
 
-        User user = userRepository.findByName(loginFormDTO.getUsername());
+        Optional<User> user = userRepository.findByName(loginFormDTO.getUsername());
 
-        if (user == null || !user.isMatchingPassword(loginFormDTO.getPassword())) {
+        if (user.isEmpty() || !user.get().isMatchingPassword(loginFormDTO.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         }
 
-        setUserInSession(request.getSession(), user);
+        setUserInSession(request.getSession(), user.orElse(null));
 
         return ResponseEntity.ok("Login successful.");
     }
