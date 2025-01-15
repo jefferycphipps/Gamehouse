@@ -1,7 +1,7 @@
 /* eslint react/prop-types: 0 */
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
-
+import axios from "axios";
 function Nav(props) {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -32,12 +32,19 @@ const [username, setUsername] = useState(
     navigate("/");
   };
 //   handle logout to clear localStorage.
-    const handleLogout = () =>{
-        localStorage.removeItem("username");
-
-        navigate("/");
-        alert("You have been logged out.");
-        };
+    const handleLogout = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/user/logout", {
+                withCredentials: true,
+            });
+            localStorage.removeItem("username");
+            alert("You have been logged out.");
+            navigate("/");
+        } catch (error) {
+            console.error("Error logging out:", error);
+            alert("Failed to log out. Please try again.");
+        }
+    };
 
   return (
     <div className="bg-base-200  mx-auto flex justify-center">

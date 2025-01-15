@@ -84,8 +84,8 @@ const handleRegister = () => {
         <></>
       )}
   <div className="flex justify-center mt-40 space-x-4 w-full">
-                      <button type="submit" class="btn btn-primary" onClick={handleSignIn}>Sign In</button>
-                      <button type="submit" class="btn btn-primary" onClick={handleRegister}>Register</button>
+                      <button type="submit" className="btn btn-primary" onClick={handleSignIn}>Sign In</button>
+                      <button type="submit" className="btn btn-primary" onClick={handleRegister}>Register</button>
               </div>
     </>
   );
