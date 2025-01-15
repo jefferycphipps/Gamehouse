@@ -23,12 +23,10 @@ public class GameReviews {
     @GeneratedValue
     private int id;
 
-    // still need to configure mapping
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User usernameReviewer;
 
-    // still need to configure mapping
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game gameReviewed;
