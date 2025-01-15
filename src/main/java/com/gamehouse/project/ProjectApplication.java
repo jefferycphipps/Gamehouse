@@ -17,13 +17,13 @@ import java.util.List;
 public class ProjectApplication {
 
     public static void main(String[] args) throws Exception {
-        APICallService test = new APICallService();
-        String string = "god of war";
+//        APICallService test = new APICallService();
+//        String string = "god of war";
         //test.getGamesLight(string);
-        test.getGamesbyList(string);
+//        test.getGamesbyList(string);
 
         //System.out.println(test.getGameRating(ratings));
-      //SpringApplication.run(ProjectApplication.class, args);
+      SpringApplication.run(ProjectApplication.class, args);
     }
 
 
