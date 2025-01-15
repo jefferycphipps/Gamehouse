@@ -15,7 +15,7 @@ public class Game extends AbstractEntity{
 
     private String boxArtURL;
 
-    @ManyToMany
+    @OneToMany (mappedBy = "gameReviewed")
     private List<GameReviews> gameReviews;
 
     //Needs to be changed to list of game categories.

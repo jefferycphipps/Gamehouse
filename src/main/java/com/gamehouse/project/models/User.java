@@ -1,7 +1,10 @@
 package com.gamehouse.project.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.List;
 
 
 @Entity
@@ -10,6 +13,9 @@ public class User extends AbstractEntity {
     private String username;
     private String email;
     private String pwHash;
+
+    @OneToMany (mappedBy = "usernameReviewer")
+    private List<GameReviews> gameReviews;
 
     public User(String username, String email, String pwHash) {
         super();
@@ -47,5 +53,13 @@ public class User extends AbstractEntity {
 
     public boolean isMatchingPassword(String password) {
         return passwordEncode.matches(password,pwHash);
+    }
+
+    public List<GameReviews> getGameReviews() {
+        return gameReviews;
+    }
+
+    public void setGameReviews(List<GameReviews> gameReviews) {
+        this.gameReviews = gameReviews;
     }
 }
