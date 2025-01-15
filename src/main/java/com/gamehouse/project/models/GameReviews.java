@@ -20,7 +20,7 @@ public class GameReviews {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
