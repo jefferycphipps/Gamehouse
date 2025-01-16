@@ -80,18 +80,17 @@ public class GameController {
     }
 
     // Get Game Review by igdb code
-    // First trying Test to figure out how to get games to display on Postman
     @GetMapping("/{IgdbCode}")
-    public GameReviews getGameReviewByIgdbCode(@PathVariable int IgdbCode) {
+    public List<GameReviews> getGameReviewByIgdbCode(@PathVariable int IgdbCode) {
 
         Optional<GameReviews> gameByIgdb = gameReviewsRepository.findByIgdbCode(IgdbCode);
 
         if (gameByIgdb.isPresent()) {
-            GameReviews gameReviewbyIgdbCode = (GameReviews) gameByIgdb.get();
+            List<GameReviews> gameReviewbyIgdbCode = (List<GameReviews>) gameByIgdb.get();
             return (gameReviewbyIgdbCode);
         }
         return null;
     }
-    
+
 
 }
