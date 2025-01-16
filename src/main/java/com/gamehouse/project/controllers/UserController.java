@@ -1,6 +1,8 @@
 package com.gamehouse.project.controllers;
 
 
+import com.gamehouse.project.models.GameReviews;
+import com.gamehouse.project.models.data.GameReviewsRepository;
 import com.gamehouse.project.models.dto.LoginForm;
 import com.gamehouse.project.models.dto.RegisterForm;
 import com.gamehouse.project.models.User;
@@ -13,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private GameReviewsRepository gameReviewsRepository;
 
     private static final String userSessionKey = "user";
 
@@ -120,4 +127,20 @@ public class UserController {
         }
         return ResponseEntity.ok("Hello," + loginuser.getUsername());
     }
+
+    // Get List of Game Reviews by Igdb code
+    @GetMapping("/{username}")
+    public List<GameReviews> getGameReviewByUsername(@PathVariable User username) {
+
+        Optional<GameReviews> reviewByUsername = gameReviewsRepository.findByUsername(username);
+
+        if (reviewByUsername.isPresent()) {
+            List<GameReviews> gameReviewsByUsername = (List<GameReviews>) reviewByUsername.get();
+            return (gameReviewsByUsername);
+
+        } else {
+            return null;
+        }
+    }
+
 }
