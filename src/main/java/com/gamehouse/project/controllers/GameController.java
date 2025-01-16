@@ -79,18 +79,39 @@ public class GameController {
         return ResponseEntity.ok().build();
     }
 
-    // Get Game Review by igdb code
+    // Get List of Game Reviews by igdb code
     @GetMapping("/{IgdbCode}")
     public List<GameReviews> getGameReviewByIgdbCode(@PathVariable int IgdbCode) {
 
-        Optional<GameReviews> gameByIgdb = gameReviewsRepository.findByIgdbCode(IgdbCode);
+        Optional<GameReviews> reviewByIgdbCode = gameReviewsRepository.findByIgdbCode(IgdbCode);
 
-        if (gameByIgdb.isPresent()) {
-            List<GameReviews> gameReviewbyIgdbCode = (List<GameReviews>) gameByIgdb.get();
-            return (gameReviewbyIgdbCode);
+        if (reviewByIgdbCode.isPresent()) {
+            List<GameReviews> gameReviewsByIgdbCode = (List<GameReviews>) reviewByIgdbCode.get();
+            return (gameReviewsByIgdbCode);
+
+        } else {
+            return null;
         }
-        return null;
     }
+
+
+    // Saving New Game Reviews on Game Page based on Igdb code
+    @PostMapping("/{IgdbCode}")
+    public ResponseEntity<GameReviews> saveGameReview(@PathVariable int igdbCode, @RequestBody GameReviews gameReview) {
+
+        Optional<GameReviews> gameReviewByIgdb = gameReviewsRepository.findByIgdbCode(igdbCode);
+
+        if (gameReviewByIgdb.isPresent()) {
+            GameReviews newGameReview = gameReviewsRepository.save(gameReview);
+            return ResponseEntity.ok(newGameReview);
+
+        } else {
+            gameReviewsRepository.save(gameReview);
+        }
+
+        return ResponseEntity.ok(gameReview);
+    }
+
 
 
 }
