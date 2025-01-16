@@ -2,12 +2,11 @@ package com.gamehouse.project.controllers;
 
 
 import com.gamehouse.project.models.Game;
-import com.gamehouse.project.models.GameCategory;
+import com.gamehouse.project.models.GameReviews;
 import com.gamehouse.project.models.data.GameCategoryRepository;
 import com.gamehouse.project.models.data.GamePlatformRepository;
 import com.gamehouse.project.models.data.GameRepository;
 import com.gamehouse.project.models.data.GameReviewsRepository;
-import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("game")
@@ -35,7 +35,7 @@ public class GameController {
     //Create new game
     @PostMapping("/saveGame")
     public ResponseEntity<Game> newGame(@RequestBody Game game) throws Exception {
-         //have to save all categories into the repo
+        //have to save all categories into the repo
         //save all platforms into the repo
         //save new reviews
 
@@ -78,5 +78,20 @@ public class GameController {
         gameRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    // Get Game Review by igdb code
+    // First trying Test to figure out how to get games to display on Postman
+    @GetMapping("/{IgdbCode}")
+    public GameReviews getGameReviewByIgdbCode(@PathVariable int IgdbCode) {
+
+        Optional<GameReviews> gameByIgdb = gameReviewsRepository.findByIgdbCode(IgdbCode);
+
+        if (gameByIgdb.isPresent()) {
+            GameReviews gameReviewbyIgdbCode = (GameReviews) gameByIgdb.get();
+            return (gameReviewbyIgdbCode);
+        }
+        return null;
+    }
+    
 
 }
