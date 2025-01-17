@@ -129,7 +129,7 @@ public class UserController {
     }
 
     // Get List of Game Reviews by Igdb code
-    @GetMapping("/{username}")
+    @GetMapping("/{username}/reviews")
     public List<GameReviews> getGameReviewByUsername(@PathVariable User username) {
 
         Optional<GameReviews> reviewByUsername = gameReviewsRepository.findByUsername(username);
