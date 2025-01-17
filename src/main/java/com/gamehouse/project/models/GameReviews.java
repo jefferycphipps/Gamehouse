@@ -3,6 +3,7 @@ package com.gamehouse.project.models;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 public class GameReviews {
@@ -100,5 +101,15 @@ public class GameReviews {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "GameReviews{" +
+                "username=" + username +
+                ", game=" + game +
+                ", gameReview='" + gameReview + '\'' +
+                ", igdbCode=" + igdbCode +
+                '}';
     }
 }
