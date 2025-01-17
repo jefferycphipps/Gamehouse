@@ -10,7 +10,7 @@ import java.util.List;
 public class GamePlatform extends AbstractEntity{
 
 
-    private int igdbCode;
+    private long igdbCode;
 
 
     @ManyToMany(mappedBy = "gamePlatforms",
@@ -26,17 +26,17 @@ public class GamePlatform extends AbstractEntity{
     public GamePlatform(){}
 
 
-    public GamePlatform(String gameName, int igdbCode) {
+    public GamePlatform(String gameName, long igdbCode) {
         super();
         this.setName(gameName);
         this.igdbCode = igdbCode;
     }
 
-    public int getIgdbCode() {
+    public long getIgdbCode() {
         return igdbCode;
     }
 
-    public void setIgdbCode(int igdbCode) {
+    public void setIgdbCode(long igdbCode) {
         this.igdbCode = igdbCode;
     }
 

@@ -2,6 +2,7 @@ package com.gamehouse.project.controllers;
 
 
 import com.gamehouse.project.models.Game;
+import com.gamehouse.project.models.GameCategory;
 import com.gamehouse.project.models.GameReviews;
 import com.gamehouse.project.models.data.GameCategoryRepository;
 import com.gamehouse.project.models.data.GamePlatformRepository;
@@ -35,8 +36,24 @@ public class GameController {
     //Create new game
     @PostMapping("/saveGame")
     public ResponseEntity<Game> newGame(@RequestBody Game game) throws Exception {
+
         //have to save all categories into the repo
+        // Clarify if we want Igdb code to be type "long" or "int"
+        int currentGameIgdbCode = game.getIGDBCode();
+
+        Optional <GameCategory> gameCategory = gameCategoryRepository.findByigdbCode(currentGameIgdbCode);
+
+        if (gameCategory.isPresent()) {
+            //gotta figure out what needs to be returned if gameCategory is already in the repository
+            return ();
+        } else {
+            gameCategoryRepository.save(gameCategory);
+        }
+
+
         //save all platforms into the repo
+
+
         //save new reviews
 
         Game newGame = gameRepository.save(game);
@@ -81,7 +98,7 @@ public class GameController {
 
     // Get List of Game Reviews by igdb code
     @GetMapping("/{IgdbCode}")
-    public List<GameReviews> getGameReviewByIgdbCode(@PathVariable int IgdbCode) {
+    public List<GameReviews> getGameReviewByIgdbCode(@PathVariable long IgdbCode) {
 
         Optional<GameReviews> reviewByIgdbCode = gameReviewsRepository.findByIgdbCode(IgdbCode);
 
@@ -97,7 +114,7 @@ public class GameController {
 
     // Saving New Game Reviews on Game Page based on Igdb code
     @PostMapping("/{IgdbCode}")
-    public ResponseEntity<GameReviews> saveGameReview(@PathVariable int igdbCode, @RequestBody GameReviews gameReview) {
+    public ResponseEntity<GameReviews> saveGameReview(@PathVariable long igdbCode, @RequestBody GameReviews gameReview) {
 
         Optional<GameReviews> gameReviewByIgdb = gameReviewsRepository.findByIgdbCode(igdbCode);
 

@@ -32,13 +32,13 @@ public class GameReviews {
 
     private String gameReview;
 
-    private int igdbCode;
+    private long igdbCode;
 
 
 
     /* CONSTRUCTORS */
 
-    public GameReviews(String gameReview, int igdbCode, User username, Game game) {
+    public GameReviews(String gameReview, long igdbCode, User username, Game game) {
         this.gameReview = gameReview;
         this.igdbCode = igdbCode;
         this.username = username;
@@ -63,11 +63,11 @@ public class GameReviews {
         this.gameReview = gameReview;
     }
 
-    public int getIgdbCode() {
+    public long getIgdbCode() {
         return igdbCode;
     }
 
-    public void setIgdbCode(int igdbCode) {
+    public void setIgdbCode(long igdbCode) {
         this.igdbCode = igdbCode;
     }
 
