@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface GameCategoryRepository extends CrudRepository<GameCategory, Integer> {
-    Optional<GameCategory> findByigdbCode(int igdbCode);
+    Optional<GameCategory> findByigdbCode(long igdbCode);
 }
