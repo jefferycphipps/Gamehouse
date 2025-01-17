@@ -120,4 +120,15 @@ public class UserController {
         }
         return ResponseEntity.ok("Hello," + loginuser.getUsername());
     }
+
+
+    @GetMapping(value = "/getUser")
+    public User getUser(@RequestBody String username) {
+        User user = userRepository.findByUsername(username);
+        if(user == null){
+            return null;
+        }
+
+        return user;
+    }
 }
