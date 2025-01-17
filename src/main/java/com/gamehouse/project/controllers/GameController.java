@@ -1,13 +1,8 @@
 package com.gamehouse.project.controllers;
 
 
-import com.gamehouse.project.models.Game;
-import com.gamehouse.project.models.GameCategory;
-import com.gamehouse.project.models.GameReviews;
-import com.gamehouse.project.models.data.GameCategoryRepository;
-import com.gamehouse.project.models.data.GamePlatformRepository;
-import com.gamehouse.project.models.data.GameRepository;
-import com.gamehouse.project.models.data.GameReviewsRepository;
+import com.gamehouse.project.models.*;
+import com.gamehouse.project.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,25 +28,45 @@ public class GameController {
     @Autowired
     private GameReviewsRepository gameReviewsRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+
     //Create new game
     @PostMapping("/saveGame")
     public ResponseEntity<Game> newGame(@RequestBody Game game) throws Exception {
 
         //have to save all categories into the repo
-        // Clarify if we want Igdb code to be type "long" or "int"
-        int currentGameIgdbCode = game.getIGDBCode();
+        long newGameIgdbCode = game.getIGDBCode();
 
-        Optional <GameCategory> gameCategory = gameCategoryRepository.findByigdbCode(currentGameIgdbCode);
+        Optional <GameCategory> gameCategory = gameCategoryRepository.findByigdbCode(newGameIgdbCode);
 
-        if (gameCategory.isPresent()) {
-            //gotta figure out what needs to be returned if gameCategory is already in the repository
-            return ();
-        } else {
-            gameCategoryRepository.save(gameCategory);
+        if (!gameCategory.isPresent()) {
+
+            GameCategory newGameCategory = new GameCategory();
+
+            for (GameCategory category : game.getGameCategories()) {
+                newGameCategory.setName(category.toString());
+                newGameCategory.setIgdbCode(newGameIgdbCode);
+
+                gameCategoryRepository.save(newGameCategory);
+            }
         }
 
 
         //save all platforms into the repo
+        Optional <GamePlatform> gamePlatform = gamePlatformRepository.findByigdbCode(newGameIgdbCode);
+
+        if (!gamePlatform.isPresent()) {
+            GamePlatform newGamePlatform = new GamePlatform();
+
+            for (GamePlatform platform : game.getGamePlatforms()) {
+                newGamePlatform.setName(platform.toString());
+                newGamePlatform.setIgdbCode(newGameIgdbCode);
+
+                gamePlatformRepository.save(newGamePlatform);
+            }
+        }
 
 
         //save new reviews
@@ -96,11 +111,12 @@ public class GameController {
         return ResponseEntity.ok().build();
     }
 
-    // Get List of Game Reviews by igdb code
-    @GetMapping("/{IgdbCode}")
-    public List<GameReviews> getGameReviewByIgdbCode(@PathVariable long IgdbCode) {
 
-        Optional<GameReviews> reviewByIgdbCode = gameReviewsRepository.findByIgdbCode(IgdbCode);
+    // Get List of Game Reviews by igdb code
+    @GetMapping("/{igdbCode}")
+    public List<GameReviews> getGameReviewByIgdbCode(@PathVariable long igdbCode) {
+
+        Optional<GameReviews> reviewByIgdbCode = gameReviewsRepository.findByIgdbCode(igdbCode);
 
         if (reviewByIgdbCode.isPresent()) {
             List<GameReviews> gameReviewsByIgdbCode = (List<GameReviews>) reviewByIgdbCode.get();
@@ -112,23 +128,29 @@ public class GameController {
     }
 
 
-    // Saving New Game Reviews on Game Page based on Igdb code
-    @PostMapping("/{IgdbCode}")
-    public ResponseEntity<GameReviews> saveGameReview(@PathVariable long igdbCode, @RequestBody GameReviews gameReview) {
+    // Saving New Game Reviews based on Igdb code
+    @PostMapping("/{igdbCode}")
+    public ResponseEntity<GameReviews> saveGameReview(@PathVariable long igdbCode, @RequestBody String gameReview, @RequestBody User username) {
 
-        Optional<GameReviews> gameReviewByIgdb = gameReviewsRepository.findByIgdbCode(igdbCode);
+        GameReviews newGameReview = new GameReviews();
 
-        if (gameReviewByIgdb.isPresent()) {
-            GameReviews newGameReview = gameReviewsRepository.save(gameReview);
-            return ResponseEntity.ok(newGameReview);
+        Optional<User> newUser = userRepository.findByUsername(username.getUsername());
 
-        } else {
-            gameReviewsRepository.save(gameReview);
+        if (newUser.isPresent()) {
+            newGameReview.setUsername(username);
         }
 
-        return ResponseEntity.ok(gameReview);
+        Optional<Game> game = gameRepository.findByIgdbCode(igdbCode);
+
+        if (game.isPresent()) {
+            Game newGame = game.get();
+            newGameReview.setGame(newGame);
+        }
+
+        newGameReview.setGameReview(gameReview);
+        gameReviewsRepository.save(newGameReview);
+
+        return ResponseEntity.ok(newGameReview);
     }
-
-
 
 }
