@@ -1,4 +1,4 @@
-import {search} from '../services/APIservice';
+import {search, getbyID} from '../services/APIservice';
 
 import React, {  useState } from 'react';
 
@@ -12,7 +12,7 @@ const handleSubmit =  (event) => {
 };
 
 const getSearchRequest = async (searchValue) => {
-    const response = await search(searchValue);
+    const response = await getbyID(searchValue);
     
     const responseJSON = await response.data;
     console.log(responseJSON);
