@@ -34,7 +34,7 @@ const [username, setUsername] = useState(
 //   handle logout to clear localStorage.
     const handleLogout = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/user/logout", {
+            const response = await axios.get("http://localhost:8080/logout", {
                 withCredentials: true,
             });
             localStorage.removeItem("username");

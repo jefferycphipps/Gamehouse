@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:8080/user'
+    baseURL: 'http://localhost:8080'
   });
 
 
@@ -28,20 +28,20 @@ const apiClient = axios.create({
   };
 
 // added another apiClient but changed the name to apiClients so the start up and search will work
-const apiClients = axios.create({
-    baseURL: 'http://localhost:8080'
-  });
+// const apiClients = axios.create({
+//     baseURL: 'http://localhost:8080'
+//   });
 
  export const startup = () => {
   const starter = "go";
   console.log(starter);
-  return apiClients.post('search/startup');
+  return apiClient.post('search/startup');
  }
 
 export const search = (data) =>{
     console.log("im here");
     console.log(data);
-    return apiClients.post('search/getGames', data);
+    return apiClient.post('search/getGames', data);
     };
 
   apiClient.interceptors.response.use(
