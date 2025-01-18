@@ -14,7 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
-@CrossOrigin("http://localhost:5173/")
+
+@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -119,5 +120,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not allowed to see these details.");
         }
         return ResponseEntity.ok("Hello," + loginuser.getUsername());
+    }
+
+    @PostMapping("/getUser")
+    public User getUser(@RequestBody String username) {
+        User user = userRepository.findByUsername(username);
+        if(user == null){
+            return null;
+        }
+        return user;
     }
 }

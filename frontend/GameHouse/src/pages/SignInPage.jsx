@@ -3,30 +3,28 @@ import axios from "axios";
 import {useState, useEffect} from "react";
 import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
+import {loginUser} from "../services/APIservice";
 function SignInPage() {
 
 const navigate = useNavigate();
     const handleSubmit = async (values, {setSubmitting}) => {
 
         try{
-            const response = await axios.post("http://localhost:8080/user/login",{
+            const response = await loginUser({
                 username: values.username,
                 password: values.password
                 });
 
             localStorage.setItem("username", values.username)
-
             alert("login successful");
             navigate(`/profile/${values.username}`);
-
             } catch (error) {
                 console.error("login Failed", error)
             alert("Login failed, wrong Username or Password.")
-
             }finally {
                 setSubmitting(false);
             }
-        }
+        };
 
     const validation = Yup.object({
         username: Yup.string()
@@ -34,8 +32,6 @@ const navigate = useNavigate();
         password: Yup.string()
         .required("Password is required")
         });
-
-
 
   return (
     <div className="mt-20 text-2xl mx-auto w-4/5 text-center">

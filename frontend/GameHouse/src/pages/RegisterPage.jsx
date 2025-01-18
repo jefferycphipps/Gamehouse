@@ -3,6 +3,7 @@ import axios from "axios";
 import {useState, useEffect} from "react";
 import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
+import { registerUser } from "../services/APIservice";
 
 
 function RegisterPage(){
@@ -11,7 +12,7 @@ const navigate = useNavigate();
 const  handleSubmit = async (values, {setSubmitting}) => {
 
     try{
-         const response = await axios.post("http://localhost:8080/user/register",{
+         const response = await registerUser({
                         name: values.name,
                         username: values.username,
                         email: values.email,
@@ -20,14 +21,11 @@ const  handleSubmit = async (values, {setSubmitting}) => {
                         });
 
                     localStorage.setItem("username", values.username)
-
                     alert("Register successful");
                     navigate(`/profile/${values.username}`);
-
                     } catch (error) {
                         console.error("Register Failed", error)
                         alert("Register failed.")
-
                     }finally {
                         setSubmitting(false)
         }
@@ -49,7 +47,6 @@ const validation = Yup.object({
     .required("Please verify your password")
     .oneOf([Yup.ref("password")], "Passwords must match")
     });
-
 
 return (
     <div className="mt-20 text-2xl mx-auto w-4/5 text-center">

@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         element: <GamePage />,
       },
       {
-        path: "/profile/:profileId",
+        path: "/profile/:username",
         element: <ProfilePage />,
       },
       {
