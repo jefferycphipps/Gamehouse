@@ -7,38 +7,6 @@ function GamePage() {
   const { gameID } = router;
   const [game, setGame] = useState([]);
 
-  // const getGameRequest = async (gameID) => {
-  //   // const url = "https://api.igdb.com/v4/games";
-
-  //   const response = await fetch(
-  //     `https://api.rawg.io/api/games/${gameID}?key=38581a1a479949828a178114f3591c8c`,
-
-  //     {
-  //       headers: { "content-type": "application/json" },
-  //     }
-  //   );
-  //   //   "https://api.igdb.com/v4/games",
-  //   //   {
-  //   //     method: "POST",
-  //   //     mode: "no-cors",
-  //   //     headers: {
-  //   //       Accept: "application/json",
-  //   //       "Client-ID": "gvb54zek7ktgnsveftpboeiej9xzgg",
-  //   //       Authorization: "Bearer 6dczfi3eooojgi4fh4qgdvf1xz4bau",
-  //   //     },
-  //   //     body: ["fields name", `search ${searchValue}`, "limit 20"],
-  //   //   }
-  //   // );
-
-  //   const responseJSON = await response.json();
-  //   console.log(responseJSON);
-  //   setGame(responseJSON);
-  // };
-
-  // useEffect(() => {
-  //   getGameRequest(gameID);
-  // }, [gameID]);
-
   useEffect(() => {
     const getGameRequest = async (gameID) => {
       const response = await getbyID(gameID);
