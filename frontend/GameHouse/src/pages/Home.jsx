@@ -57,7 +57,7 @@ function Home() {
       </div>
       <div className="m-auto ">
         {context.searchValue ? (
-          <div className="grid grid-rows-5 grid-flow-col w-3/5 mx-auto gap-4 justify-between">
+          <div className="grid grid-cols-3 w-3/5 mx-auto gap-4 ">
             <Card games={context.games} />
           </div>
         ) : (

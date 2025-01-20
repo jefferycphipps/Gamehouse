@@ -7,15 +7,15 @@ function Card(props) {
     <>
       {props.games.map((game) => (
         <Link
-          to={`/games/${game?.id}`}
-          className="card bg-base-100 relative hover:bg-base-300 hover:cursor-pointer hover:scale-110 hover:z-40 w-56 h-80 shadow-xl "
-          key={game.id}
+          to={`/games/${game?.igdbcode}`}
+          className="card bg-base-100 relative hover:bg-base-300 hover:cursor-pointer hover:scale-110 hover:z-40 w-52 h-80 mx-auto shadow-xl "
+          key={game.igdbcode}
         >
           <figure className="w-full h-4/5">
-            <img src={game.background_image} alt="Shoes" className="w-full " />
+            <img src={game.boxArtUrl} alt="Shoes" className="h-352px w-364px" />
           </figure>
           <div className="card-body p-5 flex-col justify-center items-center mx-auto">
-            <h2 className="card-title text-base text-center">{game.name}</h2>
+            <h2 className="card-title text-xs text-center">{game.name}</h2>
 
             <div className="card-actions ">
               <button className="btn btn-primary btn-sm text-xs ">

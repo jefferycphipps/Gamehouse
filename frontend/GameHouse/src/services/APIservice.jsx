@@ -2,6 +2,10 @@ import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: "http://localhost:8080/",
+  // headers: { "Content-Type": "application/json", accept: "application/json" },
+});
+const apiClient2 = axios.create({
+  baseURL: "http://localhost:8080/",
   headers: { "Content-Type": "application/json", accept: "application/json" },
 });
 
@@ -21,7 +25,7 @@ export const loginUser = (data) => {
 export const getbyID = (data) => {
   const gameID = JSON.stringify(data);
   console.log(data);
-  return apiClient.post("search/getGamebyID", data);
+  return apiClient2.post("search/getGamebyID", gameID);
 }; //get game by id
 
 export const startup = () => {

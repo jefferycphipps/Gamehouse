@@ -1,13 +1,23 @@
 import { Outlet } from "react-router";
 import { useState, useEffect } from "react";
 import Nav from "./Navbar";
+import { search } from "../services/APIservice";
 
 function AppLayout() {
   const [games, setGames] = useState([]);
-  const [searchValue, setSearchValue] = useState();
+  const [searchValue, setSearchValue] = useState(null);
 
-  const getSearchRequest = async (searchValue) => {
-    // const url = "https://api.igdb.com/v4/games";
+  // const getSearchRequest = async (searchVal) => {
+  //   const response = await search(searchVal);
+
+  //   const responseJSON = await response.data;
+  //   console.log(responseJSON);
+  //   setGames(responseJSON);
+  //   console.log(games);
+  // };
+
+  // const getSearchRequest = async (searchValue) => {
+  //   // const url = "https://api.igdb.com/v4/games";
 
   //   const response = await fetch(
   //     `https://api.rawg.io/api/games?key=38581a1a479949828a178114f3591c8c&search=${searchValue}`,
@@ -34,7 +44,17 @@ function AppLayout() {
   // };
 
   useEffect(() => {
-    getSearchRequest(searchValue);
+    //   getSearchRequest(searchValue);
+    // }, [searchValue]);
+    const getSearchRequest = async (searchVal) => {
+      const response = await search(searchVal);
+
+      const responseJSON = await response.data;
+      console.log(responseJSON);
+      setGames(responseJSON);
+      console.log(games);
+    };
+    getSearchRequest(searchValue).catch(console.error);
   }, [searchValue]);
 
   return (
