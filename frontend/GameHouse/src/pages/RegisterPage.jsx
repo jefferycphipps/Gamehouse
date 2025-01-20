@@ -4,20 +4,26 @@ import {useState, useEffect} from "react";
 import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
 import { registerUser } from "../services/APIservice";
-
+import { load } from "recaptcha-v3";
 
 function RegisterPage(){
 
 const navigate = useNavigate();
-const  handleSubmit = async (values, {setSubmitting}) => {
+const [recaptchaToken, setRecaptchaToken] = useState("");
+const siteKey = "6LeD3a8qAAAAAIV1IMOwHogeJq0_Vwt0c6ez9LAO";
 
+const  handleSubmit = async (values, {setSubmitting}) => {
+    const recaptchaInstance = await load(siteKey);
+            const token = await recaptchaInstance.execute("Register");
+            setRecaptchaToken(token);
     try{
          const response = await registerUser({
                         name: values.name,
                         username: values.username,
                         email: values.email,
                         password: values.password,
-                        verifyPassword: values.verifyPassword
+                        verifyPassword: values.verifyPassword,
+                        recaptcha: token
                         });
 
                     localStorage.setItem("username", values.username)

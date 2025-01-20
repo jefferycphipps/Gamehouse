@@ -1,6 +1,5 @@
 package com.gamehouse.project.controllers;
-
-
+import com.gamehouse.project.models.RecaptchaService;
 import com.gamehouse.project.models.dto.LoginForm;
 import com.gamehouse.project.models.dto.RegisterForm;
 import com.gamehouse.project.models.User;
@@ -19,6 +18,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/")
 public class UserController {
+    @Autowired
+    private RecaptchaService recaptchaService;
 
     @Autowired
     private UserRepository userRepository;
@@ -50,7 +51,12 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> processRegisterFrom(@RequestBody @Valid RegisterForm registerFormDTO, HttpServletRequest request) {
+        String recaptchaToken = registerFormDTO.getRecaptcha();
+        String secretKey = "6LeD3a8qAAAAAAa9-p7i-_CrWgLMybLkRx22nimk";
 
+        if (!recaptchaService.verifyRecaptcha(recaptchaToken, secretKey)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed reCAPTCHA verification.");
+        }
         if (userRepository.findByName(registerFormDTO.getName()) != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Name already exists.");
         }
@@ -90,7 +96,13 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> processLoginForm(@RequestBody @Valid LoginForm loginFormDTO, HttpServletRequest request) {
+        String recaptchaToken = loginFormDTO.getRecaptcha();
 
+        String secretKey = "6LeD3a8qAAAAAAa9-p7i-_CrWgLMybLkRx22nimk";
+
+        if (!recaptchaService.verifyRecaptcha(recaptchaToken, secretKey)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed reCAPTCHA verification.");
+        }
         User user = userRepository.findByName(loginFormDTO.getUsername());
 
         if (user == null || !user.isMatchingPassword(loginFormDTO.getPassword())) {

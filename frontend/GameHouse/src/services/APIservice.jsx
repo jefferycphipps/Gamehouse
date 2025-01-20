@@ -13,11 +13,9 @@ const apiClient = axios.create({
 
 
   export const registerUser = (data) => {
-
     return apiClient.post('/register', data);
   };//register user
   export const loginUser = (data) => {
-
     return apiClient.post('/login', data);
   };//login user
   export const userPage = async(username) => {
