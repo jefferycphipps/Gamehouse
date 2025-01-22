@@ -54,7 +54,7 @@ public class APICallService {
 
         try {
 
-            String searchTerm = "fields name, genres, platforms, age_ratings, summary, cover; where id = " + IDGBCode + ";";
+            String searchTerm = "fields name, genres.name, platforms.name, age_ratings.rating, summary, cover.url; where id = " + IDGBCode + ";";
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://api.igdb.com/v4/games/"))
                     .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
@@ -79,7 +79,7 @@ public class APICallService {
         Game tempGame = new Game();
         tempGame.setName(gameJsons.get(0).getName());
         tempGame.setBoxArtURL(getCover(gameJsons.get(0).getCover()));
-        //tempGame.setGameRating(getRating(gameJsons.get(0).getAge_ratings()));
+        tempGame.setGameRating(getGameRating(gameJsons.get(0).getAge_ratings()));
         tempGame.setGameCategories(getGenre(gameJsons.get(0).getGenres()));
         tempGame.setGameDescription(gameJsons.get(0).getSummary());
         tempGame.setGamePlatforms(getPlatforms(gameJsons.get(0).getPlatforms()));
@@ -252,135 +252,31 @@ public class APICallService {
     }
 
 
-    public String getRating(int[] ratingList){
-        HttpResponse<String> response = null;
-        String ESRB = "";
-        int ratingNumber = 0;
-        try {
-            for(int x = 0; x< ratingList.length; x++){
-                String searchTerm = "fields rating; where id = " + ratingList[x] + ";";
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create("https://api.igdb.com/v4/age_ratings/"))
-                        .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
-                        .header("Authorization", "Bearer 5ib2itgwj5h9bf18ywvthaal9n1nqy")
-                        .setHeader("Content-Type", "application/json")
-                        .method("POST", HttpRequest.BodyPublishers.ofString(searchTerm))
-                        .build();
 
-                response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-                int first = response.body().lastIndexOf(":")+2;
-                String rating = response.body().substring(first, first+2);
-                rating = rating.replaceAll("\n", "");
-                ratingNumber = Integer.parseInt(rating);
 
-                switch (ratingNumber){
-                    case 6:
-                        ESRB = "RP";
-                        break;
-                    case 7:
-                        ESRB = "EC";
-                        break;
-                    case 8:
-                        ESRB = "E";
-                        break;
-                    case 9:
-                        ESRB = "E10";
-                        break;
-                    case 10:
-                        ESRB = "T";
-                        break;
-                    case 11:
-                        ESRB = "M";
-                        break;
-                    case 12:
-                        ESRB = "AO";
-                        break;
-                }
-            }
-
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return ESRB;
-    }
-
-    public List<GameCategory> getGenre(int[] genreList){
-        HttpResponse<String> response = null;
+    public List<GameCategory> getGenre(List<Genres> genreList){
         List<GameCategory> genres = new ArrayList<>();
-
-        try {
-            for(int x = 0; x< genreList.length; x++){
-                String searchTerm = "fields name; where id = " + genreList[x] + ";";
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create("https://api.igdb.com/v4/genres/"))
-                        .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
-                        .header("Authorization", "Bearer 5ib2itgwj5h9bf18ywvthaal9n1nqy")
-                        .setHeader("Content-Type", "application/json")
-                        .method("POST", HttpRequest.BodyPublishers.ofString(searchTerm))
-                        .build();
-
-                response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-                int first = response.body().lastIndexOf(":")+2;
-                int last = response.body().lastIndexOf("}")-2;
-                String genre = response.body().substring(first, last);
-                genre = genre.replaceAll("\"", "");
-                genre = genre.replaceAll("}","");
-                genre = genre.replaceAll("\n","");
-                GameCategory category = new GameCategory();
-                category.setName(genre);
-                category.setIgdbCode(genreList[x]);
-                genres.add(category);
-            }
-
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (int x = 0; x < genreList.size(); x++) {
+            GameCategory tempCat = new GameCategory();
+            tempCat.setIgdbCode(genreList.get(x).getId());
+            tempCat.setName(genreList.get(x).getName());
+            genres.add(tempCat);
         }
+
         return genres;
     }
 
-    public List<GamePlatform> getPlatforms(int[] platformList){
-        HttpResponse<String> response = null;
+    public List<GamePlatform> getPlatforms(List<Platforms> platformList){
+
         List<GamePlatform> gamePlatforms = new ArrayList<>();
-
-        try {
-            for(int x = 0; x< platformList.length; x++){
-                String searchTerm = "fields name; where id = " + platformList[x] + ";";
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create("https://api.igdb.com/v4/platforms/"))
-                        .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
-                        .header("Authorization", "Bearer 5ib2itgwj5h9bf18ywvthaal9n1nqy")
-                        .setHeader("Content-Type", "application/json")
-                        .method("POST", HttpRequest.BodyPublishers.ofString(searchTerm))
-                        .build();
-
-                response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-                //System.out.println(response.body());
-                int first = response.body().lastIndexOf(":")+2;
-                int last = response.body().lastIndexOf("}")-2;
-                String platform = response.body().substring(first, last);
-                platform = platform.replaceAll("\"", "");
-                platform = platform.replaceAll("}","");
-                platform = platform.replaceAll("\n","");
-                //System.out.println(platform);
-                GamePlatform gamePlatform = new GamePlatform();
-                gamePlatform.setName(platform);
-                gamePlatform.setIgdbCode(platformList[x]);
-                gamePlatforms.add(gamePlatform);
-            }
-
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (int x = 0; x < platformList.size(); x++) {
+            GamePlatform tempPlat = new GamePlatform();
+            tempPlat.setIgdbCode(platformList.get(x).getId());
+            tempPlat.setName(platformList.get(x).getName());
+            gamePlatforms.add(tempPlat);
         }
-        return gamePlatforms;
+
+        return gamePlatforms ;
     }
 
 

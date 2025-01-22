@@ -19,7 +19,7 @@ public class ProjectApplication {
     public static void main(String[] args) throws Exception {
 //        APICallService test = new APICallService();
 //        String string = "god of war";
-        //test.getGamesLight(string);
+//        //test.getGamesLight(string);
 //        test.getGamesbyList(string);
 
         //System.out.println(test.getGameRating(ratings));

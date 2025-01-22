@@ -9,14 +9,14 @@ public class GameJson {
      private String name;
      private long id;
      private List<Age_Ratings> age_ratings;
-     private int[] genres; // we call this GameCategory
+     private List<Genres> genres; // we call this GameCategory
      private Cover cover;
-     private int[] platforms;
+     private List<Platforms> platforms;
      private String summary;
 
      public GameJson(){}
 
-     public GameJson(String name, long id, List<Age_Ratings> age_ratings, int[] genres, Cover cover, int[] platforms, String summary) {
+     public GameJson(String name, long id, List<Age_Ratings> age_ratings, List<Genres> genres, Cover cover, List<Platforms> platforms, String summary) {
           this.name = name;
           this.id = id;
           this.age_ratings = age_ratings;
@@ -51,19 +51,19 @@ public class GameJson {
           this.age_ratings = age_ratings;
      }
 
-     public int[] getGenres() {
+     public List<Genres> getGenres() {
           return genres;
      }
 
-     public void setGenres(int[] genres) {
+     public void setGenres(List<Genres> genres) {
           this.genres = genres;
      }
 
-     public int[] getPlatforms() {
+     public List<Platforms> getPlatforms() {
           return platforms;
      }
 
-     public void setPlatforms(int[] platforms) {
+     public void setPlatforms(List<Platforms> platforms) {
           this.platforms = platforms;
      }
 
@@ -94,7 +94,7 @@ public class GameJson {
                   "age_ratings=" + age_ratings + ", \n" +
                   "category=" + genres + ", \n" +
                   "cover=" + cover + ", \n" +
-                  "platforms=" + Arrays.toString(platforms) + ", \n" +
+                  "platforms=" + platforms + ", \n" +
                   "summary='" + summary + '\'' + "\n" +
                   '}' + "\n";
      }
