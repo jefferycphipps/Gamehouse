@@ -39,10 +39,10 @@ public class Game extends AbstractEntity{
         this.gamePlatforms = gamePlatforms;
     }
 
-    public Game(String name, long IBGDCode, String boxArtURL){
+    public Game(String name, long IGDBCode, String boxArtURL){
         super();
         this.setName(name);
-        this.IGDBCode = IBGDCode;
+        this.IGDBCode = IGDBCode;
         this.boxArtURL = boxArtURL;
     }
 
