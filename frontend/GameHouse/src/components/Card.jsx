@@ -17,7 +17,24 @@ function Card(props) {
           <div className="card-body p-5 flex-col justify-center items-center mx-auto">
             <h2 className="card-title text-xs text-center">{game.name}</h2>
 
-            <div className="card-actions ">
+            <div className="card-actions flex items-end">
+              <button className="btn btn-accent btn-sm text-xs ">
+                <svg
+                  className="h-6 w-6"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  fill="none"
+                  stroke="#000000"
+                >
+                  <path
+                    d="m12.75 7.75h-10m5-5v10"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              </button>
               <button className="btn btn-primary btn-sm text-xs ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +50,6 @@ function Card(props) {
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                   />
                 </svg>
-                Wishlist
               </button>
             </div>
           </div>
