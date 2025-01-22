@@ -38,10 +38,12 @@ function GamePage() {
               <button className="btn btn-accent rounded-3xl w-1/2">Save</button>
             </div>
             <div className="basis-1/2 flex flex-col justify-center gap-20">
-              <h1 className="mb-5 text-5xl font-bold basis-2/3 text-center">
+              <h1 className="mb-5 text-5xl font-bold basis-2/3 text-slate-200 text-center">
                 {game.name}
               </h1>
-              <p className="mb-5  h-1/2">{game.gameDescription}</p>
+              <p className="mb-5 text-slate-200 h-1/2">
+                {game.gameDescription}
+              </p>
             </div>
           </div>
         </div>
