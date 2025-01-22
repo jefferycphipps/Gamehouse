@@ -14,15 +14,15 @@ function Carousel({ children: slides }) {
   console.log(current);
 
   return (
-    <div className="overflow-hidden relative rounded-3xl">
+    <div className="overflow-hidden relative rounded-3xl h-96">
       <div
-        className="  flex transition-transform ease-out duration-500"
+        className="flex h-full transition-transform ease-out duration-500"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {slides}
       </div>
       <div className="absolute inset-0 flex items-center justify-between p-4">
-        <button onClick={prev} className="btn btn-circle p-1 z-50">
+        <button onClick={prev} className="btn btn-circle p-1 ">
           <svg
             width="40px"
             height="40px"
@@ -35,7 +35,7 @@ function Carousel({ children: slides }) {
             />
           </svg>
         </button>
-        <button onClick={next} className="btn btn-circle z-50">
+        <button onClick={next} className="btn btn-circle p-1">
           <svg
             width="40px"
             height="40px"

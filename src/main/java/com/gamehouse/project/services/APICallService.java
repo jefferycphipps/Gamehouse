@@ -203,7 +203,7 @@ public class APICallService {
 
     public String getCover(Cover cover){
         if (cover==null){
-            return "dummy";
+            return "https://www.australianbookreview.com.au/media/k2/items/cache/fd233e6934ac8e43f8e82c8fac94ad6d_L.webp";
         }
         String url = cover.getUrl();
         int front = url.lastIndexOf("b/" )+2;

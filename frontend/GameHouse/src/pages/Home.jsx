@@ -55,20 +55,26 @@ function Home() {
           <div className="mx-auto w-3/5">
             {/* <h1 className="mx-auto mt-5">Search for your favorite games!</h1> */}
             <h1 className="text-3xl my-5 "> Developers Picks!</h1>
-            {/* <div>
+            <div>
               <Carousel>
                 {slides.map((s, i) => (
                   <>
-                    <img
-                      src={s.img}
-                      className="rounded-3xl hover:cursor-pointer"
+                    <Link
+                      to={`/games/${s.id}`}
                       key={i}
-                    />
+                      className="relative overflow-hidden object-cover w-full h-full hover:cursor-pointer flex-shrink-0"
+                    >
+                      <img
+                        src={s.img}
+                        className="rounded-3xl h-full w-full"
+                        key={i}
+                      />
+                    </Link>
                   </>
                 ))}
               </Carousel>
-            </div> */}
-            <div className="carousel w-full">
+            </div>
+            {/* <div className="carousel w-full">
               <div
                 to="/games/152063"
                 id="slide1"
@@ -144,7 +150,7 @@ function Home() {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         )}
       </>
