@@ -7,29 +7,54 @@ import Card from "../components/Card";
 
 import Pagination from "../components/Pagination";
 import Carousel from "../components/Carousel";
+import Carousel2 from "../components/Carousel2";
 
 function Home() {
   const context = useOutletContext();
   const slides = [
     {
-      img: "https://i0.wp.com/www.consolecreatures.com/wp-content/uploads/2021/09/reviewdeathstrandingDC.jpg",
-      name: "Death Stranding: Director's Cut",
-      id: "/games/152063",
+      id: "152063",
+      img: "https://cdn1.epicgames.com/offer/0a9e3c5ab6684506bd624a849ca0cf39/EGS_DeathStrandingDirectorsCut_KOJIMAPRODUCTIONS_S3_2560x1440-fe4e51f1801fba36e452aa3466625789",
     },
     {
-      img: "https://play.nintendo.com/images/PLAY-4384-AnimalCrossingNH-GameRelease_3x1_v01.29450787_2cM7X6l.jpg",
-      name: "Animal Crossing: New Horizons",
+      id: "109462",
+      img: "https://images.alphacoders.com/136/thumb-1920-1366994.jpeg",
+    },
+    {
+      id: "132516",
+      img: "https://www.uploadvr.com/content/images/size/w1024/format/webp/2024/10/PhasmophobiaKeyArt16x9-1.png",
+    },
+    {
+      id: "217590",
+      img: "https://images6.alphacoders.com/135/1359106.png",
+    },
+  ];
+  const slideIds = [
+    {
+      id: "152063",
+    },
+    {
       id: "109462",
     },
     {
-      img: "https://www.controllernerds.co.uk/wp-content/uploads/2024/10/phasmophobia-banner.webp",
-      name: "Phasmophobia",
       id: "132516",
     },
     {
-      img: "https://cdn2.steamgriddb.com/hero_thumb/b1dda493901cc6875f04ebece9cdb093.jpg",
-      name: "Tekken 8",
       id: "217590",
+    },
+  ];
+  const slideNames = [
+    {
+      name: "Death Stranding: Director's Cut",
+    },
+    {
+      name: "Animal Crossing: New Horizons",
+    },
+    {
+      name: "Phasmophobia",
+    },
+    {
+      name: "Tekken 8",
     },
   ];
 
@@ -54,8 +79,17 @@ function Home() {
         ) : (
           <div className="mx-auto w-3/5">
             {/* <h1 className="mx-auto mt-5">Search for your favorite games!</h1> */}
-            <h1 className="text-3xl my-5 "> Developers Picks!</h1>
-            <div>
+            <h1 className="text-6xl font-bold mt-10 mb-5 tracking-wide">
+              {" "}
+              Developer's Picks
+            </h1>
+            <h2 className="text-md font-bold my-5 ">
+              Check out the games hand-picked by our dev team
+            </h2>
+            <div className="w-full aspect-[6/3] my-0 mx-auto">
+              <Carousel2 images={slides} />
+            </div>
+            {/* <div>
               <Carousel>
                 {slides.map((s, i) => (
                   <>
@@ -73,7 +107,7 @@ function Home() {
                   </>
                 ))}
               </Carousel>
-            </div>
+            </div> */}
             {/* <div className="carousel w-full">
               <div
                 to="/games/152063"

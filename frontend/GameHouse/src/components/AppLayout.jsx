@@ -22,7 +22,7 @@ function AppLayout() {
   return (
     <>
       <div className="flex-col items-center w-full justify-center">
-        <div className="flex-auto sticky  top-0 z-50">
+        <div className="flex-auto sticky top-0 z-50">
           <Nav searchValue={searchValue} setSearchValue={setSearchValue} />
         </div>
 

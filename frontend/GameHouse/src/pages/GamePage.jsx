@@ -22,17 +22,27 @@ function GamePage() {
   return (
     <>
       <div
-        className="hero bg-base-200 min-h-screen"
+        className="hero bg-base-200 min-h-[80vh]"
         style={{
           backgroundImage: `url(${game.boxArtURL})`,
         }}
       >
         <div className="hero-overlay bg-opacity-90"></div>
-        <div className="hero-content text-neutral-content text-center w-4/5">
-          <div className="w-4/5">
-            <h1 className="mb-5 text-5xl font-bold">{game.name}</h1>
-            <p className="mb-5">{game.gameDescription}</p>
-            <button className="btn btn-primary">Wishlist</button>
+        <div className="w-4/5 top-0 ">
+          <div className="w-full h-3/5 flex gap-10 ">
+            <div className="basis-1/3 flex flex-col items-center justify-center gap-5">
+              <img src={game.boxArtURL} className="size-auto" />
+              <button className="btn btn-primary rounded-3xl w-1/2">
+                Wishlist
+              </button>
+              <button className="btn btn-accent rounded-3xl w-1/2">Save</button>
+            </div>
+            <div className="basis-1/2 flex flex-col justify-center gap-20">
+              <h1 className="mb-5 text-5xl font-bold basis-2/3 text-center">
+                {game.name}
+              </h1>
+              <p className="mb-5  h-1/2">{game.gameDescription}</p>
+            </div>
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ function Nav(props) {
     <div className="bg-base-200  mx-auto flex justify-center">
       <div className="navbar w-4/5 mx-5">
         <div className="flex-auto">
-          <a href="/" className="btn btn-ghost text-xl">
+          <a href="/" className="btn btn-ghost text-xl font-mono">
             GameHouse
           </a>
         </div>
