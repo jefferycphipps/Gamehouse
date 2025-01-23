@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class GameCategory extends AbstractEntity {
@@ -12,13 +13,13 @@ public class GameCategory extends AbstractEntity {
 
     private long igdbCode;
 
-
     @ManyToMany(mappedBy = "gameCategories",
     cascade = {
             CascadeType.MERGE,
             CascadeType.PERSIST
     })
     List<Game> gamesList;
+
     @ManyToMany(mappedBy = "gameCategories")
     private List<Game> gamesListCategories;
 
@@ -56,5 +57,20 @@ public class GameCategory extends AbstractEntity {
                 "gameCategory='" + getName() + '\'' +
                 ", igdbCode=" + igdbCode +
                 '}';
+    }
+
+    // CT Note: Added to see if removes instances of duplicates
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        GameCategory category = (GameCategory) o;
+        return igdbCode == category.igdbCode;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), igdbCode);
     }
 }
