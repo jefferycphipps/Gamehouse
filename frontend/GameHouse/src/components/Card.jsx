@@ -1,11 +1,14 @@
 /* eslint react/prop-types: 0 */
-import { useState } from "react";
-
+import { useContext, useState } from "react";
 import { Link } from "react-router";
+import { wishlishContext } from "../App";
 
 function Card(props) {
-  const [wishlist, setWishlish] = useState([]);
-  const [saved, setSaved] = useState([]);
+  const [wishlist, setWishlish] = useState(useContext(wishlishContext));
+  console.log(wishlist);
+  const [saved, setSaved] = useState(useContext(wishlishContext));
+  console.log(saved);
+
   return (
     <>
       {props.games.map((game) => (
@@ -25,8 +28,8 @@ function Card(props) {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log(game?.igdbcode);
-                    setSaved = [...saved, game?.igdbcode];
+                    console.log(props.game?.igdbcode);
+                    setSaved([...saved, game?.igdbcode]);
                     console.log(saved);
                   }}
                   className="btn btn-accent btn-sm text-xs "
@@ -52,7 +55,7 @@ function Card(props) {
                     e.preventDefault();
                     e.stopPropagation();
                     console.log(game?.igdbcode);
-                    setWishlish = [...wishlist, game?.igdbcode];
+                    setWishlish([...wishlist, game?.igdbcode]);
                     console.log(wishlist);
                   }}
                   className="btn btn-primary btn-sm text-xs "

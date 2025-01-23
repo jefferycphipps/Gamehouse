@@ -7,6 +7,7 @@ import ProfilePage from "./pages/ProfilePage";
 import SignInPage from "./pages/SignInPage";
 import { startup } from "./services/APIservice";
 import Test from "./pages/Test";
+import { createContext, useState } from "react";
 
 const router = createBrowserRouter([
   {
@@ -31,19 +32,25 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-export const response =  () => {
+export const response = () => {
   const start = "go";
-  const repsonser =  startup(start);
+  const repsonser = startup(start);
   console.log(repsonser);
 };
 
+export const wishlishContext = createContext();
+
 function App() {
+  const [wishlist, setWishlish] = useState([]);
+  const [saved, setSaved] = useState([]);
   return (
-    <>{response()}
-    <RouterProvider router={router} />
+    <>
+      <wishlishContext.Provider value={(wishlist, saved)}>
+        {response()}
+        <RouterProvider router={router} />
+      </wishlishContext.Provider>
     </>
   );
-
 }
 
 export default App;

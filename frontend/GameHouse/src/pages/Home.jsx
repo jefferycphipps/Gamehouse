@@ -57,7 +57,7 @@ function Home() {
             {/* <h1 className="mx-auto mt-5">Search for your favorite games!</h1> */}
             <h1 className="text-6xl font-bold mt-10 mb-5 tracking-wide">
               {" "}
-              Developer`s Picks
+              Developer Picks
             </h1>
             <h2 className="text-md font-bold my-5 ">
               Check out the games hand-picked by our dev team
