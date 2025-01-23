@@ -8,5 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface GameRepository extends CrudRepository <Game, Integer> {
-    Optional<Game> findByIgdbCode(long IBGDCode);
+//    Optional<Game> findByIgdbCode (long IGDBCode);
+    Optional<Game> findByIgdbCode (long igdbCode);
+
 }
