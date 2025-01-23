@@ -15,45 +15,21 @@ function Home() {
     {
       id: "152063",
       img: "https://cdn1.epicgames.com/offer/0a9e3c5ab6684506bd624a849ca0cf39/EGS_DeathStrandingDirectorsCut_KOJIMAPRODUCTIONS_S3_2560x1440-fe4e51f1801fba36e452aa3466625789",
+      name: "Death Stranding: Director's Cut",
     },
     {
       id: "109462",
       img: "https://images.alphacoders.com/136/thumb-1920-1366994.jpeg",
+      name: "Animal Crossing: New Horizons",
     },
     {
       id: "132516",
       img: "https://www.uploadvr.com/content/images/size/w1024/format/webp/2024/10/PhasmophobiaKeyArt16x9-1.png",
+      name: "Phasmophobia",
     },
     {
       id: "217590",
       img: "https://images6.alphacoders.com/135/1359106.png",
-    },
-  ];
-  const slideIds = [
-    {
-      id: "152063",
-    },
-    {
-      id: "109462",
-    },
-    {
-      id: "132516",
-    },
-    {
-      id: "217590",
-    },
-  ];
-  const slideNames = [
-    {
-      name: "Death Stranding: Director's Cut",
-    },
-    {
-      name: "Animal Crossing: New Horizons",
-    },
-    {
-      name: "Phasmophobia",
-    },
-    {
       name: "Tekken 8",
     },
   ];
@@ -72,7 +48,7 @@ function Home() {
       <>
         {context.searchValue ? (
           <div className="m-auto ">
-            <div className="grid grid-cols-3 w-3/5 mx-auto gap-4 ">
+            <div className="grid grid-cols-3 w-3/5 mx-auto gap-4">
               <Card games={context.games} />
             </div>
           </div>
@@ -81,7 +57,7 @@ function Home() {
             {/* <h1 className="mx-auto mt-5">Search for your favorite games!</h1> */}
             <h1 className="text-6xl font-bold mt-10 mb-5 tracking-wide">
               {" "}
-              Developer's Picks
+              Developer`s Picks
             </h1>
             <h2 className="text-md font-bold my-5 ">
               Check out the games hand-picked by our dev team
