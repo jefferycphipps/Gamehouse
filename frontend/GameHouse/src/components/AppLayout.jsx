@@ -22,13 +22,14 @@ function AppLayout() {
 
   return (
     <>
-      <div className="flex-col items-center w-full justify-center">
+      <div className="flex-col items-center w-full justify-center h-max">
         <div className="flex-auto sticky top-0 z-50">
           <Nav searchValue={searchValue} setSearchValue={setSearchValue} />
         </div>
 
         <Outlet context={{ searchValue, games }} />
       </div>
+
       <Footer />
     </>
   );

@@ -5,8 +5,6 @@
 import { useOutletContext } from "react-router";
 import Card from "../components/Card";
 
-import Pagination from "../components/Pagination";
-
 import Carousel2 from "../components/Carousel";
 
 function Home() {
@@ -54,9 +52,7 @@ function Home() {
           </div>
         ) : (
           <div className="mx-auto w-3/5">
-            {/* <h1 className="mx-auto mt-5">Search for your favorite games!</h1> */}
             <h1 className="text-6xl font-bold mt-10 mb-5 tracking-wide">
-              {" "}
               Developer Picks
             </h1>
             <h2 className="text-md font-bold my-5 ">
@@ -69,13 +65,7 @@ function Home() {
           </div>
         )}
       </>
-      {context.searchValue ? (
-        <div className="flex my-10">
-          <Pagination />
-        </div>
-      ) : (
-        <></>
-      )}
+      {context.searchValue ? <div className="flex my-10"></div> : <></>}
     </>
   );
 }

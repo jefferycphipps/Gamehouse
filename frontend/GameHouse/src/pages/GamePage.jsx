@@ -126,10 +126,20 @@ function GamePage() {
           </div>
         </div>
       </div>
-      <div className="mx-auto w-3/5">
-        <div className="text-6xl font-bold mt-10 mb-5 tracking-wide">
+      <div className="mx-auto w-3/5 flex flex-col">
+        <div className="text-6xl font-bold mt-10 mb-10 tracking-wide">
           Reviews
         </div>
+
+        {/* <input
+          type="text"
+          placeholder="Write a Review"
+          className="input input-bordered input-primary h-48 w-full my-10 max-w-xl mx-auto justify-center"
+        /> */}
+        <textarea
+          className="textarea textarea-primary ml-auto justify-center w-full max-w-xl my-10 h-48"
+          placeholder="Write a Review"
+        ></textarea>
         <div className="flex flex-col gap-5 my-10">
           {fakeReviews.map((r, i) => (
             <>
