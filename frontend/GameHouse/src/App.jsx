@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { createContext, useState } from "react";
 
 import Home from "./pages/Home";
 import AppLayout from "./components/AppLayout";
@@ -7,7 +8,6 @@ import ProfilePage from "./pages/ProfilePage";
 import SignInPage from "./pages/SignInPage";
 import { startup } from "./services/APIservice";
 import Test from "./pages/Test";
-import { createContext, useState } from "react";
 
 const router = createBrowserRouter([
   {

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { getbyID } from "../services/APIservice";
 import { wishlishContext } from "../App";
 
@@ -24,6 +24,30 @@ function GamePage() {
   console.log(wishlist);
   const [saved, setSaved] = useState(useContext(wishlishContext));
   console.log(saved);
+
+  const fakeReviews = [
+    {
+      review:
+        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat. Mi phasellus porta cras et, tristique leo scelerisque phasellus. Himenaeos in suscipit curae diam; ridiculus nec nisl. Interdum platea per sodales tristique felis ad.",
+      name: "GoldenBoy69",
+      profilePic:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHT1bbUhvtq8v-AegejdrqfFAzLNiGqiNaeQ&s",
+    },
+    {
+      review:
+        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. ",
+      name: "SuperFuture",
+      profilePic:
+        "https://images.squarespace-cdn.com/content/58129b47414fb57ae8dd0d99/1615350737909-9NHYX0HWK49W53BS3B00/Logo+Monogram+Trans+W+Color2021.png?format=1500w&content-type=image%2Fpng",
+    },
+    {
+      review:
+        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat.",
+      name: "BigPizza",
+      profilePic:
+        "https://www.simplyrecipes.com/thmb/pjYMLcsKHkr8D8tYixmaFNxppPw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg",
+    },
+  ];
   return (
     <>
       <div
@@ -100,6 +124,38 @@ function GamePage() {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="mx-auto w-3/5">
+        <div className="text-6xl font-bold mt-10 mb-5 tracking-wide">
+          Reviews
+        </div>
+        <div className="flex flex-col gap-5 my-10">
+          {fakeReviews.map((r, i) => (
+            <>
+              <div className="flex p-5 justify-between ">
+                <div className="flex flex-col justify-start items-start gap-3">
+                  <Link
+                    to={"/profile/:profileid"}
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full">
+                      <img alt="Profile Picture" src={r.profilePic} />
+                    </div>
+                  </Link>
+                  <div className="text-sm">{r.name}</div>
+                </div>
+                <div className="flex flex-col basis-3/4 justify-between">
+                  <p key={i} className=" mb-10">
+                    {r.review}
+                  </p>
+                  <div className="divider"></div>
+                </div>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </>

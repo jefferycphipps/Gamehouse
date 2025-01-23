@@ -2,12 +2,12 @@
 
 // import { useState } from "react";
 // import { useEffect } from "react";
-import { Link, useOutletContext } from "react-router";
+import { useOutletContext } from "react-router";
 import Card from "../components/Card";
 
 import Pagination from "../components/Pagination";
-import Carousel from "../components/Carousel";
-import Carousel2 from "../components/Carousel2";
+
+import Carousel2 from "../components/Carousel";
 
 function Home() {
   const context = useOutletContext();
@@ -65,102 +65,7 @@ function Home() {
             <div className="w-full aspect-[6/3] my-0 mx-auto">
               <Carousel2 images={slides} />
             </div>
-            {/* <div>
-              <Carousel>
-                {slides.map((s, i) => (
-                  <>
-                    <Link
-                      to={`/games/${s.id}`}
-                      key={i}
-                      className="relative overflow-hidden object-cover w-full h-full hover:cursor-pointer flex-shrink-0"
-                    >
-                      <img
-                        src={s.img}
-                        className="rounded-3xl h-full w-full"
-                        key={i}
-                      />
-                    </Link>
-                  </>
-                ))}
-              </Carousel>
-            </div> */}
-            {/* <div className="carousel w-full">
-              <div
-                to="/games/152063"
-                id="slide1"
-                className="carousel-item relative w-full"
-                // style={{
-                //   backgroundImage: `url(https://i0.wp.com/www.consolecreatures.com/wp-content/uploads/2021/09/reviewdeathstrandingDC.jpg)`,
-                //   backgroundSize: "cover",
-                //   backgroundPosition: "center",
-                // }}
-              >
-                <Link to="/games/152063" className="hover:cursor-pointer">
-                  <figure className="h-full">
-                    <img
-                      src="https://i0.wp.com/www.consolecreatures.com/wp-content/uploads/2021/09/reviewdeathstrandingDC.jpg"
-                      className="w-full h-full rounded-xl"
-                    />
-                  </figure>
-                </Link>
-                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                  <a href="#slide4" className="btn btn-circle z-50">
-                    ❮
-                  </a>
-                  <a href="#slide2" className="btn btn-circle z-50">
-                    ❯
-                  </a>
-                </div>
-              </div>
-              <div id="slide2" className="carousel-item relative w-full">
-                <Link to="/games/109462">
-                  <img
-                    src="https://play.nintendo.com/images/PLAY-4384-AnimalCrossingNH-GameRelease_3x1_v01.29450787_2cM7X6l.jpg"
-                    className="w-full h-full rounded-xl"
-                  />
-                </Link>
-                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                  <a href="#slide1" className="btn btn-circle">
-                    ❮
-                  </a>
-                  <a href="#slide3" className="btn btn-circle">
-                    ❯
-                  </a>
-                </div>
-              </div>
-              <div id="slide3" className="carousel-item relative w-full">
-                <Link to="/games/132516">
-                  <img
-                    src="https://www.controllernerds.co.uk/wp-content/uploads/2024/10/phasmophobia-banner.webp"
-                    className="w-full h-full rounded-xl"
-                  />
-                </Link>
-                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                  <a href="#slide2" className="btn btn-circle">
-                    ❮
-                  </a>
-                  <a href="#slide4" className="btn btn-circle">
-                    ❯
-                  </a>
-                </div>
-              </div>
-              <div id="slide4" className="carousel-item relative w-full">
-                <Link to="/games/217590">
-                  <img
-                    src="https://cdn2.steamgriddb.com/hero_thumb/b1dda493901cc6875f04ebece9cdb093.jpg"
-                    className="w-full h-full rounded-xl"
-                  />
-                </Link>
-                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                  <a href="#slide3" className="btn btn-circle">
-                    ❮
-                  </a>
-                  <a href="#slide1" className="btn btn-circle">
-                    ❯
-                  </a>
-                </div>
-              </div>
-            </div> */}
+            <div className="h-[1000px]"></div>
           </div>
         )}
       </>

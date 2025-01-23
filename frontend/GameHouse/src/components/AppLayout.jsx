@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import { useState, useEffect } from "react";
 import Nav from "./Navbar";
 import { search } from "../services/APIservice";
+import Footer from "./Footer";
 
 function AppLayout() {
   const [games, setGames] = useState([]);
@@ -28,6 +29,7 @@ function AppLayout() {
 
         <Outlet context={{ searchValue, games }} />
       </div>
+      <Footer />
     </>
   );
 }
