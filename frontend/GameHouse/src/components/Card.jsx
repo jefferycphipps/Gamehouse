@@ -1,10 +1,11 @@
 /* eslint react/prop-types: 0 */
+import { useState } from "react";
 
 import { Link } from "react-router";
-const [wishlist, setWishlish] = useState([]);
-const [saved, setSaved] = useState([]);
 
 function Card(props) {
+  const [wishlist, setWishlish] = useState([]);
+  const [saved, setSaved] = useState([]);
   return (
     <>
       {props.games.map((game) => (
