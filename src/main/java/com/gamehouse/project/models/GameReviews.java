@@ -1,32 +1,85 @@
 package com.gamehouse.project.models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-public class GameReviews extends AbstractEntity{
+public class GameReviews {
+
+//    @ManyToMany(mappedBy = "gameReviews",
+//            cascade = {
+//                    CascadeType.MERGE,
+//                    CascadeType.PERSIST
+//            })
+//    List<Game> gamesList;
+//
+//    @ManyToMany(mappedBy = "gameReviews")
+//    private List<Game> gamesListReviews;
+
+
+    @Id
+    @GeneratedValue
+    private int id;
+
+    // still need to configure mapping
+    @ManyToOne
+    private User usernameReviewer;
+
+    // still need to configure mapping
+    @ManyToOne
+    private Game gameReviewed;
+    
+    private String gameReview;
 
 
 
+    /* CONSTRUCTORS */
 
-    @ManyToMany(mappedBy = "gameReviews",
-            cascade = {
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST
-            })
-    List<Game> gamesList;
-    @ManyToMany(mappedBy = "gameReviews")
-    private List<Game> gamesListReviews;
-
-
-    public GameReviews(String name, String gameReview) {
-        super();
-        this.setName(name);
+    public GameReviews(String gameReview) {
+        this.gameReview = gameReview;
     }
 
     public GameReviews() {}
 
+
+
+    /* GETTERS & SETTERS */
+
+    public int getId() {
+        return id;
+    }
+
+    public String getGameReview() {
+        return gameReview;
+    }
+
+    public void setGameReview(String gameReview) {
+        this.gameReview = gameReview;
+    }
+
+    public User getUsernameReviewer() {
+        return usernameReviewer;
+    }
+
+    public Game getGameReviewed() {
+        return gameReviewed;
+    }
+
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameReviews that = (GameReviews) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

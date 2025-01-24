@@ -1,6 +1,7 @@
 package com.gamehouse.project.models;
 
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,4 +15,5 @@ public class WebSession implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .allowedHeaders("*");
     }
+
 }
