@@ -1,6 +1,8 @@
 package com.gamehouse.project.models.dto;
 
+
 import com.gamehouse.project.models.User;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -18,6 +20,18 @@ public class RegisterForm extends LoginForm {
 
     @NotBlank(message = "Verify password is required.")
     private String verifyPassword;
+
+    private String recaptcha;
+
+    @Override
+    public String getRecaptcha() {
+        return recaptcha;
+    }
+
+    @Override
+    public void setRecaptcha(String recaptcha) {
+        this.recaptcha = recaptcha;
+    }
 
 
     public String getEmail() {

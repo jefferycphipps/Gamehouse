@@ -1,12 +1,15 @@
 /* eslint react/prop-types: 0 */
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
-
+import axios from "axios";
 function Nav(props) {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
+const [username, setUsername] = useState(
+    localStorage.getItem("username")
+    );
   const handleTheme = (e) => {
     if (e.target.checked) {
       setTheme("dark");
@@ -28,6 +31,20 @@ function Nav(props) {
     props.setSearchValue(e.target.value);
     navigate("/");
   };
+//   handle logout to clear localStorage.
+    const handleLogout = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/logout", {
+                withCredentials: true,
+            });
+            localStorage.removeItem("username");
+            alert("You have been logged out.");
+            navigate("/");
+        } catch (error) {
+            console.error("Error logging out:", error);
+            alert("Failed to log out. Please try again.");
+        }
+    };
 
   return (
     <div className="bg-base-200  mx-auto flex justify-center">
@@ -91,7 +108,7 @@ function Nav(props) {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <Link to={"/profile/:profileid"} className="justify-between">
+                <Link to={`/profile/${username}`} className="justify-between">
                   Profile
                 </Link>
               </li>
@@ -99,7 +116,9 @@ function Nav(props) {
                 <Link>Edit Account (temp)</Link>
               </li>
               <li>
-                <Link to={"/welcome"}>Logout</Link>
+{/*                   <a href="#" onClick={handleLogout} className="logout-link"> */}
+{/*                       Logout</a> */}
+                     <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
           </div>

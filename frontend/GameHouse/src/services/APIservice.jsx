@@ -1,3 +1,4 @@
+
 import axios from "axios";
 
 const apiClient = axios.create({
@@ -9,18 +10,33 @@ const apiClient2 = axios.create({
   headers: { "Content-Type": "application/json", accept: "application/json" },
 });
 
+
 /*  export const fetchEndpoint1 = () => {
     return apiClient.get('/endpoint1');
   }; this is an example of an endpoint */
 
-export const registerUser = (data) => {
-  console.log(data);
-  return apiClient.post("/register", data);
-}; //register user
-export const loginUser = (data) => {
-  console.log(data);
-  return apiClient.post("/login", data);
-}; //login user
+
+
+  export const registerUser = (data) => {
+    return apiClient.post('/register', data);
+  };//register user
+  export const loginUser = (data) => {
+    return apiClient.post('/login', data);
+  };//login user
+  export const userPage = async(username) => {
+    return apiClient.post(`/getUser`, username, {
+        headers: {"Content-Type": "text/plain"
+            }
+        });
+  };
+
+// added another apiClient but changed the name to apiClients so the start up and search will work
+// const apiClients = axios.create({
+//     baseURL: 'http://localhost:8080'
+//   });
+
+
+
 
 export const getbyID = (data) => {
   const gameID = JSON.stringify(data);
@@ -55,3 +71,4 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
+

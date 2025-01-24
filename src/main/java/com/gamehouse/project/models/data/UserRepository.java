@@ -1,5 +1,4 @@
 package com.gamehouse.project.models.data;
-
 import org.springframework.data.repository.CrudRepository;
 import com.gamehouse.project.models.User;
 import org.springframework.stereotype.Repository;
