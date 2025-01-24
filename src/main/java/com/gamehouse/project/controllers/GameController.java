@@ -34,13 +34,16 @@ public class GameController {
 
     //Create new game
     @PostMapping("/saveGame")
-    public ResponseEntity<Game> newGame(@RequestBody Game game) throws Exception {
+    public ResponseEntity<Game> newGame(@RequestBody long igdbCode) throws Exception {
          //have to save all categories into the repo
         //save all platforms into the repo
         //save new reviews
-
-        Game newGame = gameRepository.save(game);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newGame);
+        APICallService apiCallService = new APICallService();
+        Game game = apiCallService.getGamebyIDGBCODE(igdbCode);
+        gameCategoryRepository.saveAll(game.getGameCategories());
+        gamePlatformRepository.saveAll(game.getGamePlatforms());
+        gameRepository.save(game);
+        return ResponseEntity.status(HttpStatus.CREATED).body(game);
 
     }
 

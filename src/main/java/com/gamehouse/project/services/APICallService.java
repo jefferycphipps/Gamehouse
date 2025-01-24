@@ -215,7 +215,6 @@ public class APICallService {
 
     public String getGameRating(List<Age_Ratings> age_ratings){
 
-
         int x = 0;
         String ESRB = "";
         do {
@@ -255,6 +254,9 @@ public class APICallService {
 
 
     public List<GameCategory> getGenre(List<Genres> genreList){
+//        if(genreList == null){
+//
+//        }
         List<GameCategory> genres = new ArrayList<>();
         for (int x = 0; x < genreList.size(); x++) {
             GameCategory tempCat = new GameCategory();
@@ -269,6 +271,9 @@ public class APICallService {
     public List<GamePlatform> getPlatforms(List<Platforms> platformList){
 
         List<GamePlatform> gamePlatforms = new ArrayList<>();
+//        if(platformList == null){
+//
+//        }
         for (int x = 0; x < platformList.size(); x++) {
             GamePlatform tempPlat = new GamePlatform();
             tempPlat.setIgdbCode(platformList.get(x).getId());
