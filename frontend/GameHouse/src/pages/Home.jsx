@@ -4,58 +4,21 @@
 // import { useEffect } from "react";
 import { useOutletContext } from "react-router";
 import Card from "../components/Card";
-
-// import Nav from "../components/Navbar";
-import Pagination from "../components/Pagination";
-import {useNavigate} from "react-router-dom";
-
-function Home() {
-  // const [games, setGames] = useState([]);
-  // const [searchValue, setSearchValue] = useState();
-
-  // const getMovieRequest = async (searchValue) => {
-  //   // const url = "https://api.igdb.com/v4/games";
-
-  //   const response = await fetch(
-  //     `https://api.rawg.io/api/games?key=38581a1a479949828a178114f3591c8c&search=${searchValue}`,
-  //     {
-  //       headers: { "content-type": "application/json" },
-  //     }
-  //   );
-  //   //   "https://api.igdb.com/v4/games",
-  //   //   {
-  //   //     method: "POST",
-  //   //     mode: "no-cors",
-  //   //     headers: {
-  //   //       Accept: "application/json",
-  //   //       "Client-ID": "",
-  //   //       Authorization: "Bearer ",
-  //   //     },
-  //   //     body: ["fields name", `search ${searchValue}`, "limit 20"],
-  //   //   }
-  //   // );
-
-  //   const responseJSON = await response.json();
-  //   setGames(responseJSON.results);
-  //   console.log(responseJSON);
-  // };
-
-  // useEffect(() => {
-  //   getMovieRequest(props.searchValue);
-  // }, [props.searchValue]);
-const navigate = useNavigate();
-  const context = useOutletContext();
-const handleSignIn = () => {
-    navigate("/welcome");
-    };
-const handleRegister = () => {
-    navigate("/register");
-    };
-
-
 import Carousel2 from "../components/Carousel";
 
+// import Nav from "../components/Navbar";
+
+import { useNavigate } from "react-router-dom";
+
 function Home() {
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    navigate("/welcome");
+  };
+  const handleRegister = () => {
+    navigate("/register");
+  };
   const context = useOutletContext();
   const slides = [
     {
@@ -80,12 +43,9 @@ function Home() {
     },
   ];
 
-
   return (
     <>
-
       <div>
-
         {context.searchValue ? (
           <h1 className="mx-auto w-3/5 text-xl mt-20 mb-5">
             Results for: {context.searchValue}
@@ -102,7 +62,6 @@ function Home() {
             </div>
           </div>
         ) : (
-
           <div className="mx-auto w-3/5">
             <h1 className="text-6xl font-bold mt-10 mb-5 tracking-wide">
               Developer Picks
@@ -118,7 +77,6 @@ function Home() {
         )}
       </>
       {context.searchValue ? <div className="flex my-10"></div> : <></>}
-
     </>
   );
 }
