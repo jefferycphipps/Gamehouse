@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
+import {logOutUser} from "../services/APIservice";
 function Nav(props) {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -34,10 +35,11 @@ const [username, setUsername] = useState(
 //   handle logout to clear localStorage.
     const handleLogout = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/logout", {
+            const response = await logOutUser({
                 withCredentials: true,
             });
             localStorage.removeItem("username");
+            setUsername(null)
             alert("You have been logged out.");
             navigate("/");
         } catch (error) {

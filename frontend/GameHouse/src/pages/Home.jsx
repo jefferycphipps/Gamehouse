@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-
+import Carousel2 from "../components/Carousel";
 // import { useState } from "react";
 // import { useEffect } from "react";
 import { useOutletContext } from "react-router";
@@ -44,7 +44,7 @@ function Home() {
   //   getMovieRequest(props.searchValue);
   // }, [props.searchValue]);
 const navigate = useNavigate();
-  const context = useOutletContext();
+
 const handleSignIn = () => {
     navigate("/welcome");
     };
@@ -52,11 +52,7 @@ const handleRegister = () => {
     navigate("/register");
     };
 
-
-import Carousel2 from "../components/Carousel";
-
-function Home() {
-  const context = useOutletContext();
+const context = useOutletContext();
   const slides = [
     {
       id: "152063",
@@ -79,6 +75,10 @@ function Home() {
       name: "Tekken 8",
     },
   ];
+
+
+
+
 
 
   return (
@@ -113,7 +113,12 @@ function Home() {
             <div className="w-full aspect-[6/3] my-0 mx-auto">
               <Carousel2 images={slides} />
             </div>
-            <div className="h-[1000px]"></div>
+            <div className="h-[1000px]">
+                                <div className="flex justify-center mt-40 space-x-4 w-full">
+                                      <button type="submit" class="btn btn-primary" onClick={handleSignIn}>Sign In</button>
+                                      <button type="submit" class="btn btn-primary" onClick={handleRegister}>Register</button>
+                                </div></div>
+
           </div>
         )}
       </>

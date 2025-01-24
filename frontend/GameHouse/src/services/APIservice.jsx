@@ -16,7 +16,9 @@ const apiClient2 = axios.create({
   }; this is an example of an endpoint */
 
 
-
+export const logOutUser = (data) => {
+    return apiClient.get(`/logout`);
+    };
   export const registerUser = (data) => {
     return apiClient.post('/register', data);
   };//register user

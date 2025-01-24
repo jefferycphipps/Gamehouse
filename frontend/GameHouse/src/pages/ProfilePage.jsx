@@ -6,26 +6,30 @@ import { userPage } from "../services/APIservice";
 
 function ProfilePage() {
 
-const {username} = useParams();
+
 const[user, setUser] = useState(null);
 const navigate = useNavigate();
- const [errorMessage, setErrorMessage] = useState("");
+const [errorMessage, setErrorMessage] = useState("");
+const username = localStorage.getItem("username");
+    useEffect(() => {
+        if(!username) {
+        alert("You need to be logged in first.")
+        navigate("/welcome");
+        console.log("you got me")
+            return;
+        };
 
-useEffect(() => {
     const fetchUserData = async () => {
+
         try{
             const response = await userPage(username);
             setUser(response.data);
             setErrorMessage("");
            }catch (error) {
-               const loggedIn = localStorage.getItem("username");
-               if (!loggedIn) {
-                          setErrorMessage("You need to log in first.");
-                        }else {
-                          setErrorMessage(`An error occurred: ${error.message}`);
-                        }
-                        navigate("/welcome");
-                      }
+                setErrorMessage(`An error occurred: ${error.message}`);
+                navigate("/welcome");
+                console.log("you got me too")
+                }
         };
     fetchUserData();
     }, [username, navigate]);
