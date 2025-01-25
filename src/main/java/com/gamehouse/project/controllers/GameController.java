@@ -58,28 +58,30 @@ public class GameController {
 
 
         // Save all categories into the repo
-        for (GameCategory category : gameByIgdb.getGameCategories()) {
-
+//        for (GameCategory category : gameByIgdb.getGameCategories()) {
+//
 //            gameCategoryRepository.findByigdbCode(category.getIgdbCode()).orElseGet(() -> gameCategoryRepository.save(category));
 
-            Optional<GameCategory> gameCategory = gameCategoryRepository.findByigdbCode(category.getIgdbCode());
+//            Optional<GameCategory> gameCategory = gameCategoryRepository.findByigdbCode(category.getIgdbCode());
+//            GameCategory gameCategory = gameCategoryRepository.findByigdbCode(category.getIgdbCode()).orElseThrow(() -> new RuntimeException("Category already exist"));
+//            gameCategoryRepository.save(category);
 
-            if (gameCategory.isPresent()) {
-                GameCategory updateCategory = gameCategory.get();
-                updateCategory.setName(category.getName());
-                updateCategory.setIgdbCode(category.getIgdbCode());
-                gameCategoryRepository.save(updateCategory);
+//            if (gameCategory.isPresent()) {
+//                GameCategory updateCategory = gameCategory.get();
+//                updateCategory.setName(category.getName());
+//                updateCategory.setIgdbCode(category.getIgdbCode());
+//                gameCategoryRepository.save(updateCategory);
 
 
 //                gameCategoryRepository.save(category);
-                
 
-            }
-            else {
-                gameCategoryRepository.save(category);
-            }
-        }
-//        gameCategoryRepository.saveAll(gameByIgdb.getGameCategories());
+
+//            }
+//            else {
+//                gameCategoryRepository.save(category);
+//            }
+//        }
+        gameCategoryRepository.saveAll(gameByIgdb.getGameCategories());
 
 
 
