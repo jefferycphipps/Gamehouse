@@ -130,9 +130,12 @@ public class UserController {
 
     // Get List of Game Reviews by Igdb code
     @GetMapping("/{username}/reviews")
-    public List<GameReviews> getGameReviewByUsername(@PathVariable User username) {
+    public List<GameReviews> getGameReviewByUsername(@PathVariable String username) {
 
-        Optional<GameReviews> reviewByUsername = gameReviewsRepository.findByUsername(username);
+        // Find user in userRepository
+        User user = userRepository.findByUsername(username).orElse(null);
+
+        Optional<GameReviews> reviewByUsername = gameReviewsRepository.findByUsername(user);
 
         if (reviewByUsername.isPresent()) {
             List<GameReviews> gameReviewsByUsername = (List<GameReviews>) reviewByUsername.get();
