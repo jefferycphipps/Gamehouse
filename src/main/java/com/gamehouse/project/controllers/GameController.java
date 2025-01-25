@@ -3,6 +3,7 @@ package com.gamehouse.project.controllers;
 
 import com.gamehouse.project.models.*;
 import com.gamehouse.project.models.data.*;
+import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,49 +32,77 @@ public class GameController {
     @Autowired
     private UserRepository userRepository;
 
+    // Test to see game description & size based on game igdbCode
+    @PostMapping("/description")
+    public String getGameDescription(@RequestBody long igdbCode) throws Exception {
+        APICallService newApiCall  = new APICallService();
+        Game getGame = newApiCall.getGamebyIDGBCODE(igdbCode);
 
-    //Create new game
+//        Game newGameDescription = new Game();
+//        newGameDescription.setGameDescription(getGame.getGameDescription());
+
+        return getGame.getGameDescription();
+    }
+
+
+    // Create/Save new game to gameRepository by igdbCode
     @PostMapping("/saveGame")
-    public ResponseEntity<Game> newGame(@RequestBody Game game) throws Exception {
+//    public String newGame(@RequestBody long igdbCode) throws Exception {
+//    public Game newGame(@RequestBody long igdbCode) throws Exception {
+    public ResponseEntity<Game> newGame(@RequestBody long igdbCode) throws Exception {
 
-        //have to save all categories into the repo
-        long newGameIgdbCode = game.getIGDBCode();
 
-        Optional <GameCategory> gameCategory = gameCategoryRepository.findByigdbCode(newGameIgdbCode);
+        // Uses igdbCode to retrieve game from APICallService
+        APICallService newApiCall = new APICallService();
+        Game gameByIgdb = newApiCall.getGamebyIDGBCODE(igdbCode);
 
-        if (!gameCategory.isPresent()) {
 
-            GameCategory newGameCategory = new GameCategory();
+        // Save all categories into the repo
+        for (GameCategory category : gameByIgdb.getGameCategories()) {
 
-            for (GameCategory category : game.getGameCategories()) {
-                newGameCategory.setName(category.toString());
-                newGameCategory.setIgdbCode(newGameIgdbCode);
+//            gameCategoryRepository.findByigdbCode(category.getIgdbCode()).orElseGet(() -> gameCategoryRepository.save(category));
 
-                gameCategoryRepository.save(newGameCategory);
+            Optional<GameCategory> gameCategory = gameCategoryRepository.findByigdbCode(category.getIgdbCode());
+
+            if (gameCategory.isPresent()) {
+                GameCategory updateCategory = gameCategory.get();
+                updateCategory.setName(category.getName());
+                updateCategory.setIgdbCode(category.getIgdbCode());
+                gameCategoryRepository.save(updateCategory);
+
+
+//                gameCategoryRepository.save(category);
+                
+
+            }
+            else {
+                gameCategoryRepository.save(category);
             }
         }
+//        gameCategoryRepository.saveAll(gameByIgdb.getGameCategories());
+
 
 
         //save all platforms into the repo
-        Optional <GamePlatform> gamePlatform = gamePlatformRepository.findByigdbCode(newGameIgdbCode);
+//        Optional <GamePlatform> gamePlatform = gamePlatformRepository.findByigdbCode(newGameIgdbCode);
+//
+//        if (!gamePlatform.isPresent()) {
+//            GamePlatform newGamePlatform = new GamePlatform();
+//
+//            for (GamePlatform platform : game.getGamePlatforms()) {
+//                newGamePlatform.setName(platform.toString());
+//                newGamePlatform.setIgdbCode(newGameIgdbCode);
+//
+                gamePlatformRepository.saveAll(gameByIgdb.getGamePlatforms());
+//            }
+//        }
 
-        if (!gamePlatform.isPresent()) {
-            GamePlatform newGamePlatform = new GamePlatform();
 
-            for (GamePlatform platform : game.getGamePlatforms()) {
-                newGamePlatform.setName(platform.toString());
-                newGamePlatform.setIgdbCode(newGameIgdbCode);
+        // Saves game to gameRepository
+        gameRepository.save(gameByIgdb);
 
-                gamePlatformRepository.save(newGamePlatform);
-            }
-        }
-
-
-        //save new reviews
-
-        Game newGame = gameRepository.save(game);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newGame);
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(gameByIgdb);
+//        return newGame;
     }
 
     @PostMapping("/saveGames")
@@ -112,11 +141,15 @@ public class GameController {
     }
 
 
-    // Get List of Game Reviews by igdb code
-    @GetMapping("/{igdbCode}")
-    public List<GameReviews> getGameReviewByIgdbCode(@PathVariable long igdbCode) {
+    // Get List of Game Reviews by game name
+    @GetMapping("/getReviews")
+    public List<GameReviews> getGameReviewByIgdb (@RequestBody long igdbCode) {
 
+        // CT Note: Unable to use igdbCode because field in Game is IGDBCode - but repository requires Camel case for igdbCode field
         Optional<GameReviews> reviewByIgdbCode = gameReviewsRepository.findByIgdbCode(igdbCode);
+
+        // Check to see if the game is in gameRepository
+//        Optional<Game> currentGameByIgbd = gameRepository.findByIgdbCode(igdbCode);
 
         if (reviewByIgdbCode.isPresent()) {
             List<GameReviews> gameReviewsByIgdbCode = (List<GameReviews>) reviewByIgdbCode.get();
@@ -128,29 +161,42 @@ public class GameController {
     }
 
 
-    // Saving New Game Reviews based on Igdb code
-    @PostMapping("/{igdbCode}")
-    public ResponseEntity<GameReviews> saveGameReview(@PathVariable long igdbCode, @RequestBody String gameReview, @RequestBody User username) {
+    // Saving New Game Reviews based on game's Igdb code
+    @PostMapping("/saveReview")
+    public ResponseEntity<GameReviews> saveGameReview(@RequestBody long igdbCode, @RequestBody String gameReview, @RequestBody User username) throws Exception {
 
         GameReviews newGameReview = new GameReviews();
 
         Optional<User> newUser = userRepository.findByUsername(username.getUsername());
 
         if (newUser.isPresent()) {
-            newGameReview.setUsername(username);
+            newGameReview.setUsername(newUser.get());
         }
 
-        Optional<Game> game = gameRepository.findByIgdbCode(igdbCode);
+        // Search gameRepository to find game based on igdbCode
+        Optional<Game> newGame = gameRepository.findByIgdbCode(igdbCode);
 
-        if (game.isPresent()) {
-            Game newGame = game.get();
-            newGameReview.setGame(newGame);
+        if (newGame.isPresent()) {
+//            Game newGame = game.get();
+            newGameReview.setGame(newGame.get());
+
+        } else {
+
+            // Uses igdbCode to retrieve game from APICallService if NOT saved in gameRepository
+            APICallService newApiCall = new APICallService();
+            Game addNewGame = newApiCall.getGamebyIDGBCODE(igdbCode);
+            gameRepository.save(addNewGame);
+
+            Game addedGame = gameRepository.findByIgdbCode(igdbCode).get();
+            newGameReview.setGame(addedGame);
+
         }
 
+        newGameReview.setIgdbCode(igdbCode);
         newGameReview.setGameReview(gameReview);
         gameReviewsRepository.save(newGameReview);
 
-        return ResponseEntity.ok(newGameReview);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newGameReview);
     }
 
 }
