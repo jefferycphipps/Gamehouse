@@ -40,8 +40,16 @@ const username = localStorage.getItem("username");
                   <h1 className="text-red-500">{errorMessage}</h1>
               ) : (
                   <>
+
                       {user ? (
                           <>
+                          <div className="w-32 h-32 rounded-full overflow-hidden mx-auto">
+                              <img
+                              alt="Profile Picture"
+                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU"
+                              className="w-full h-full object-cover"
+                              />
+                              </div>
                               <h1>Welcome, {user.username}</h1>
                               <p>Email: {user.email}</p>
                           </>

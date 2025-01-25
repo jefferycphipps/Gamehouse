@@ -1,55 +1,17 @@
 /* eslint react/prop-types: 0 */
 import Carousel2 from "../components/Carousel";
-// import { useState } from "react";
-// import { useEffect } from "react";
 import { useOutletContext } from "react-router";
 import Card from "../components/Card";
-
-// import Nav from "../components/Navbar";
 import Pagination from "../components/Pagination";
 import {useNavigate} from "react-router-dom";
 
 function Home() {
-  // const [games, setGames] = useState([]);
-  // const [searchValue, setSearchValue] = useState();
-
-  // const getMovieRequest = async (searchValue) => {
-  //   // const url = "https://api.igdb.com/v4/games";
-
-  //   const response = await fetch(
-  //     `https://api.rawg.io/api/games?key=38581a1a479949828a178114f3591c8c&search=${searchValue}`,
-  //     {
-  //       headers: { "content-type": "application/json" },
-  //     }
-  //   );
-  //   //   "https://api.igdb.com/v4/games",
-  //   //   {
-  //   //     method: "POST",
-  //   //     mode: "no-cors",
-  //   //     headers: {
-  //   //       Accept: "application/json",
-  //   //       "Client-ID": "",
-  //   //       Authorization: "Bearer ",
-  //   //     },
-  //   //     body: ["fields name", `search ${searchValue}`, "limit 20"],
-  //   //   }
-  //   // );
-
-  //   const responseJSON = await response.json();
-  //   setGames(responseJSON.results);
-  //   console.log(responseJSON);
-  // };
-
-  // useEffect(() => {
-  //   getMovieRequest(props.searchValue);
-  // }, [props.searchValue]);
-const navigate = useNavigate();
-
-const handleSignIn = () => {
-    navigate("/welcome");
+    const navigate = useNavigate();
+    const handleSignIn = () => {
+        navigate("/welcome");
     };
-const handleRegister = () => {
-    navigate("/register");
+    const handleRegister = () => {
+        navigate("/register");
     };
 
 const context = useOutletContext();
@@ -75,11 +37,6 @@ const context = useOutletContext();
       name: "Tekken 8",
     },
   ];
-
-
-
-
-
 
   return (
     <>
@@ -115,8 +72,8 @@ const context = useOutletContext();
             </div>
             <div className="h-[1000px]">
                                 <div className="flex justify-center mt-40 space-x-4 w-full">
-                                      <button type="submit" class="btn btn-primary" onClick={handleSignIn}>Sign In</button>
-                                      <button type="submit" class="btn btn-primary" onClick={handleRegister}>Register</button>
+                                      <button type="submit" className="btn btn-primary" onClick={handleSignIn}>Sign In</button>
+                                      <button type="submit" className="btn btn-primary" onClick={handleRegister}>Register</button>
                                 </div></div>
 
           </div>

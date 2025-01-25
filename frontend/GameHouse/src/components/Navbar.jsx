@@ -3,15 +3,13 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import {logOutUser} from "../services/APIservice";
+
+
 function Nav(props) {
-  const [theme, setTheme] = useState(
+    const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
-
-const [username, setUsername] = useState(
-    localStorage.getItem("username")
-    );
-  const handleTheme = (e) => {
+        const handleTheme = (e) => {
     if (e.target.checked) {
       setTheme("dark");
     } else {
@@ -28,18 +26,20 @@ const [username, setUsername] = useState(
 
   const navigate = useNavigate();
 
+
+
   const handleSearch = (e) => {
     props.setSearchValue(e.target.value);
     navigate("/");
   };
 //   handle logout to clear localStorage.
+
     const handleLogout = async () => {
         try {
             const response = await logOutUser({
                 withCredentials: true,
             });
             localStorage.removeItem("username");
-            setUsername(null)
             alert("You have been logged out.");
             navigate("/");
         } catch (error) {
@@ -47,6 +47,7 @@ const [username, setUsername] = useState(
             alert("Failed to log out. Please try again.");
         }
     };
+const username = localStorage.getItem("username");
 
   return (
     <div className="bg-base-200  mx-auto flex justify-center">
@@ -109,6 +110,8 @@ const [username, setUsername] = useState(
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
+            {username ? (
+                <>
               <li>
                 <Link to={`/profile/${username}`} className="justify-between">
                   Profile
@@ -117,6 +120,8 @@ const [username, setUsername] = useState(
               <li>
                 <Link>Edit Account (temp)</Link>
               </li>
+              </>
+              ) : null}
               <li>
 {/*                   <a href="#" onClick={handleLogout} className="logout-link"> */}
 {/*                       Logout</a> */}

@@ -5,14 +5,14 @@ import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
 import {loginUser} from "../services/APIservice";
 import { load } from "recaptcha-v3";
-// import ReCAPTCHA from "react-google-recaptcha";
 
 function SignInPage() {
 
-const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [username, setUsername] = useState(localStorage.getItem("username") || "");
+    const [recaptchaToken, setRecaptchaToken] = useState("");
+    const siteKey = "6LeD3a8qAAAAAIV1IMOwHogeJq0_Vwt0c6ez9LAO";
 
- const [recaptchaToken, setRecaptchaToken] = useState("");
- const siteKey = "6LeD3a8qAAAAAIV1IMOwHogeJq0_Vwt0c6ez9LAO";
 
     const handleSubmit = async (values, {setSubmitting}) => {
         const recaptchaInstance = await load(siteKey);
@@ -25,7 +25,8 @@ const navigate = useNavigate();
                 recaptcha: token,
                 });
 
-            localStorage.setItem("username", values.username)
+            localStorage.setItem("username", values.username);
+
             alert("login successful");
             navigate(`/profile/${values.username}`);
             } catch (error) {
