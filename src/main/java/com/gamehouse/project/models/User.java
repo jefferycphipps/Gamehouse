@@ -1,7 +1,9 @@
 package com.gamehouse.project.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
@@ -10,12 +12,18 @@ import java.util.List;
 @Entity
 public class User extends AbstractEntity {
   private static final   BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
+
     private String username;
     private String email;
     private String pwHash;
 
     @OneToMany (mappedBy = "username")
     private List<GameReviews> gameReviews;
+
+    @OneToOne
+    @JoinColumn(name = "user")
+    private List<Wishlist> wishlist;
+
 
     public User(String username, String email, String pwHash) {
         super();
