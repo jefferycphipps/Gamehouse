@@ -1,6 +1,5 @@
 /* eslint react/prop-types: 0 */
 
-// import { useState } from "react";
 // import { useEffect } from "react";
 import { useOutletContext } from "react-router";
 import Card from "../components/Card";
@@ -43,6 +42,9 @@ function Home() {
     },
   ];
 
+  console.log(context.gamesLength.current);
+  console.log(context.searchValue);
+
   return (
     <>
       <div>
@@ -55,13 +57,19 @@ function Home() {
         )}
       </div>
       <>
-        {context.searchValue ? (
+        {context.gamesLength.current == 0 && context.searchValue ? (
           <div className="m-auto ">
-            <div className="grid grid-cols-3 w-3/5 mx-auto gap-4">
+            <div className=" w-3/5 mx-auto gap-4 h-[700px]">
+              <div>No games found</div>
+            </div>
+          </div>
+        ) : context.searchValue && context.gamesLength.current > 0 ? (
+          <div className="m-auto ">
+            <div className="grid grid-cols-3 w-3/5 mx-auto mb-20 gap-4">
               <Card games={context.games} />
             </div>
           </div>
-        ) : (
+        ) : !context.searchValue || context.searchValue == "" ? (
           <div className="mx-auto w-3/5">
             <h1 className="text-6xl font-bold mt-10 mb-5 tracking-wide">
               Developer Picks
@@ -73,6 +81,21 @@ function Home() {
               <Carousel2 images={slides} />
             </div>
             <div className="h-[1000px]"></div>
+          </div>
+        ) : (
+          <div>
+            <div className="m-auto ">
+              <div className="grid grid-cols-3 w-3/5 mx-auto gap-4">
+                {Array(12)
+                  .fill(null)
+                  .map((emptyArr, index) => (
+                    <div
+                      className="skeleton h-80 w-52 mx-auto"
+                      key={index}
+                    ></div>
+                  ))}
+              </div>
+            </div>
           </div>
         )}
       </>

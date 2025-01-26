@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Nav from "./Navbar";
 import { search } from "../services/APIservice";
 import Footer from "./Footer";
@@ -7,19 +7,28 @@ import Footer from "./Footer";
 function AppLayout() {
   const [games, setGames] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const gamesLength = useRef();
 
   useEffect(() => {
     const getSearchRequest = async (searchVal) => {
-      const response = await search(searchVal);
+      try {
+        const response = await search(searchVal);
 
-      const responseJSON = await response.data;
-      console.log(responseJSON);
-      setGames(responseJSON);
-      console.log(games);
+        const responseJSON = await response.data;
+        console.log(responseJSON);
+        setGames(responseJSON);
+        gamesLength.current = responseJSON.length;
+        setIsLoading(false);
+        console.log(responseJSON.length);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getSearchRequest(searchValue).catch(console.error);
   }, [searchValue]);
 
+  console.log(Number(gamesLength.current));
   return (
     <>
       <div className="flex-col items-center w-full justify-center h-max">
@@ -27,7 +36,7 @@ function AppLayout() {
           <Nav searchValue={searchValue} setSearchValue={setSearchValue} />
         </div>
 
-        <Outlet context={{ searchValue, games }} />
+        <Outlet context={{ searchValue, games, gamesLength }} />
       </div>
 
       <Footer />
