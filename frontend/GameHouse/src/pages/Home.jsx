@@ -82,6 +82,7 @@ function Home() {
                 totalPosts={context.gamesLength.current}
                 postPerPage={postPerPage}
                 setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
               />
             </div>
           </div>
