@@ -68,7 +68,7 @@ function Home() {
       <div>
         {context.gamesLength.current == 0 && context.searchValue ? (
           <div className="m-auto ">
-            <div className=" w-3/5 mx-auto gap-4 h-[700px]">
+            <div className=" w-3/5 mx-auto gap-4 h-[900px]">
               <div>No games found</div>
             </div>
           </div>

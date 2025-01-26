@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { getbyID } from "../services/APIservice";
 import { wishlishContext } from "../App";
@@ -8,6 +8,8 @@ function GamePage() {
   const { gameID } = router;
   const [game, setGame] = useState([]);
 
+  const gameAgain = useRef();
+
   useEffect(() => {
     const getGameRequest = async (gameID) => {
       const response = await getbyID(gameID);
@@ -15,6 +17,7 @@ function GamePage() {
       const responseJSON = await response.data;
       console.log(responseJSON);
       setGame(responseJSON);
+      gameAgain.current = responseJSON.gameCategories;
       console.log(game);
     };
     getGameRequest(gameID).catch(console.error);
@@ -48,6 +51,7 @@ function GamePage() {
         "https://www.simplyrecipes.com/thmb/pjYMLcsKHkr8D8tYixmaFNxppPw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg",
     },
   ];
+
   return (
     <>
       <div
@@ -115,13 +119,17 @@ function GamePage() {
                 Save
               </button>
             </div>
-            <div className="basis-1/2 flex flex-col justify-center gap-20">
-              <h1 className="mb-5 text-5xl font-bold basis-2/3 text-slate-200 text-center">
+            <div className="basis-1/2 flex flex-col justify-center gap-17">
+              <h1 className="mb-5 text-5xl font-bold basis-3/4 text-slate-200 text-center">
                 {game.name}
               </h1>
-              <p className="mb-5 text-slate-200 h-1/2">
+              <p className="mb-5 text-slate-200 h-1/2 basis-1/4">
                 {game.gameDescription}
               </p>
+              <div>
+                <div className="my-5">Genres:</div>
+                <div>Platforms:</div>
+              </div>
             </div>
           </div>
         </div>
