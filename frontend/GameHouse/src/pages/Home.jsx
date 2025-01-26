@@ -8,8 +8,13 @@ import Carousel2 from "../components/Carousel";
 // import Nav from "../components/Navbar";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Pagination from "../components/Pagination";
 
 function Home() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(12);
+
   const navigate = useNavigate();
 
   const handleSignIn = () => {
@@ -19,6 +24,9 @@ function Home() {
     navigate("/register");
   };
   const context = useOutletContext();
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPosts = context.games.slice(firstPostIndex, lastPostIndex);
   const slides = [
     {
       id: "152063",
@@ -44,6 +52,7 @@ function Home() {
 
   console.log(context.gamesLength.current);
   console.log(context.searchValue);
+  console.log(currentPosts);
 
   return (
     <>
@@ -56,7 +65,7 @@ function Home() {
           <></>
         )}
       </div>
-      <>
+      <div>
         {context.gamesLength.current == 0 && context.searchValue ? (
           <div className="m-auto ">
             <div className=" w-3/5 mx-auto gap-4 h-[700px]">
@@ -66,7 +75,14 @@ function Home() {
         ) : context.searchValue && context.gamesLength.current > 0 ? (
           <div className="m-auto ">
             <div className="grid grid-cols-3 w-3/5 mx-auto mb-20 gap-4">
-              <Card games={context.games} />
+              <Card games={currentPosts} />
+            </div>
+            <div className="w-3/5 mx-auto">
+              <Pagination
+                totalPosts={context.gamesLength.current}
+                postPerPage={postPerPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           </div>
         ) : !context.searchValue || context.searchValue == "" ? (
@@ -98,7 +114,8 @@ function Home() {
             </div>
           </div>
         )}
-      </>
+      </div>
+
       {context.searchValue ? <div className="flex my-10"></div> : <></>}
     </>
   );
