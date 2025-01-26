@@ -7,6 +7,7 @@ import jakarta.persistence.OneToOne;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -20,9 +21,9 @@ public class User extends AbstractEntity {
     @OneToMany (mappedBy = "username")
     private List<GameReviews> gameReviews;
 
-    @OneToOne
-    @JoinColumn(name = "user")
-    private List<Wishlist> wishlist;
+//    @OneToOne
+//    @JoinColumn(name = "user")
+//    private List<Wishlist> wishlist;
 
 
     public User(String username, String email, String pwHash) {
@@ -70,4 +71,12 @@ public class User extends AbstractEntity {
     public void setGameReviews(List<GameReviews> gameReviews) {
         this.gameReviews = gameReviews;
     }
+
+//    public List<Wishlist> getWishlist() {
+//        return wishlist;
+//    }
+//
+//    public void setWishlist(List<Wishlist> wishlist) {
+//        this.wishlist = wishlist;
+//    }
 }

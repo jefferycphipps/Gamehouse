@@ -26,6 +26,9 @@ public class Game extends AbstractEntity{
     @ManyToMany
     private List<GamePlatform> gamePlatforms;
 
+//    @ManyToMany
+//    private List<Wishlist> gameWishlisted;
+
     public Game(){}
 
 
@@ -102,6 +105,14 @@ public class Game extends AbstractEntity{
     public void setGamePlatforms(List<GamePlatform> gamePlatforms) {
         this.gamePlatforms = gamePlatforms;
     }
+
+//    public List<Wishlist> getGameWishlisted() {
+//        return gameWishlisted;
+//    }
+//
+//    public void setGameWishlisted(List<Wishlist> gameWishlisted) {
+//        this.gameWishlisted = gameWishlisted;
+//    }
 
     @Override
     public String toString() {
