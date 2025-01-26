@@ -7,7 +7,6 @@ import Footer from "./Footer";
 function AppLayout() {
   const [games, setGames] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const gamesLength = useRef();
 
   useEffect(() => {
@@ -19,7 +18,7 @@ function AppLayout() {
         console.log(responseJSON);
         setGames(responseJSON);
         gamesLength.current = responseJSON.length;
-        setIsLoading(false);
+
         console.log(responseJSON.length);
       } catch (error) {
         console.log(error);
