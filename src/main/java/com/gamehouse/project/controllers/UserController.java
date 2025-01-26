@@ -51,12 +51,12 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> processRegisterFrom(@RequestBody @Valid RegisterForm registerFormDTO, HttpServletRequest request) {
-        String recaptchaToken = registerFormDTO.getRecaptcha();
-        String secretKey = "6LeD3a8qAAAAAAa9-p7i-_CrWgLMybLkRx22nimk";
-
-        if (!recaptchaService.verifyRecaptcha(recaptchaToken, secretKey)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed reCAPTCHA verification.");
-        }
+//        String recaptchaToken = registerFormDTO.getRecaptcha();
+//        String secretKey = "6LeD3a8qAAAAAAa9-p7i-_CrWgLMybLkRx22nimk";
+//
+//        if (!recaptchaService.verifyRecaptcha(recaptchaToken, secretKey)) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed reCAPTCHA verification.");
+//        }
         if (userRepository.findByName(registerFormDTO.getName()) != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Name already exists.");
         }
