@@ -34,12 +34,23 @@ public class GameReviews {
     
     private String gameReview;
 
+    private long igdbCode;
+
+    private String username;
+
 
 
     /* CONSTRUCTORS */
 
-    public GameReviews(String gameReview) {
+//    public GameReviews(String gameReview) {
+//        this.gameReview = gameReview;
+//    }
+
+
+    public GameReviews(String gameReview, long igdbCode, String username) {
         this.gameReview = gameReview;
+        this.igdbCode = igdbCode;
+        this.username = username;
     }
 
     public GameReviews() {}
@@ -74,6 +85,22 @@ public class GameReviews {
 
     public void setGameReviewed(Game gameReviewed) {
         this.gameReviewed = gameReviewed;
+    }
+
+    public long getIgdbCode() {
+        return igdbCode;
+    }
+
+    public void setIgdbCode(long igdbCode) {
+        this.igdbCode = igdbCode;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 
