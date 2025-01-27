@@ -2,7 +2,6 @@ package com.gamehouse.project.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,9 +22,10 @@ public class GameReviews {
     @GeneratedValue
     private int id;
 
-    // still need to configure mapping
+
     @ManyToOne
-    private User usernameReviewer;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     // still need to configure mapping
     @ManyToOne
@@ -59,8 +59,8 @@ public class GameReviews {
         this.gameReview = gameReview;
     }
 
-    public User getUsernameReviewer() {
-        return usernameReviewer;
+    public User getUser() {
+        return user;
     }
 
     public Game getGameReviewed() {

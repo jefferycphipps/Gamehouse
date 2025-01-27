@@ -1,7 +1,13 @@
 package com.gamehouse.project.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -10,6 +16,10 @@ public class User extends AbstractEntity{
     private String username;
     private String email;
     private String pwHash;
+
+    @OneToMany (cascade = CascadeType.ALL,
+        mappedBy = "user")
+    private List<GameReviews> gameReviews = new ArrayList<>();
 
     public User(String username, String email, String pwHash) {
         super();
@@ -48,4 +58,16 @@ public class User extends AbstractEntity{
     public boolean isMatchingPassword(String password) {
         return passwordEncode.matches(password,pwHash);
     }
+
+    public List<GameReviews> getGameReviews() {
+        return gameReviews;
+    }
+
+    public void setGameReviews(List<GameReviews> gameReviews) {
+        this.gameReviews = gameReviews;
+    }
+
+
+    // Added Methods to Add/Remove Game Reviews
+
 }
