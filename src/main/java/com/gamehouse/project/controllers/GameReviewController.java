@@ -105,6 +105,28 @@ public class GameReviewController {
 
 
     // Get Reviews by Username
+    @GetMapping("/{username}")
+    public List<GameReviews> getReviewsByUsername(@PathVariable String username) {
+
+        List<GameReviews> reviewsListByUser = new ArrayList<>();
+
+        List<GameReviews> reviewsListByUsername = gameReviewsRepository.findAllByUsername(username);
+
+        for (int i = 0; i < reviewsListByUsername.size(); i++) {
+            GameReviews gameReviewByUsername = new GameReviews();
+
+//            gameReview.setGame(reviewsListByIgdb.get(i).getGame());
+//            gameReview.setUser(reviewsListByIgdb.get(i).getUser());
+            gameReviewByUsername.setGameName(reviewsListByUsername.get(i).getGameName());
+            gameReviewByUsername.setGameReview(reviewsListByUsername.get(i).getGameReview());
+            gameReviewByUsername.setIgdbCode(reviewsListByUsername.get(i).getIgdbCode());
+            gameReviewByUsername.setUsername(reviewsListByUsername.get(i).getUsername());
+
+            reviewsListByUser.add(gameReviewByUsername);
+        }
+
+        return reviewsListByUser;
+    }
 
 
 

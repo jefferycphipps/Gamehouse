@@ -16,4 +16,5 @@ public interface GameReviewsRepository extends CrudRepository <GameReviews, Inte
     Optional<GameReviews> findByGameName (String gameName);
 
     List<GameReviews> findAllByIgdbCode (long igdbCode);
+    List<GameReviews> findAllByUsername (String username);
 }
