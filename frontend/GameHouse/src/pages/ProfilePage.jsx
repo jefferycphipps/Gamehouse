@@ -6,7 +6,12 @@ import { userPage } from "../services/APIservice";
 
 function ProfilePage() {
 
-
+const handleWishlist = () => {
+        navigate("/wishlist");
+    };
+    const handleSaved = () => {
+        navigate("/saved");
+    };
 const[user, setUser] = useState(null);
 const navigate = useNavigate();
 const [errorMessage, setErrorMessage] = useState("");
@@ -52,7 +57,12 @@ const username = localStorage.getItem("username");
                               </div>
                               <h1>Welcome, {user.username}</h1>
                               <p>Email: {user.email}</p>
+                              <div className="flex justify-center mt-40 space-x-4 w-full">
+                                                                    <button type="submit" className="btn btn-primary" onClick={handleWishlist}>Wishlist</button>
+                                                                    <button type="submit" className="btn btn-primary" onClick={handleSaved}>Saved</button>
+                                                              </div>
                           </>
+
                       ) : (
                           <h1>Loading...</h1>
                       )}
