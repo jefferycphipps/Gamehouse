@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,14 +78,36 @@ public class GameReviewController {
 
 
 
-    // Get Reviews by igdbCode
+    // Get Reviews by Game igdbCode
     @GetMapping("/getReviewsIgdb")
     public List<GameReviews> getReviewsByIgdb(@RequestBody long igdbCode) {
-        return (List<GameReviews>) gameReviewsRepository.findByIgdbCode(igdbCode).orElseThrow(RuntimeException::new);
+
+        List<GameReviews> reviewsList = new ArrayList<>();
+
+        List<GameReviews> reviewsListByIgdb = gameReviewsRepository.findAllByIgdbCode(igdbCode);
+
+
+        for (int i = 0; i < reviewsListByIgdb.size(); i++) {
+            GameReviews gameReview = new GameReviews();
+
+//            gameReview.setGame(reviewsListByIgdb.get(i).getGame());
+//            gameReview.setUser(reviewsListByIgdb.get(i).getUser());
+            gameReview.setGameName(reviewsListByIgdb.get(i).getGameName());
+            gameReview.setGameReview(reviewsListByIgdb.get(i).getGameReview());
+            gameReview.setIgdbCode(reviewsListByIgdb.get(i).getIgdbCode());
+            gameReview.setUsername(reviewsListByIgdb.get(i).getUsername());
+
+            reviewsList.add(gameReview);
+        }
+
+        return reviewsList;
     }
 
 
     // Get Reviews by Username
+
+
+
 
 
 }
