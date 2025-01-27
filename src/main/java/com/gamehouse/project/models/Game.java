@@ -16,7 +16,7 @@ public class Game extends AbstractEntity{
     private String boxArtURL;
 
     @OneToMany (cascade = CascadeType.ALL,
-            mappedBy = "gameReviewed")
+            mappedBy = "game")
     private List<GameReviews> gameReviews;
 
     //Needs to be changed to list of game categories.
