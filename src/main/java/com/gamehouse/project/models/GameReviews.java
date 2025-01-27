@@ -125,4 +125,18 @@ public class GameReviews {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
+    @Override
+    public String toString() {
+        return "GameReviews{" +
+                "id=" + id +
+                ", user=" + user +
+                ", gameReviewed=" + gameReviewed +
+                ", gameName='" + gameName + '\'' +
+                ", gameReview='" + gameReview + '\'' +
+                ", username='" + username + '\'' +
+                ", igdbCode=" + igdbCode +
+                '}';
+    }
 }
