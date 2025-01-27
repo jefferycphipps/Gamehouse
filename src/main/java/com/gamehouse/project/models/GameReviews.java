@@ -31,13 +31,14 @@ public class GameReviews {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game gameReviewed;
-    
-    private String gameReview;
 
-    private long igdbCode;
+    private String gameName;
+
+    private String gameReview;
 
     private String username;
 
+    private long igdbCode;
 
 
     /* CONSTRUCTORS */
@@ -47,10 +48,11 @@ public class GameReviews {
 //    }
 
 
-    public GameReviews(String gameReview, long igdbCode, String username) {
+    public GameReviews(String gameName, String gameReview, String username, long igdbCode) {
+        this.gameName = gameName;
         this.gameReview = gameReview;
-        this.igdbCode = igdbCode;
         this.username = username;
+        this.igdbCode = igdbCode;
     }
 
     public GameReviews() {}
@@ -103,6 +105,13 @@ public class GameReviews {
         this.username = username;
     }
 
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
 
     @Override
     public boolean equals(Object o) {
