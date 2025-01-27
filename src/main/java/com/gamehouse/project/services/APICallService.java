@@ -83,7 +83,7 @@ public class APICallService {
         tempGame.setGameCategories(getGenre(gameJsons.get(0).getGenres()));
         tempGame.setGameDescription(gameJsons.get(0).getSummary());
         tempGame.setGamePlatforms(getPlatforms(gameJsons.get(0).getPlatforms()));
-        tempGame.setIGDBCode(gameJsons.get(0).getId());
+        tempGame.setIgdbCode(gameJsons.get(0).getId());
 
         //System.out.println(tempGame);
         return tempGame; //return the list of games
