@@ -127,13 +127,24 @@ public class GameReviews {
     }
 
 
+//    @Override
+//    public String toString() {
+//        return "GameReviews{" +
+//                "id=" + id +
+//                ", user=" + user +
+//                ", game=" + game +
+//                ", gameName='" + gameName + '\'' +
+//                ", gameReview='" + gameReview + '\'' +
+//                ", username='" + username + '\'' +
+//                ", igdbCode=" + igdbCode +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
         return "GameReviews{" +
-                "id=" + id +
-                ", user=" + user +
-                ", game=" + game +
-                ", gameName='" + gameName + '\'' +
+                "gameName='" + gameName + '\'' +
                 ", gameReview='" + gameReview + '\'' +
                 ", username='" + username + '\'' +
                 ", igdbCode=" + igdbCode +
