@@ -29,6 +29,7 @@ public class GameReviews {
 
     // still need to configure mapping
     @ManyToOne
+    @JoinColumn(name = "game_id")
     private Game gameReviewed;
     
     private String gameReview;
@@ -63,11 +64,17 @@ public class GameReviews {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Game getGameReviewed() {
         return gameReviewed;
     }
 
-
+    public void setGameReviewed(Game gameReviewed) {
+        this.gameReviewed = gameReviewed;
+    }
 
 
     @Override
