@@ -30,7 +30,7 @@ public class GameReviews {
     // still need to configure mapping
     @ManyToOne
     @JoinColumn(name = "game_id")
-    private Game gameReviewed;
+    private Game game;
 
     private String gameName;
 
@@ -81,12 +81,12 @@ public class GameReviews {
         this.user = user;
     }
 
-    public Game getGameReviewed() {
-        return gameReviewed;
+    public Game getGame() {
+        return game;
     }
 
-    public void setGameReviewed(Game gameReviewed) {
-        this.gameReviewed = gameReviewed;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public long getIgdbCode() {
@@ -132,7 +132,7 @@ public class GameReviews {
         return "GameReviews{" +
                 "id=" + id +
                 ", user=" + user +
-                ", gameReviewed=" + gameReviewed +
+                ", game=" + game +
                 ", gameName='" + gameName + '\'' +
                 ", gameReview='" + gameReview + '\'' +
                 ", username='" + username + '\'' +
