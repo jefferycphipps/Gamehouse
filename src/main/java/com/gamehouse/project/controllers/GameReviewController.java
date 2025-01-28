@@ -121,8 +121,8 @@ public class GameReviewController {
         for (int i = 0; i < reviewsListByUsername.size(); i++) {
             GameReviews gameReviewByUsername = new GameReviews();
 
-//            gameReview.setGame(reviewsListByIgdb.get(i).getGame());
-//            gameReview.setUser(reviewsListByIgdb.get(i).getUser());
+//            gameReviewByUsername.setGame(reviewsListByIgdb.get(i).getGame());
+//            gameReviewByUsername.setUser(reviewsListByIgdb.get(i).getUser());
             gameReviewByUsername.setGameName(reviewsListByUsername.get(i).getGameName());
             gameReviewByUsername.setGameReview(reviewsListByUsername.get(i).getGameReview());
             gameReviewByUsername.setIgdbCode(reviewsListByUsername.get(i).getIgdbCode());
