@@ -1,4 +1,4 @@
 package com.gamehouse.project.models;
 
-public class Wishlist {
+public class WishlistGame {
 }
