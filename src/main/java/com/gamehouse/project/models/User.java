@@ -1,7 +1,10 @@
 package com.gamehouse.project.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Optional;
 
 
 @Entity
@@ -10,6 +13,9 @@ public class User extends AbstractEntity{
     private String username;
     private String email;
     private String pwHash;
+
+    @OneToOne
+    private Image profileImage;
 
     public User(String username, String email, String pwHash) {
         super();
@@ -43,6 +49,14 @@ public class User extends AbstractEntity{
 
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
+    }
+
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Image profileImage) {
+        this.profileImage = profileImage;
     }
 
     public boolean isMatchingPassword(String password) {

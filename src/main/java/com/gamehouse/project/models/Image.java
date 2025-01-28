@@ -3,7 +3,7 @@ package com.gamehouse.project.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
-
+import jakarta.persistence.OneToOne;
 
 
 @Entity
@@ -12,6 +12,9 @@ public class Image extends AbstractEntity{
     private String type;
 
     private String filePath;
+
+    @OneToOne
+    private User user;
 
     public Image() {
     }
