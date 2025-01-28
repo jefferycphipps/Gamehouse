@@ -54,7 +54,7 @@ const username = localStorage.getItem("username");
                               <p>Email: {user.email}</p>
                                <div className="game-container">
                                           <div className="wishlist">
-                                              <h2>Wishlist</h2>
+                                              <h2 className="h2">Wishlist</h2>
                                               <ul>
                                                   <li>Game 1</li>
                                                   <li>Game 2</li>
@@ -62,7 +62,7 @@ const username = localStorage.getItem("username");
                                               </ul>
                                           </div>
                                           <div className="saved-games">
-                                              <h2>Saved Games</h2>
+                                              <h2 className="h2">Saved Games</h2>
                                               <ul>
                                                   <li>Saved Game 1</li>
                                                   <li>Saved Game 2</li>
