@@ -19,12 +19,15 @@ public class Game extends AbstractEntity{
             mappedBy = "game")
     private List<GameReviews> gameReviews;
 
-    //Needs to be changed to list of game categories.
     @ManyToMany
     private List<GameCategory> gameCategories;
 
     @ManyToMany
     private List<GamePlatform> gamePlatforms;
+
+    @OneToOne (cascade = CascadeType.ALL,
+        mappedBy = "game")
+    private WishlistGame wishlistGame;
 
     public Game(){}
 
@@ -102,6 +105,16 @@ public class Game extends AbstractEntity{
     public void setGamePlatforms(List<GamePlatform> gamePlatforms) {
         this.gamePlatforms = gamePlatforms;
     }
+
+    public WishlistGame getWishlistGame() {
+        return wishlistGame;
+    }
+
+    public void setWishlistGame(WishlistGame wishlistGame) {
+        this.wishlistGame = wishlistGame;
+    }
+
+
 
     @Override
     public String toString() {
