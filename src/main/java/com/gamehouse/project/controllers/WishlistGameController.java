@@ -9,11 +9,10 @@ import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -78,7 +77,33 @@ public class WishlistGameController {
         // Saves wishlisted game to repo
         wishlistGameRepository.save(gameWishlist);
 
+//        wishlistGameRepository.saveAll(gameWishlist);
         return ResponseEntity.status(HttpStatus.CREATED).body("Game added to Wishlist");
+    }
+
+
+
+    // Get Wishlist Games by Username
+    @GetMapping("/{username}")
+    public List<WishlistGame> getWishlistGameByUsername (@PathVariable String username) {
+
+        List<WishlistGame> wishlistByUser = new ArrayList<>();
+
+        List<WishlistGame> wishlistByUsername = wishlistGameRepository.findAllByUsername(username);
+
+        for (int i = 0; i < wishlistByUsername.size(); i++) {
+            WishlistGame wishlistGame = new WishlistGame();
+
+//            wishlistGame.setGame(wishlistByUsername.get(i).getGame());
+//            wishlistGame.setUser(wishlistByUsername.get(i).getUser());
+            wishlistGame.setUsername(wishlistByUsername.get(i).getUsername());
+            wishlistGame.setGameName(wishlistByUsername.get(i).getGameName());
+            wishlistGame.setIgdbCode(wishlistByUsername.get(i).getIgdbCode());
+
+            wishlistByUser.add(wishlistGame);
+        }
+
+        return wishlistByUser;
     }
 
 
