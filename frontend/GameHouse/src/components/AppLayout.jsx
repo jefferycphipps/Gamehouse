@@ -30,15 +30,16 @@ function AppLayout() {
   console.log(Number(gamesLength.current));
   return (
     <>
-      <div className="flex-col items-center w-full justify-center h-max">
-        <div className="flex-auto sticky top-0 z-50">
+      {/* <div className="flex-col items-center w-full justify-center h-max"> */}
+      <div className="grid grid-rows-[auto_1fr_auto] w-full items-center min-h-[100dvh]">
+        <div className="flex-auto sticky top-0 z-50 r">
           <Nav searchValue={searchValue} setSearchValue={setSearchValue} />
         </div>
 
         <Outlet context={{ searchValue, games, gamesLength }} />
-      </div>
 
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 }

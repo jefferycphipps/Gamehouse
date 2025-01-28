@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="footer bg-neutral text-neutral-content p-10 mt-20">
+    <footer className="footer bg-neutral text-neutral-content p-10 mt-20 ">
       <aside>
         <p>
           &copy; 2025 GameHouse, Inc.
