@@ -7,6 +7,8 @@ import java.util.Objects;
 @Entity
 public class WishlistGame {
 
+    /* FIELDS */
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,6 +25,9 @@ public class WishlistGame {
     private String gameName;
     private long igdbCode;
 
+
+    /* CONSTRUCTORS */
+
     public WishlistGame(String userName, String gameName, long igdbCode) {
         this.username = userName;
         this.gameName = gameName;
@@ -31,6 +36,8 @@ public class WishlistGame {
 
     public WishlistGame() {}
 
+
+    /* GETTERS & SETTERS */
 
     public int getId() {
         return id;
@@ -42,6 +49,14 @@ public class WishlistGame {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public String getUsername() {
@@ -68,6 +83,8 @@ public class WishlistGame {
         this.igdbCode = igdbCode;
     }
 
+
+    /* OVERRIDE METHODS */
 
     @Override
     public boolean equals(Object o) {
