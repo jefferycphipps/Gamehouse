@@ -41,13 +41,20 @@ function GamePage() {
 
   useEffect(() => {
     const getGameRequest = async (gameID) => {
-      const response = await getbyID(gameID);
+      setIsPending(true);
+      try {
+        const response = await getbyID(gameID);
 
-      const responseJSON = await response.data;
-      console.log(responseJSON);
-      setGame(responseJSON);
-      gameAgain.current = responseJSON.gameCategories;
-      console.log(game);
+        const responseJSON = await response.data;
+        console.log(responseJSON);
+        setGame(responseJSON);
+        gameAgain.current = responseJSON.gameCategories;
+        console.log(game);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsPending(false);
+      }
     };
     getGameRequest(gameID).catch(console.error);
   }, [gameID]);
@@ -75,78 +82,82 @@ function GamePage() {
         }}
       >
         <div className="hero-overlay bg-opacity-90"></div>
-        <div className="w-4/5 top-0 ">
-          <div className="w-full h-3/5 flex gap-10 ">
-            <div className="basis-1/3 flex flex-col items-center justify-center gap-5">
-              <img src={game.boxArtURL} className="size-auto" />
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  console.log(game?.igdbcode);
-                  setWishlish([...wishlist, game?.igdbcode]);
-                  console.log(wishlist);
-                }}
-                className="btn btn-primary rounded-3xl w-1/2 flex items-center justify-start pl-20"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+        {isPending ? (
+          <span className="loading loading-spinner loading-lg mx-auto "></span>
+        ) : (
+          <div className="w-4/5 top-0 ">
+            <div className="w-full h-3/5 flex gap-10 ">
+              <div className="basis-1/3 flex flex-col items-center justify-center gap-5">
+                <img src={game.boxArtURL || Error} className="size-auto" />
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log(game?.igdbcode);
+                    setWishlish([...wishlist, game?.igdbcode]);
+                    console.log(wishlist);
+                  }}
+                  className="btn btn-primary rounded-3xl w-1/2 flex items-center justify-start pl-20"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
-                Wishlist
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  console.log(game?.igdbcode);
-                  setSaved([...saved, game?.igdbcode]);
-                  console.log(saved);
-                }}
-                className="btn btn-accent rounded-3xl w-1/2 flex items-center justify-start pl-20"
-              >
-                <svg
-                  className="h-6 w-6"
-                  viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                  fill="none"
-                  stroke="#000000"
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                  Wishlist
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log(game?.igdbcode);
+                    setSaved([...saved, game?.igdbcode]);
+                    console.log(saved);
+                  }}
+                  className="btn btn-accent rounded-3xl w-1/2 flex items-center justify-start pl-20"
                 >
-                  <path
-                    d="m12.75 7.75h-10m5-5v10"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                  />
-                </svg>
-                Save
-              </button>
-            </div>
-            <div className="basis-1/2 flex flex-col justify-center gap-17">
-              <h1 className="mb-5 text-5xl font-bold basis-3/4 text-slate-200 text-center">
-                {game.name}
-              </h1>
-              <p className="mb-5 text-slate-200 h-1/2 basis-1/4">
-                {game.gameDescription}
-              </p>
-              <div>
-                <div className="my-5 text-slate-200">Genres:</div>
-                <div className="text-slate-200">Platforms:</div>
+                  <svg
+                    className="h-6 w-6"
+                    viewBox="0 0 16 16"
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    fill="none"
+                    stroke="#000000"
+                  >
+                    <path
+                      d="m12.75 7.75h-10m5-5v10"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                  Save
+                </button>
+              </div>
+              <div className="basis-1/2 flex flex-col justify-center gap-17">
+                <h1 className="mb-5 text-5xl font-bold basis-3/4 text-slate-200 text-center">
+                  {game.name || "Unfortunately Game Info could not be found :("}
+                </h1>
+                <p className="mb-5 text-slate-200 h-1/2 basis-1/4">
+                  {game.gameDescription}
+                </p>
+                <div>
+                  <div className="my-5 text-slate-200">Genres: </div>
+                  <div className="text-slate-200">Platforms:</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="mx-auto w-3/5 flex flex-col">
         <div className="text-6xl font-bold mt-10 mb-10 tracking-wide">
@@ -157,7 +168,7 @@ function GamePage() {
           type="text"
           placeholder="Write a Review"
           className="input input-bordered input-primary h-48 w-full my-10 max-w-xl mx-auto justify-center"
-        /> */}
+          /> */}
         <form
           onSubmit={handleSubmit}
           className="ml-auto justify-center w-full max-w-xl flex flex-col"
@@ -178,7 +189,7 @@ function GamePage() {
               <div className="flex p-5 justify-between ">
                 <div className="flex flex-col justify-start items-start gap-3">
                   <Link
-                    to={"/profile/:profileid"}
+                    to={"/profile/:username"}
                     tabIndex={0}
                     role="button"
                     className="btn btn-ghost btn-circle avatar"
