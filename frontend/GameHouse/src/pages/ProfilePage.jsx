@@ -3,15 +3,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import { userPage } from "../services/APIservice";
-
+import "../App.css";
 function ProfilePage() {
 
-const handleWishlist = () => {
-        navigate("/wishlist");
-    };
-    const handleSaved = () => {
-        navigate("/saved");
-    };
+
 const[user, setUser] = useState(null);
 const navigate = useNavigate();
 const [errorMessage, setErrorMessage] = useState("");
@@ -57,10 +52,24 @@ const username = localStorage.getItem("username");
                               </div>
                               <h1>Welcome, {user.username}</h1>
                               <p>Email: {user.email}</p>
-                              <div className="flex justify-center mt-40 space-x-4 w-full">
-                                                                    <button type="submit" className="btn btn-primary" onClick={handleWishlist}>Wishlist</button>
-                                                                    <button type="submit" className="btn btn-primary" onClick={handleSaved}>Saved</button>
-                                                              </div>
+                               <div className="game-container">
+                                          <div className="wishlist">
+                                              <h2>Wishlist</h2>
+                                              <ul>
+                                                  <li>Game 1</li>
+                                                  <li>Game 2</li>
+                                                  <li>Game 3</li>
+                                              </ul>
+                                          </div>
+                                          <div className="saved-games">
+                                              <h2>Saved Games</h2>
+                                              <ul>
+                                                  <li>Saved Game 1</li>
+                                                  <li>Saved Game 2</li>
+                                                  <li>Saved Game 3</li>
+                                              </ul>
+                                          </div>
+                                      </div>
                           </>
 
                       ) : (

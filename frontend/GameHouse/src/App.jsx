@@ -9,8 +9,7 @@ import SignInPage from "./pages/SignInPage";
 import { startup } from "./services/APIservice";
 import Test from "./pages/Test";
 import RegisterPage from "./pages/RegisterPage";
-import WishlistPage from "./pages/WishlistPage";
-import SavedPage from "./pages/SavedPage";
+
 
 const router = createBrowserRouter([
   {
@@ -36,14 +35,7 @@ const router = createBrowserRouter([
           path: "/register",
           element: <RegisterPage />,
       },
-         {
-                  path: "/wishlist",
-                  element: <WishlistPage/>,
-              },
-           {
-                    path: "/saved",
-                    element: <SavedPage />,
-                },
+
     ],
   },
 ]);
