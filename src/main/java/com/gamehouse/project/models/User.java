@@ -21,6 +21,11 @@ public class User extends AbstractEntity{
         mappedBy = "user")
     private List<GameReviews> gameReviews = new ArrayList<>();
 
+    @OneToMany (cascade = CascadeType.ALL,
+        mappedBy = "user")
+    private List<WishlistGame> gameWishlist = new ArrayList<>();
+
+
     public User(String username, String email, String pwHash) {
         super();
 
@@ -67,7 +72,11 @@ public class User extends AbstractEntity{
         this.gameReviews = gameReviews;
     }
 
+    public List<WishlistGame> getGameWishlist() {
+        return gameWishlist;
+    }
 
-    // Added Methods to Add/Remove Game Reviews
-
+    public void setGameWishlist(List<WishlistGame> gameWishlist) {
+        this.gameWishlist = gameWishlist;
+    }
 }
