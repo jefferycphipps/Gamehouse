@@ -11,6 +11,7 @@ public class Game extends AbstractEntity{
 
     private long igdbCode;
 
+    @Column(length = 1000)
     private String gameDescription;
 
     private String boxArtURL;
