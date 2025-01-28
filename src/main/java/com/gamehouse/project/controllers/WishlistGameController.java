@@ -3,9 +3,7 @@ package com.gamehouse.project.controllers;
 import com.gamehouse.project.models.Game;
 import com.gamehouse.project.models.User;
 import com.gamehouse.project.models.WishlistGame;
-import com.gamehouse.project.models.data.GameRepository;
-import com.gamehouse.project.models.data.UserRepository;
-import com.gamehouse.project.models.data.WishlistGameRepository;
+import com.gamehouse.project.models.data.*;
 import com.gamehouse.project.models.dto.WishlistGameDTO;
 import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,12 @@ public class WishlistGameController {
     @Autowired
     private GameRepository gameRepository;
 
+    @Autowired
+    private GameCategoryRepository gameCategoryRepository;
+
+    @Autowired
+    private GamePlatformRepository gamePlatformRepository;
+
 
     // Add game to Wishlist using long igdbCode & String username
     @PostMapping("/addGame")
@@ -51,7 +55,12 @@ public class WishlistGameController {
             // Uses igdbCode to retrieve game from APICallService & save to gameRepository
             APICallService newApiCall = new APICallService();
             Game addNewGame = newApiCall.getGamebyIDGBCODE(wishlistGameDTO.getIgdbCode());
+
+            gameCategoryRepository.saveAll(addNewGame.getGameCategories());
+            gamePlatformRepository.saveAll(addNewGame.getGamePlatforms());
+
             gameRepository.save(addNewGame);
+
 
             // THEN, Search gameRepository to find game based on igdbCode to set game as Wishlist item
             Game wishlistGame = gameRepository.findByIgdbCode(wishlistGameDTO.getIgdbCode()).get();
