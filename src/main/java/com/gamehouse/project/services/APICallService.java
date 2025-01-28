@@ -80,12 +80,31 @@ public class APICallService {
         tempGame.setName(gameJsons.get(0).getName());
         tempGame.setBoxArtURL(getCover(gameJsons.get(0).getCover()));
         tempGame.setGameRating(getGameRating(gameJsons.get(0).getAge_ratings()));
-        tempGame.setGameCategories(getGenre(gameJsons.get(0).getGenres()));
+
+
+        if(gameJsons.get(0).getGenres()==null){
+            GameCategory newGameCategory = new GameCategory("dummy", 0);
+            List<GameCategory> gameCategories = new ArrayList<>();
+            gameCategories.add(newGameCategory);
+            tempGame.setGameCategories(gameCategories);
+        }else{
+            tempGame.setGameCategories(getGenre(gameJsons.get(0).getGenres()));
+        }
+
         tempGame.setGameDescription(gameJsons.get(0).getSummary());
-        tempGame.setGamePlatforms(getPlatforms(gameJsons.get(0).getPlatforms()));
+
+        if(gameJsons.get(0).getPlatforms()==null){
+            GamePlatform newGamePlatform = new GamePlatform("dummy", 0);
+            List<GamePlatform> gamePlatforms = new ArrayList<>();
+            gamePlatforms.add(newGamePlatform);
+            tempGame.setGamePlatforms(gamePlatforms);
+        }else{
+            tempGame.setGamePlatforms(getPlatforms(gameJsons.get(0).getPlatforms()));
+        }
+
         tempGame.setIGDBCode(gameJsons.get(0).getId());
 
-        //System.out.println(tempGame);
+        System.out.println(tempGame);
         return tempGame; //return the list of games
     }
 
@@ -215,6 +234,9 @@ public class APICallService {
 
     public String getGameRating(List<Age_Ratings> age_ratings){
 
+        if(age_ratings==null){
+            return "dummy";
+        }
 
         int x = 0;
         String ESRB = "";
@@ -255,7 +277,12 @@ public class APICallService {
 
 
     public List<GameCategory> getGenre(List<Genres> genreList){
+
         List<GameCategory> genres = new ArrayList<>();
+        if(genreList==null){
+            GameCategory newGameCategory = new GameCategory("dummy", 0);
+            genres.add(newGameCategory);
+        }
         for (int x = 0; x < genreList.size(); x++) {
             GameCategory tempCat = new GameCategory();
             tempCat.setIgdbCode(genreList.get(x).getId());
@@ -269,6 +296,10 @@ public class APICallService {
     public List<GamePlatform> getPlatforms(List<Platforms> platformList){
 
         List<GamePlatform> gamePlatforms = new ArrayList<>();
+        if(platformList == null){
+            GamePlatform newGamePlatform = new GamePlatform("dummy", 0);
+            gamePlatforms.add(newGamePlatform);
+        }
         for (int x = 0; x < platformList.size(); x++) {
             GamePlatform tempPlat = new GamePlatform();
             tempPlat.setIgdbCode(platformList.get(x).getId());

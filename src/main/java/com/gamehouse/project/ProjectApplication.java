@@ -19,9 +19,10 @@ public class ProjectApplication {
     public static void main(String[] args) throws Exception {
         //APICallService test = new APICallService();
         //String string = "god of war";
+        //int id = 143393;
         //test.getGamesLight(string);
         //test.getGamesbyList(string);
-
+        //test.getGamebyIDGBCODE(143393);
         //System.out.println(test.getGameRating(ratings));
       SpringApplication.run(ProjectApplication.class, args);
     }
