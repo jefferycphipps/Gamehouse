@@ -3,9 +3,7 @@ package com.gamehouse.project.controllers;
 import com.gamehouse.project.models.Game;
 import com.gamehouse.project.models.GameReviews;
 import com.gamehouse.project.models.User;
-import com.gamehouse.project.models.data.GameRepository;
-import com.gamehouse.project.models.data.GameReviewsRepository;
-import com.gamehouse.project.models.data.UserRepository;
+import com.gamehouse.project.models.data.*;
 import com.gamehouse.project.models.dto.GameReviewsDTO;
 import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,12 @@ public class GameReviewController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private GameCategoryRepository gameCategoryRepository;
+
+    @Autowired
+    private GamePlatformRepository gamePlatformRepository;
+
 
     // Save Game Reviews
     @PostMapping("/save")
@@ -51,6 +55,8 @@ public class GameReviewController {
             // Uses igdbCode to retrieve game from APICallService if NOT saved in gameRepository
             APICallService newApiCall = new APICallService();
             Game addNewGame = newApiCall.getGamebyIDGBCODE(gameReviewsDTO.getIgdbCode());
+            gameCategoryRepository.saveAll(addNewGame.getGameCategories());
+            gamePlatformRepository.saveAll(addNewGame.getGamePlatforms());
             gameRepository.save(addNewGame);
 
             // THEN, Search gameRepository to find game based on igdbCode
