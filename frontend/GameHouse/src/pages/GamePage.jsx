@@ -7,6 +7,35 @@ function GamePage() {
   const router = useParams();
   const { gameID } = router;
   const [game, setGame] = useState([]);
+  const [review, setReview] = useState("");
+  const [name, setName] = useState("OIIA");
+  const [profilePic, setProfilePic] = useState(
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU"
+  );
+  const [isPending, setIsPending] = useState(false);
+  const [fakeReviews, setFakeReviews] = useState([
+    {
+      review:
+        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat. Mi phasellus porta cras et, tristique leo scelerisque phasellus. Himenaeos in suscipit curae diam; ridiculus nec nisl. Interdum platea per sodales tristique felis ad.",
+      name: "GoldenBoy69",
+      profilePic:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHT1bbUhvtq8v-AegejdrqfFAzLNiGqiNaeQ&s",
+    },
+    {
+      review:
+        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. ",
+      name: "SuperFuture",
+      profilePic:
+        "https://i.pinimg.com/736x/30/d5/c0/30d5c013ba8971b621b782e003ef0153.jpg",
+    },
+    {
+      review:
+        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat.",
+      name: "BigPizza",
+      profilePic:
+        "https://www.simplyrecipes.com/thmb/pjYMLcsKHkr8D8tYixmaFNxppPw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg",
+    },
+  ]);
 
   const gameAgain = useRef();
 
@@ -28,30 +57,15 @@ function GamePage() {
   const [saved, setSaved] = useState(useContext(wishlishContext));
   console.log(saved);
 
-  const fakeReviews = [
-    {
-      review:
-        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat. Mi phasellus porta cras et, tristique leo scelerisque phasellus. Himenaeos in suscipit curae diam; ridiculus nec nisl. Interdum platea per sodales tristique felis ad.",
-      name: "GoldenBoy69",
-      profilePic:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHT1bbUhvtq8v-AegejdrqfFAzLNiGqiNaeQ&s",
-    },
-    {
-      review:
-        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. ",
-      name: "SuperFuture",
-      profilePic:
-        "https://images.squarespace-cdn.com/content/58129b47414fb57ae8dd0d99/1615350737909-9NHYX0HWK49W53BS3B00/Logo+Monogram+Trans+W+Color2021.png?format=1500w&content-type=image%2Fpng",
-    },
-    {
-      review:
-        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat.",
-      name: "BigPizza",
-      profilePic:
-        "https://www.simplyrecipes.com/thmb/pjYMLcsKHkr8D8tYixmaFNxppPw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg",
-    },
-  ];
+  function handleSubmit(e) {
+    e.preventDefault();
 
+    const fullReview = { review, name, profilePic };
+    console.log(fullReview);
+    setFakeReviews([...fakeReviews, fullReview]);
+    console.log(fakeReviews);
+    setReview("");
+  }
   return (
     <>
       <div
@@ -127,8 +141,8 @@ function GamePage() {
                 {game.gameDescription}
               </p>
               <div>
-                <div className="my-5">Genres:</div>
-                <div>Platforms:</div>
+                <div className="my-5 text-slate-200">Genres:</div>
+                <div className="text-slate-200">Platforms:</div>
               </div>
             </div>
           </div>
@@ -144,10 +158,20 @@ function GamePage() {
           placeholder="Write a Review"
           className="input input-bordered input-primary h-48 w-full my-10 max-w-xl mx-auto justify-center"
         /> */}
-        <textarea
-          className="textarea textarea-primary ml-auto justify-center w-full max-w-xl my-10 h-48"
-          placeholder="Write a Review"
-        ></textarea>
+        <form
+          onSubmit={handleSubmit}
+          className="ml-auto justify-center w-full max-w-xl flex flex-col"
+        >
+          <textarea
+            value={review}
+            className="textarea textarea-primary w-full max-w-xl my-10 h-48"
+            placeholder="Write a Review"
+            onChange={(e) => setReview(e.target.value)}
+          ></textarea>
+          <button type="submit" className="btn btn-primary ml-auto w-1/4 ">
+            Submit
+          </button>
+        </form>
         <div className="flex flex-col gap-5 my-10">
           {fakeReviews.map((r, i) => (
             <>

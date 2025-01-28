@@ -73,7 +73,7 @@ function Home() {
             </div>
           </div>
         ) : context.searchValue && context.gamesLength.current > 0 ? (
-          <div className="mx-auto w-3/5">
+          <div className="m-auto ">
             <div className="grid grid-cols-3 w-3/5 mx-auto mb-20 gap-4">
               <Card games={currentPosts} />
             </div>
