@@ -28,8 +28,8 @@ public class WishlistGame {
 
     /* CONSTRUCTORS */
 
-    public WishlistGame(String userName, String gameName, long igdbCode) {
-        this.username = userName;
+    public WishlistGame(String username, String gameName, long igdbCode) {
+        this.username = username;
         this.gameName = gameName;
         this.igdbCode = igdbCode;
     }
