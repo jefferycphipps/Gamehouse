@@ -22,7 +22,11 @@ public class WishlistGame {
     private Game game;
 
     private String username;
+
+    @Column(nullable = false)
     private String gameName;
+
+    @Column(nullable = false)
     private long igdbCode;
 
 
