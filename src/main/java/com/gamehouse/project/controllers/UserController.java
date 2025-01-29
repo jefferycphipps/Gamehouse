@@ -176,4 +176,15 @@ public class UserController {
 
         return ResponseEntity.ok("Success!");
     }
+
+    @PostMapping("/delete/{username}")
+    public ResponseEntity<?>deleteUser(@PathVariable String username){
+        User deletedUser = userRepository.findByUsername(username);
+        if(deletedUser!=null){
+            userRepository.delete(deletedUser);
+            return ResponseEntity.ok("User:"+username+" deleted");
+        }
+        return ResponseEntity.ok("user not found");
+    }
+
 }
