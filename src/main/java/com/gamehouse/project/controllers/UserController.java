@@ -1,9 +1,12 @@
 package com.gamehouse.project.controllers;
+import com.gamehouse.project.models.Image;
 import com.gamehouse.project.models.RecaptchaService;
+import com.gamehouse.project.models.data.ImageRepository;
 import com.gamehouse.project.models.dto.LoginForm;
 import com.gamehouse.project.models.dto.RegisterForm;
 import com.gamehouse.project.models.User;
 import com.gamehouse.project.models.data.UserRepository;
+import com.gamehouse.project.services.ImageService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -12,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
@@ -23,6 +29,12 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
+
+    @Autowired
+    private ImageService imageService;
 
     private static final String userSessionKey = "user";
 
@@ -141,5 +153,27 @@ public class UserController {
             return null;
         }
         return user;
+    }
+
+    @PostMapping("/saveUserImage")
+    public ResponseEntity<?>saveUserImage(@RequestParam("user") String username, @RequestParam("image") MultipartFile file) throws IOException {
+        User user = userRepository.findByUsername(username);
+        Image temp = imageRepository.findByName(file.getOriginalFilename());
+        if(temp !=null){
+            user.setProfileImage(temp);
+            userRepository.save(user);
+            return ResponseEntity.ok("Image already in system and saved to user!");
+        }
+        int respsone = imageService.uploadImageToFileDirectory(file);
+        if(respsone!=-1){
+            Optional<Image> newImage = imageRepository.findById(respsone);
+            if(newImage.isPresent()) {
+                Image userImage = newImage.get();
+                user.setProfileImage(userImage);
+                userRepository.save(user);
+            }
+        }
+
+        return ResponseEntity.ok("Success!");
     }
 }

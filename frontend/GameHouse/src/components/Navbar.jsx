@@ -118,7 +118,7 @@ const username = localStorage.getItem("username");
                 </Link>
               </li>
               <li>
-                <Link>Edit Account (temp)</Link>
+                <Link to={'/editaccount'}>Edit Profile Pic</Link>
               </li>
               </>
               ) : null}
