@@ -3,6 +3,7 @@ package com.gamehouse.project.models;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Game extends AbstractEntity{
@@ -26,9 +27,9 @@ public class Game extends AbstractEntity{
     @ManyToMany
     private List<GamePlatform> gamePlatforms;
 
-    @OneToOne (cascade = CascadeType.ALL,
+    @OneToMany (cascade = CascadeType.ALL,
         mappedBy = "game")
-    private WishlistGame wishlistGame;
+    private List<WishlistGame> wishlistGame;
 
     public Game(){}
 
@@ -107,15 +108,29 @@ public class Game extends AbstractEntity{
         this.gamePlatforms = gamePlatforms;
     }
 
-    public WishlistGame getWishlistGame() {
+//    public WishlistGame getWishlistGame() {
+//        return wishlistGame;
+//    }
+//
+//    public void setWishlistGame(WishlistGame wishlistGame) {
+//        this.wishlistGame = wishlistGame;
+//    }
+
+    public List<WishlistGame> getWishlistGame() {
         return wishlistGame;
     }
 
-    public void setWishlistGame(WishlistGame wishlistGame) {
+    public void setWishlistGame(List<WishlistGame> wishlistGame) {
         this.wishlistGame = wishlistGame;
     }
 
-
+//    public Set<WishlistGame> getWishlistGame() {
+//        return wishlistGame;
+//    }
+//
+//    public void setWishlistGame(Set<WishlistGame> wishlistGame) {
+//        this.wishlistGame = wishlistGame;
+//    }
 
     @Override
     public String toString() {

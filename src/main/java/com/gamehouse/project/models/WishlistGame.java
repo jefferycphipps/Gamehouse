@@ -2,7 +2,10 @@ package com.gamehouse.project.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class WishlistGame {
@@ -17,7 +20,7 @@ public class WishlistGame {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
 
@@ -62,6 +65,7 @@ public class WishlistGame {
     public void setGame(Game game) {
         this.game = game;
     }
+
 
     public String getUsername() {
         return username;
