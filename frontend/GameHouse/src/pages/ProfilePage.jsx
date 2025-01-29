@@ -6,12 +6,12 @@ import { getPhoto, userPage } from "../services/APIservice";
 import "../App.css";
 function ProfilePage() {
 
-const [url, setUrl]= useState('');
 const defaultPic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU";
 const[user, setUser] = useState(null);
 const navigate = useNavigate();
 const [errorMessage, setErrorMessage] = useState("");
 const username = localStorage.getItem("username");
+
     useEffect(() => {
         if(!username) {
         alert("You need to be logged in first.")
@@ -25,11 +25,7 @@ const username = localStorage.getItem("username");
         try{
             const response = await userPage(username);
             setUser(response.data);
-            if("http://localhost:8080/image/"+username==="no image"){
-                setUrl(defaultPic);
-            }else{
-                setUrl("http://localhost:8080/image/"+username);
-            }
+            
             setErrorMessage("");
            }catch (error) {
                 setErrorMessage(`An error occurred: ${error.message}`);
@@ -38,9 +34,12 @@ const username = localStorage.getItem("username");
                 }
         };
     fetchUserData();
-    console.log("url:" + url);
+    
+   
     }, [username, navigate]);
 
+    
+    
 
    return (
           <div className="mt-20 text-2xl mx-auto w-4/5 text-center">
@@ -54,7 +53,7 @@ const username = localStorage.getItem("username");
                           <div className="w-32 h-32 rounded-full overflow-hidden mx-auto">
                               <img
                               alt="Profile Picture"
-                              src={url}
+                              src={user.profileImage ? ("http://localhost:8080/image/"+username):(defaultPic)}
                               className="w-full h-full object-cover"
                               />
                               </div>

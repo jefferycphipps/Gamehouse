@@ -10,6 +10,7 @@ import { startup } from "./services/APIservice";
 import Test from "./pages/Test";
 import RegisterPage from "./pages/RegisterPage";
 import EditProfilePic from "./pages/EditProfilePic";
+import DeleteUser from "./pages/DeleteUser";
 
 const router = createBrowserRouter([
   {
@@ -35,10 +36,14 @@ const router = createBrowserRouter([
           path: "/register",
           element: <RegisterPage />,
       },
-{
+      {
         path: "/editaccount",
         element: <EditProfilePic />,
-    },
+      },
+      {
+        path: "/deleteaccount",
+        element: <DeleteUser />,
+      },
 
 
     ],
