@@ -1,6 +1,7 @@
 package com.gamehouse.project.controllers;
 
 import com.gamehouse.project.models.Game;
+import com.gamehouse.project.models.OwnedGame;
 import com.gamehouse.project.models.User;
 import com.gamehouse.project.models.WishlistGame;
 import com.gamehouse.project.models.data.*;
@@ -17,11 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("wishlist")
-public class WishlistGameController {
+@RequestMapping("owned")
+public class OwnedGameController {
 
     @Autowired
-    private WishlistGameRepository wishlistGameRepository;
+    private OwnedGameRepository ownedGameRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -38,27 +39,27 @@ public class WishlistGameController {
 
     // Add game to Wishlist using long igdbCode & String username
     @PostMapping("/addGame")
-    public ResponseEntity<String> addGameToWishlist (@RequestBody GameUsernameDTO gameUsernameDTO) throws Exception {
+    public ResponseEntity<String> addGameToOwned (@RequestBody GameUsernameDTO gameUsernameDTO) throws Exception {
 
         // Checks if Game already added by user
-        List<WishlistGame> wishlistByUser = wishlistGameRepository.findAllByUsername(gameUsernameDTO.getUsername());
+        List<OwnedGame> OwnedListByUser = ownedGameRepository.findAllByUsername(gameUsernameDTO.getUsername());
 
-        for (WishlistGame game : wishlistByUser) {
+        for (OwnedGame game : OwnedListByUser) {
             if (game.getIgdbCode() == gameUsernameDTO.getIgdbCode()) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Game already added to Wishlist.");
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Game already added to Owned List.");
             }
         }
 
 
-        WishlistGame gameWishlist = new WishlistGame();
+        OwnedGame gameOwnedlist = new OwnedGame();
 
         // Search gameRepository for game -- if NOT will save game to gameRepository
         Optional<Game> getGame = gameRepository.findByIgdbCode(gameUsernameDTO.getIgdbCode());
 
         if (getGame.isPresent()) {
-            gameWishlist.setGame(getGame.get());
-            gameWishlist.setGameName(getGame.get().getName());
-            gameWishlist.setIgdbCode(getGame.get().getIgdbCode());
+            gameOwnedlist.setGame(getGame.get());
+            gameOwnedlist.setGameName(getGame.get().getName());
+            gameOwnedlist.setIgdbCode(getGame.get().getIgdbCode());
 
         } else {
 
@@ -72,50 +73,49 @@ public class WishlistGameController {
             gameRepository.save(addNewGame);
 
 
-            // THEN, Search gameRepository to find game based on igdbCode to set game as Wishlist item
-            Game wishlistGame = gameRepository.findByIgdbCode(gameUsernameDTO.getIgdbCode()).get();
-            gameWishlist.setGame(wishlistGame);
-            gameWishlist.setGameName(wishlistGame.getName());
-            gameWishlist.setIgdbCode(wishlistGame.getIgdbCode());
+            // THEN, Search gameRepository to find game based on igdbCode to set game as OwnedGame item
+            Game ownedListGame = gameRepository.findByIgdbCode(gameUsernameDTO.getIgdbCode()).get();
+            gameOwnedlist.setGame(ownedListGame);
+            gameOwnedlist.setGameName(ownedListGame.getName());
+            gameOwnedlist.setIgdbCode(ownedListGame.getIgdbCode());
         }
 
         // Search UserRepository to find User based on username
         User getUser = userRepository.findByUsername(gameUsernameDTO.getUsername());
 
-        gameWishlist.setUser(getUser);
-        gameWishlist.setUsername(getUser.getUsername());
+        gameOwnedlist.setUser(getUser);
+        gameOwnedlist.setUsername(getUser.getUsername());
 
-        // Saves wishlisted game to repo
-        wishlistGameRepository.save(gameWishlist);
+        // Saves Owned game to repo
+        ownedGameRepository.save(gameOwnedlist);
 
 //        wishlistGameRepository.saveAll(gameWishlist);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Game added to Wishlist");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Game added to Owned List.");
     }
 
 
 
-    // Get Wishlist Games by Username
+    // Get Owned Games by Username
     @GetMapping("/{username}")
-    public List<WishlistGame> getWishlistGameByUsername (@PathVariable String username) {
+    public List<OwnedGame> getOwnedGameByUsername (@PathVariable String username) {
 
-        List<WishlistGame> wishlistByUser = new ArrayList<>();
+        List<OwnedGame> ownedListByUser = new ArrayList<>();
 
-        List<WishlistGame> wishlistByUsername = wishlistGameRepository.findAllByUsername(username);
+        List<OwnedGame> ownedListByUsername = ownedGameRepository.findAllByUsername(username);
 
-        for (int i = 0; i < wishlistByUsername.size(); i++) {
-            WishlistGame wishlistGame = new WishlistGame();
+        for (int i = 0; i < ownedListByUsername.size(); i++) {
+            OwnedGame ownedGame = new OwnedGame();
 
 //            wishlistGame.setGame(wishlistByUsername.get(i).getGame());
 //            wishlistGame.setUser(wishlistByUsername.get(i).getUser());
-            wishlistGame.setUsername(wishlistByUsername.get(i).getUsername());
-            wishlistGame.setGameName(wishlistByUsername.get(i).getGameName());
-            wishlistGame.setIgdbCode(wishlistByUsername.get(i).getIgdbCode());
+            ownedGame.setUsername(ownedListByUsername.get(i).getUsername());
+            ownedGame.setGameName(ownedListByUsername.get(i).getGameName());
+            ownedGame.setIgdbCode(ownedListByUsername.get(i).getIgdbCode());
 
-            wishlistByUser.add(wishlistGame);
+            ownedListByUser.add(ownedGame);
         }
 
-        return wishlistByUser;
+        return ownedListByUser;
     }
-
 
 }

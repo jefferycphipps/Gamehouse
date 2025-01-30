@@ -1,6 +1,6 @@
 package com.gamehouse.project.models.dto;
 
-public class WishlistGameDTO {
+public class GameUsernameDTO {
 
     private long igdbCode;
     private String username;
