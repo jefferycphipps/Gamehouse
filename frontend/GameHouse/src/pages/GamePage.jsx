@@ -44,8 +44,6 @@ function GamePage() {
     },
   ]);
 
-  const gameAgain = useRef();
-
   useEffect(() => {
     const getGameRequest = async (gameID) => {
       setIsPending(true);
@@ -55,7 +53,7 @@ function GamePage() {
         const responseJSON = await response.data;
         console.log(responseJSON);
         setGame(responseJSON);
-        gameAgain.current = responseJSON.gameCategories;
+
         console.log(game);
       } catch (error) {
         console.log(error);
@@ -100,6 +98,7 @@ function GamePage() {
       return "";
     }
   }
+
   return (
     <>
       <div
@@ -177,15 +176,21 @@ function GamePage() {
                 </button>
               </div>
               <div className="basis-1/2 flex flex-col justify-center gap-17">
-                <h1 className="mb-5 text-5xl font-bold basis-3/4 text-slate-200 text-center">
+                <h1 className="mb-5 text-5xl font-bold basis-3/5 text-slate-200 text-center">
                   {game.name || "Unfortunately Game Info could not be found :("}
                 </h1>
-                <p className="mb-5 text-slate-200 h-1/2 basis-1/4">
+                <p className="mb-5 text-slate-200 h-1/2 basis-1/3">
                   {game.gameDescription}
                 </p>
-                <div>
-                  <div className="my-5 text-slate-200">Genres: </div>
-                  <div className="text-slate-200">Platforms:</div>
+                <div className="flex flex-col gap-2 mt-10 mb-5">
+                  <div className="text-slate-200">
+                    Genres: &nbsp;
+                    {game.gameCategories?.map((genre) => `${genre.name}, `)}
+                  </div>
+                  <div className="text-slate-200">
+                    Platforms: &nbsp;
+                    {game.gamePlatforms?.map((plat) => `${plat.name}, `)}
+                  </div>
                 </div>
               </div>
             </div>

@@ -23,58 +23,68 @@ function Card(props) {
             </figure>
             <div className="card-body p-5 flex-col justify-center items-center mx-auto">
               <h2 className="card-title text-xs text-center">{game.name}</h2>
-              <div className="card-actions flex items-end">
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log(props.game?.igdbcode);
-                    setSaved([...saved, game?.igdbcode]);
-                    console.log(saved);
-                  }}
-                  className="btn btn-accent btn-sm text-xs "
+              <div className="card-actions flex items-end ">
+                <div
+                  className="tooltip tooltip-left tooltip-accent"
+                  data-tip="Save Game"
                 >
-                  <svg
-                    className="h-6 w-6"
-                    viewBox="0 0 16 16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    version="1.1"
-                    fill="none"
-                    stroke="#000000"
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      console.log(props.game?.igdbcode);
+                      setSaved([...saved, game?.igdbcode]);
+                      console.log(saved);
+                    }}
+                    className="btn btn-accent btn-sm text-xs "
                   >
-                    <path
-                      d="m12.75 7.75h-10m5-5v10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log(game?.igdbcode);
-                    setWishlish([...wishlist, game?.igdbcode]);
-                    console.log(wishlist);
-                  }}
-                  className="btn btn-primary btn-sm text-xs "
+                    <svg
+                      className="h-6 w-6"
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      version="1.1"
+                      fill="none"
+                      stroke="#000000"
+                    >
+                      <path
+                        d="m12.75 7.75h-10m5-5v10"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  className="tooltip tooltip-right tooltip-primary"
+                  data-tip="Wishlist Game"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      console.log(game?.igdbcode);
+                      setWishlish([...wishlist, game?.igdbcode]);
+                      console.log(wishlist);
+                    }}
+                    className="btn btn-primary btn-sm text-xs "
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                    />
-                  </svg>
-                </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </Link>
