@@ -2,7 +2,6 @@ package com.gamehouse.project.controllers;
 
 
 import com.gamehouse.project.models.Game;
-import com.gamehouse.project.models.GameCategory;
 import com.gamehouse.project.models.data.GameCategoryRepository;
 import com.gamehouse.project.models.data.GamePlatformRepository;
 import com.gamehouse.project.models.data.GameRepository;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("game")
@@ -33,25 +33,36 @@ public class GameController {
     private GameReviewsRepository gameReviewsRepository;
 
 
-    //Create new game
+    //Save Game to gameRepository by Game igdbCode
     @PostMapping("/saveGame")
     public ResponseEntity<Game> newGame(@RequestBody long igdbCode) throws Exception {
 
-        // Uses igdbCode to retrieve game from APICallService
-        APICallService newApiCall = new APICallService();
-        Game getGameByIgdb = newApiCall.getGamebyIDGBCODE(igdbCode);
+        // Search gameRepository for game -- if NOT will save game to gameRepository
+        Optional<Game> getGame = gameRepository.findByIgdbCode(igdbCode);
 
-        //have to save all categories into the repo -- STILL need to figure out how to prevent adding duplicates
-        gameCategoryRepository.saveAll(getGameByIgdb.getGameCategories());
+        if (getGame.isPresent()) {
 
-        //save all platforms into the repo -- STILL need to figure out how to prevent adding duplicates
-        gamePlatformRepository.saveAll(getGameByIgdb.getGamePlatforms());
+            return ResponseEntity.status(HttpStatus.OK).body(getGame.get());
+
+        } else {
+
+            // Uses igdbCode to retrieve game from APICallService
+            APICallService newApiCall = new APICallService();
+            Game getGameByIgdb = newApiCall.getGamebyIDGBCODE(igdbCode);
+
+            //have to save all categories into the repo -- STILL need to figure out how to prevent adding duplicates
+
+            gameCategoryRepository.saveAll(getGameByIgdb.getGameCategories());
+
+            //save all platforms into the repo -- STILL need to figure out how to prevent adding duplicates
+            gamePlatformRepository.saveAll(getGameByIgdb.getGamePlatforms());
 
 
-        // Saves Game to gameRepository
-        gameRepository.save(getGameByIgdb);
+            // Saves Game to gameRepository
+            gameRepository.save(getGameByIgdb);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(getGameByIgdb);
+            return ResponseEntity.status(HttpStatus.CREATED).body(getGameByIgdb);
+        }
     }
 
 
@@ -93,5 +104,56 @@ public class GameController {
         gameRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+
+
+
+    //Create new game
+    @PostMapping("/saveGameTest")
+    public ResponseEntity<Game> newGameTest(@RequestBody long igdbCode) throws Exception {
+
+        // Search gameRepository for game -- if NOT will save game to gameRepository
+       Optional<Game> getGame = gameRepository.findByIgdbCode(igdbCode);
+
+        if (getGame.isPresent()) {
+
+            return ResponseEntity.status(HttpStatus.OK).body(getGame.get());
+
+        } else {
+
+            // Uses igdbCode to retrieve game from APICallService & save to gameRepository
+            APICallService newApiCall = new APICallService();
+            Game addNewGame = newApiCall.getGamebyIDGBCODE(igdbCode);
+
+
+            //have to save all categories into the repo -- STILL need to figure out how to prevent adding duplicates
+            gameCategoryRepository.saveAll(addNewGame.getGameCategories());
+
+//            List<GameCategory> gameCategoriesList = addNewGame.getGameCategories();
+//
+//            for (GameCategory category : gameCategoriesList) {
+//                if (gameCategoryRepository.findByigdbCode(category.getIgdbCode()).isPresent()) {
+////                    gameCategoryRepository.deleteById(category.getId());
+////                    gameCategoryRepository.deleteByIgdbCode(category.getIgdbCode());
+////                    gameCategoryRepository.save(category);
+//
+//                    gameCategoryRepository.deleteById(category.getId());
+//
+//                }
+//            }
+////            gameCategoryRepository.saveAll(addNewGame.getGameCategories());
+
+            //save all platforms into the repo -- STILL need to figure out how to prevent adding duplicates
+            gamePlatformRepository.saveAll(addNewGame.getGamePlatforms());
+
+
+            // Saves Game to gameRepository
+            gameRepository.save(addNewGame);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(addNewGame);
+        }
+    }
+
+
 
 }
