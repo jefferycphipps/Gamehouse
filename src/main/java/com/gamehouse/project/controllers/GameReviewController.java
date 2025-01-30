@@ -5,6 +5,7 @@ import com.gamehouse.project.models.GameReviews;
 import com.gamehouse.project.models.User;
 import com.gamehouse.project.models.data.*;
 import com.gamehouse.project.models.dto.GameReviewsDTO;
+import com.gamehouse.project.models.dto.GameUsernameDTO;
 import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,21 @@ public class GameReviewController {
     private GamePlatformRepository gamePlatformRepository;
 
 
-    // Save Game Reviews
+    // Save Game Reviews by Game igdb, Username
     @PostMapping("/save")
     public ResponseEntity<String> saveGameReview (@RequestBody GameReviewsDTO gameReviewsDTO) throws Exception {
+
+        // Checks if Review already added by User
+        List<GameReviews> reviewsListByUser = gameReviewsRepository.findAllByUsername(gameReviewsDTO.getUsername());
+
+        for (GameReviews gameReview : reviewsListByUser) {
+
+            if (gameReview.getGameReview().equals(gameReviewsDTO.getGameReview())) {
+
+                    return ResponseEntity.status(HttpStatus.CONFLICT).body("Game Review by User already exist.");
+            }
+        }
+
 
         // Create new Game Review object
         GameReviews newGameReview = new GameReviews();
@@ -135,7 +148,11 @@ public class GameReviewController {
     }
 
 
-
+    // Delete reviews by Game Igdb, Username
+//    @DeleteMapping("delete")
+//    public ResponseEntity<String> removeReview(@RequestBody GameUsernameDTO) {
+//
+//    }
 
 
 }
