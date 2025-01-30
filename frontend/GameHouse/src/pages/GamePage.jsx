@@ -2,6 +2,13 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { getbyID } from "../services/APIservice";
 import { wishlishContext } from "../App";
+import M from "../assets/M.png";
+import T from "../assets/T.png";
+import E from "../assets/E.png";
+import RP from "../assets/RP.png";
+import E10 from "../assets/E10+.png";
+import EC from "../assets/EC.png";
+import A from "../assets/A.png";
 
 function GamePage() {
   const router = useParams();
@@ -73,6 +80,26 @@ function GamePage() {
     console.log(fakeReviews);
     setReview("");
   }
+
+  function ratingImg() {
+    if (game.gameRating == "M") {
+      return M;
+    } else if (game.gameRating == "T") {
+      return T;
+    } else if (game.gameRating == "E") {
+      return E;
+    } else if (game.gameRating == "AO") {
+      return A;
+    } else if (game.gameRating == "dummy") {
+      return RP;
+    } else if (game.gameRating == "E10") {
+      return E10;
+    } else if (game.gameRating == "EC") {
+      return EC;
+    } else {
+      return "";
+    }
+  }
   return (
     <>
       <div
@@ -87,8 +114,14 @@ function GamePage() {
         ) : (
           <div className="w-4/5 top-0 ">
             <div className="w-full h-3/5 flex gap-10 ">
-              <div className="basis-1/3 flex flex-col items-center justify-center gap-5">
-                <img src={game.boxArtURL || Error} className="size-auto" />
+              <div className="basis-1/3 flex flex-col items-center justify-center gap-5 ">
+                <div className="relative">
+                  <img src={game.boxArtURL || Error} className="size-auto" />
+                  <img
+                    src={ratingImg()}
+                    className="absolute h-15 w-10 bottom-1 left-1"
+                  />
+                </div>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
