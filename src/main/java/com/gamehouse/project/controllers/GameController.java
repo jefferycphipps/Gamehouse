@@ -89,6 +89,13 @@ public class GameController {
     }
 
 
+    @GetMapping("/get/{igdbCode}")
+    public Game getGameByIgdb(@PathVariable long igdbCode) {
+        return gameRepository.findByIgdbCode(igdbCode).orElseThrow(RuntimeException::new);
+    }
+
+
+
     //Update game...will probably need more code to edit this.
     @PutMapping("/{id}")
     public ResponseEntity<Game> updateGame(@PathVariable int id, @RequestBody Game game){
@@ -104,5 +111,5 @@ public class GameController {
         gameRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
-    
+
 }
