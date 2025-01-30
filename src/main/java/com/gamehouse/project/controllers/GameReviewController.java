@@ -148,11 +148,38 @@ public class GameReviewController {
     }
 
 
-    // Delete reviews by Game Igdb, Username
-//    @DeleteMapping("delete")
-//    public ResponseEntity<String> removeReview(@RequestBody GameUsernameDTO) {
-//
-//    }
+    // Delete reviews by Game Igdb, Username, Game Review
+    @DeleteMapping("delete")
+    public ResponseEntity<String> removeReview(@RequestBody GameReviewsDTO gameReviewsDTO) {
 
+        // Pulls up list of Reviews by Username
+        List<GameReviews> reviewsListByUser = gameReviewsRepository.findAllByUsername(gameReviewsDTO.getUsername());
+
+        for (GameReviews gameReview : reviewsListByUser) {
+
+            if (gameReview.getGameReview().equals(gameReviewsDTO.getGameReview())) {
+
+                gameReviewsRepository.deleteById(gameReview.getId());
+
+            }
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Game Review by User is removed.");
+    }
+
+
+    // Delete reviews by Game Review Id
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> removeReview(@PathVariable int id) {
+
+        // Checks to see if Review exist in gameReviewsRepository based on id
+        if (gameReviewsRepository.existsById(id)) {
+
+            gameReviewsRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Game Review is removed.");
+
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Game Review does not exist.");
+        }
+    }
 
 }
