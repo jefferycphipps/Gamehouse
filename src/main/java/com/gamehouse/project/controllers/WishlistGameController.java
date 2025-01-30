@@ -39,7 +39,7 @@ public class WishlistGameController {
     @PostMapping("/addGame")
     public ResponseEntity<String> addGameToWishlist (@RequestBody WishlistGameDTO wishlistGameDTO) throws Exception {
 
-        // Check if Game already added by user
+        // Checks if Game already added by user
         List<WishlistGame> wishlistByUser = wishlistGameRepository.findAllByUsername(wishlistGameDTO.getUsername());
 
         for (WishlistGame game : wishlistByUser) {
@@ -47,9 +47,6 @@ public class WishlistGameController {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Game already added to Wishlist.");
             }
         }
-
-
-
 
 
         WishlistGame gameWishlist = new WishlistGame();
