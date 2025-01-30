@@ -1,11 +1,11 @@
 package com.gamehouse.project.controllers;
 
 import com.gamehouse.project.models.Game;
+import com.gamehouse.project.models.OwnedGame;
 import com.gamehouse.project.models.User;
 import com.gamehouse.project.models.WishlistGame;
 import com.gamehouse.project.models.data.*;
 import com.gamehouse.project.models.dto.GameUsernameDTO;
-import com.gamehouse.project.models.dto.WishlistGameDTO;
 import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -117,5 +117,21 @@ public class WishlistGameController {
         return wishlistByUser;
     }
 
+
+    // Removes Game from wishlistGameRepository
+    @DeleteMapping("delete")
+    public ResponseEntity<String> removeGame(@RequestBody GameUsernameDTO gameUsernameDTO) {
+
+        // Pulls up Games Wishlist by Username
+        List<WishlistGame> wishlistByUser = wishlistGameRepository.findAllByUsername(gameUsernameDTO.getUsername());
+
+        for (WishlistGame game : wishlistByUser) {
+            if (game.getIgdbCode() == gameUsernameDTO.getIgdbCode()) {
+                wishlistGameRepository.deleteById(game.getId());
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Game is removed from Wishlist.");
+    }
 
 }

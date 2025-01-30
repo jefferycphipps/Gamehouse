@@ -3,10 +3,8 @@ package com.gamehouse.project.controllers;
 import com.gamehouse.project.models.Game;
 import com.gamehouse.project.models.OwnedGame;
 import com.gamehouse.project.models.User;
-import com.gamehouse.project.models.WishlistGame;
 import com.gamehouse.project.models.data.*;
 import com.gamehouse.project.models.dto.GameUsernameDTO;
-import com.gamehouse.project.models.dto.WishlistGameDTO;
 import com.gamehouse.project.services.APICallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +33,7 @@ public class OwnedGameController {
 
     @Autowired
     private GamePlatformRepository gamePlatformRepository;
+
 
 
     // Add game to Wishlist using long igdbCode & String username
@@ -116,6 +115,24 @@ public class OwnedGameController {
         }
 
         return ownedListByUser;
+    }
+
+
+
+    // Removes Game from ownedGameRepository
+    @DeleteMapping("delete")
+    public ResponseEntity<String> removeGame(@RequestBody GameUsernameDTO gameUsernameDTO) {
+
+        // Pulls up list of Owned Games by Username
+        List<OwnedGame> OwnedListByUser = ownedGameRepository.findAllByUsername(gameUsernameDTO.getUsername());
+
+        for (OwnedGame game : OwnedListByUser) {
+            if (game.getIgdbCode() == gameUsernameDTO.getIgdbCode()) {
+                ownedGameRepository.deleteById(game.getId());
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Game is removed from Owned List.");
     }
 
 }
