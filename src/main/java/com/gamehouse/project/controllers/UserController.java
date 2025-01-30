@@ -182,7 +182,7 @@ public class UserController {
         User deletedUser = userRepository.findByUsername(username);
         if(deletedUser!=null){
             userRepository.delete(deletedUser);
-            return ResponseEntity.ok("User:"+username+" deleted");
+            return ResponseEntity.ok("User:"+username+" deleted!");
         }
         return ResponseEntity.ok("user not found");
     }
