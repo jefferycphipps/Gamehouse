@@ -36,7 +36,7 @@ public class OwnedGameController {
 
 
 
-    // Add game to Wishlist using long igdbCode & String username
+    // Add game to ownedGameRepository using long igdbCode & String username
     @PostMapping("/addGame")
     public ResponseEntity<String> addGameToOwned (@RequestBody GameUsernameDTO gameUsernameDTO) throws Exception {
 
@@ -119,7 +119,7 @@ public class OwnedGameController {
 
 
 
-    // Removes Game from ownedGameRepository
+    // Removes Game from ownedGameRepository by Igdb, Username
     @DeleteMapping("delete")
     public ResponseEntity<String> removeGame(@RequestBody GameUsernameDTO gameUsernameDTO) {
 

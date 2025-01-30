@@ -118,7 +118,7 @@ public class WishlistGameController {
     }
 
 
-    // Removes Game from wishlistGameRepository
+    // Removes Game from wishlistGameRepository by Igdb, Username
     @DeleteMapping("delete")
     public ResponseEntity<String> removeGame(@RequestBody GameUsernameDTO gameUsernameDTO) {
 
