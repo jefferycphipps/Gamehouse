@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface WishlistGameRepository extends CrudRepository<WishlistGame, Integer> {
     List<WishlistGame> findAllByUsername (String username);
+    WishlistGame findByIgdbCode (long igdbCode);
+    WishlistGame findByUsername (String username);
 }
