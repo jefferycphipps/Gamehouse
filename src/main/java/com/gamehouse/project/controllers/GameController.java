@@ -104,56 +104,5 @@ public class GameController {
         gameRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
-
-
-
-    //Create new game
-    @PostMapping("/saveGameTest")
-    public ResponseEntity<Game> newGameTest(@RequestBody long igdbCode) throws Exception {
-
-        // Search gameRepository for game -- if NOT will save game to gameRepository
-       Optional<Game> getGame = gameRepository.findByIgdbCode(igdbCode);
-
-        if (getGame.isPresent()) {
-
-            return ResponseEntity.status(HttpStatus.OK).body(getGame.get());
-
-        } else {
-
-            // Uses igdbCode to retrieve game from APICallService & save to gameRepository
-            APICallService newApiCall = new APICallService();
-            Game addNewGame = newApiCall.getGamebyIDGBCODE(igdbCode);
-
-
-            //have to save all categories into the repo -- STILL need to figure out how to prevent adding duplicates
-            gameCategoryRepository.saveAll(addNewGame.getGameCategories());
-
-//            List<GameCategory> gameCategoriesList = addNewGame.getGameCategories();
-//
-//            for (GameCategory category : gameCategoriesList) {
-//                if (gameCategoryRepository.findByigdbCode(category.getIgdbCode()).isPresent()) {
-////                    gameCategoryRepository.deleteById(category.getId());
-////                    gameCategoryRepository.deleteByIgdbCode(category.getIgdbCode());
-////                    gameCategoryRepository.save(category);
-//
-//                    gameCategoryRepository.deleteById(category.getId());
-//
-//                }
-//            }
-////            gameCategoryRepository.saveAll(addNewGame.getGameCategories());
-
-            //save all platforms into the repo -- STILL need to figure out how to prevent adding duplicates
-            gamePlatformRepository.saveAll(addNewGame.getGamePlatforms());
-
-
-            // Saves Game to gameRepository
-            gameRepository.save(addNewGame);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(addNewGame);
-        }
-    }
-
-
-
+    
 }
