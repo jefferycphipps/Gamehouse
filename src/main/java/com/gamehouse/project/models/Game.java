@@ -31,6 +31,11 @@ public class Game extends AbstractEntity{
         mappedBy = "game")
     private List<WishlistGame> wishlistGame;
 
+    @OneToMany (cascade = CascadeType.ALL,
+            mappedBy = "game")
+    private List<OwnedGame> ownedGames;
+
+
     public Game(){}
 
 
@@ -108,14 +113,6 @@ public class Game extends AbstractEntity{
         this.gamePlatforms = gamePlatforms;
     }
 
-//    public WishlistGame getWishlistGame() {
-//        return wishlistGame;
-//    }
-//
-//    public void setWishlistGame(WishlistGame wishlistGame) {
-//        this.wishlistGame = wishlistGame;
-//    }
-
     public List<WishlistGame> getWishlistGame() {
         return wishlistGame;
     }
@@ -124,13 +121,13 @@ public class Game extends AbstractEntity{
         this.wishlistGame = wishlistGame;
     }
 
-//    public Set<WishlistGame> getWishlistGame() {
-//        return wishlistGame;
-//    }
-//
-//    public void setWishlistGame(Set<WishlistGame> wishlistGame) {
-//        this.wishlistGame = wishlistGame;
-//    }
+    public List<OwnedGame> getOwnedGames() {
+        return ownedGames;
+    }
+
+    public void setOwnedGames(List<OwnedGame> ownedGames) {
+        this.ownedGames = ownedGames;
+    }
 
     @Override
     public String toString() {
