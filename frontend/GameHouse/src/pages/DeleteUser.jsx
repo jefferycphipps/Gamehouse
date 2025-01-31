@@ -15,11 +15,10 @@ const deleteAcc = async() =>{
   try{
     const formData = new FormData();
     formData.append('username', username);
-    console.log(username);
-    console.log(formData);
+    
     
     const response = await deleteAccount(formData);
-    console.log(response.data);
+    alert("Account Successfully Deleted")
     navigate("/welcome");
   }catch(error){
     setErrorMessage(`An error occurred: ${error.message}`);
