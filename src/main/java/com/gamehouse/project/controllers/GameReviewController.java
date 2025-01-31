@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/reviews")
+@CrossOrigin("http://localhost:5173/")
 public class GameReviewController {
 
     @Autowired

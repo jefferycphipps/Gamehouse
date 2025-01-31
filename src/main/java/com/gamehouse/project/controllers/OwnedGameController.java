@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("owned")
+@CrossOrigin("http://localhost:5173/")
 public class OwnedGameController {
 
     @Autowired
