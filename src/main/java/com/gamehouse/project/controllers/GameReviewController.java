@@ -150,7 +150,7 @@ public class GameReviewController {
 
 
     // Delete reviews by Game Igdb, Username, Game Review
-    @DeleteMapping("delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> removeReview(@RequestBody GameReviewsDTO gameReviewsDTO) {
 
         // Pulls up list of Reviews by Username
@@ -169,7 +169,7 @@ public class GameReviewController {
 
 
     // Delete reviews by Game Review Id
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> removeReview(@PathVariable int id) {
 
         // Checks to see if Review exist in gameReviewsRepository based on id
