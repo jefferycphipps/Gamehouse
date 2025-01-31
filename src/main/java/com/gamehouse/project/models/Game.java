@@ -39,7 +39,7 @@ public class Game extends AbstractEntity{
     public Game(){}
 
 
-    public Game(String name, String gameRating, String gameDescription, List<GameReviews> gameReviews, List<GameCategory> gameCategories, List<GamePlatform> gamePlatforms, String boxartURL) {
+    public Game(String name, String gameRating, String gameDescription, List<GameReviews> gameReviews, List<GameCategory> gameCategories, List<GamePlatform> gamePlatforms, String boxArtURL) {
         super();
         this.setName(name);
         this.gameRating = gameRating;
