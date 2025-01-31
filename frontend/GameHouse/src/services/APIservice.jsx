@@ -1,8 +1,9 @@
-
+import * as fs from 'node:fs/promises';
 import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: "http://localhost:8080/",
+
   // headers: { "Content-Type": "application/json", accept: "application/json" },
 });
 const apiClient2 = axios.create({
@@ -19,12 +20,22 @@ const apiClient2 = axios.create({
 export const logOutUser = (data) => {
     return apiClient.get(`/logout`);
     };
+
+export const deleteAccount = (data) => {
+  return apiClient.delete('/delete', {data: data});
+};//delete account
   export const registerUser = (data) => {
     return apiClient.post('/register', data);
   };//register user
   export const loginUser = (data) => {
     return apiClient.post('/login', data);
   };//login user
+  export const photo = (data) => {
+    return apiClient.post('/saveUserImage', data);
+  };//save image
+  export const getPhoto = async(data) => {
+    return apiClient.get('/image/'+data);
+  }
   export const userPage = async(username) => {
     return apiClient.post(`/getUser`, username, {
         headers: {"Content-Type": "text/plain"
@@ -73,4 +84,3 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
-

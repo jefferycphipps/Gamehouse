@@ -3,28 +3,50 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import {logOutUser} from "../services/APIservice";
-
+import { userPage } from "../services/APIservice";
 
 function Nav(props) {
     const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
-        const handleTheme = (e) => {
+  const username = localStorage.getItem("username");
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const defaultPic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU";
+  const[user, setUser] = useState(null);      
+  const handleTheme = (e) => {
     if (e.target.checked) {
       setTheme("dark");
     } else {
       setTheme("light");
     }
   };
-
+   
   // set theme state in localstorage on mount & also update localstorage on state change
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.documentElement.setAttribute("data-theme", localTheme);
-  }, [theme]);
 
-  const navigate = useNavigate();
+
+  const fetchUserData = async () => {
+
+      try{
+          const response = await userPage(username);
+          setUser(response.data);
+          
+          setErrorMessage("");
+         }catch (error) {
+              setErrorMessage(`An error occurred: ${error.message}`);
+              
+              }
+      };
+  fetchUserData();
+
+
+  }, [theme, username]);
+
+
 
 
 
@@ -47,7 +69,7 @@ function Nav(props) {
             alert("Failed to log out. Please try again.");
         }
     };
-const username = localStorage.getItem("username");
+
 
   return (
     <div className="bg-base-200  mx-auto flex justify-center">
@@ -93,19 +115,23 @@ const username = localStorage.getItem("username");
             </label>
           </button>
 
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Profile Picture"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU"
-                />
+          {user?( 
+            <div className="dropdown dropdown-end">
+              <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn btn-ghost btn-circle avatar"
+                    >
+                      <div className="w-10 rounded-full">
+                          <img
+                            alt="Profile Picture"
+                            src={user.profileImage ? ("http://localhost:8080/image/"+username):(defaultPic)}
+                          />
+                      </div>
+                      
+                      
               </div>
-            </div>
+                  
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
@@ -118,17 +144,59 @@ const username = localStorage.getItem("username");
                 </Link>
               </li>
               <li>
-                <Link>Edit Account (temp)</Link>
+                <Link to={'/editaccount'}>Edit Profile Pic</Link>
+              </li>
+              <li>
+                <Link to={'/deleteaccount'}>Delete User Account</Link>
               </li>
               </>
               ) : null}
               <li>
-{/*                   <a href="#" onClick={handleLogout} className="logout-link"> */}
-{/*                       Logout</a> */}
-                     <button onClick={handleLogout}>Logout</button>
+                <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
-          </div>
+          </div>):(
+          <div className="dropdown dropdown-end">
+          <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full">
+                      <img
+                        alt="Profile Picture"
+                        src={defaultPic}
+                      />
+                    </div>
+                  
+                  
+                </div>
+                
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          >
+          {username ? (
+              <>
+            <li>
+              <Link to={`/profile/${username}`} className="justify-between">
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link to={'/editaccount'}>Edit Profile Pic</Link>
+            </li>
+            <li>
+              <Link to={'/deleteaccount'}>Delete User Account</Link>
+            </li>
+            </>
+            ) : null}
+            <li>
+
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </ul>
+        </div>)}
         </div>
       </div>
     </div>

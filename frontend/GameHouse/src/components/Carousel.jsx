@@ -41,6 +41,7 @@ function Carousel2({ images }) {
               translate: `${-100 * imageIndex}%`,
               transition: "translate 500ms ease-in-out",
             }}
+            onClick={() => window.scrollTo(0, 0)}
           >
             <img src={img.img} className="object-cover w-full h-full block " />
           </Link>

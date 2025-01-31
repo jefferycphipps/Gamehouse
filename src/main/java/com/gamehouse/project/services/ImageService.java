@@ -21,17 +21,18 @@ public class ImageService {
 
     private final String FOLDER_PATH = "C:\\Users\\j_inf\\OneDrive\\Desktop\\images\\";
     //private final Path ROOT = Paths.get("images/");
-    public String uploadImageToFileDirectory(MultipartFile file) throws IOException {
+    public int uploadImageToFileDirectory(MultipartFile file) throws IOException {
+        Image tempImage = imageRepository.findByName(file.getOriginalFilename());
 
         String filePath = FOLDER_PATH+file.getOriginalFilename();
         System.out.println(filePath);
         Image imageData = imageRepository.save(new Image( file.getOriginalFilename(), file.getContentType(), filePath ));
-
+        int id = imageData.getId();
         file.transferTo(new File(filePath));
         if (imageData != null) {
-            return "file uploaded successfully : " + file.getOriginalFilename();
+            return id;
         }
-        return null;
+        return -1;
     }
 
 
