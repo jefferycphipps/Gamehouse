@@ -20,6 +20,10 @@ const apiClient2 = axios.create({
 export const logOutUser = (data) => {
     return apiClient.get(`/logout`);
     };
+
+export const deleteAccount = (data) => {
+  return apiClient.delete('/delete', {data: data});
+};//delete account
   export const registerUser = (data) => {
     return apiClient.post('/register', data);
   };//register user

@@ -115,21 +115,22 @@ function Nav(props) {
             </label>
           </button>
 
-          {user?( <div className="dropdown dropdown-end">
-            <div
-                    tabIndex={0}
-                    role="button"
-                    className="btn btn-ghost btn-circle avatar"
-                  >
-                    <div className="w-10 rounded-full">
-                        <img
-                          alt="Profile Picture"
-                          src={user.profileImage ? ("http://localhost:8080/image/"+username):(defaultPic)}
-                        />
+          {user?( 
+            <div className="dropdown dropdown-end">
+              <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn btn-ghost btn-circle avatar"
+                    >
+                      <div className="w-10 rounded-full">
+                          <img
+                            alt="Profile Picture"
+                            src={user.profileImage ? ("http://localhost:8080/image/"+username):(defaultPic)}
+                          />
                       </div>
-                    
-                    
-                  </div>
+                      
+                      
+              </div>
                   
             <ul
               tabIndex={0}
@@ -151,12 +152,10 @@ function Nav(props) {
               </>
               ) : null}
               <li>
-{/*                   <a href="#" onClick={handleLogout} className="logout-link"> */}
-{/*                       Logout</a> */}
-                     <button onClick={handleLogout}>Logout</button>
+                <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
-          </div>):
+          </div>):(
           <div className="dropdown dropdown-end">
           <div
                   tabIndex={0}
@@ -193,12 +192,11 @@ function Nav(props) {
             </>
             ) : null}
             <li>
-{/*                   <a href="#" onClick={handleLogout} className="logout-link"> */}
-{/*                       Logout</a> */}
-                   <button onClick={handleLogout}>Logout</button>
+
+              <button onClick={handleLogout}>Logout</button>
             </li>
           </ul>
-        </div>}
+        </div>)}
         </div>
       </div>
     </div>

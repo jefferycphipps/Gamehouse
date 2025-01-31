@@ -179,8 +179,8 @@ public class UserController {
         return ResponseEntity.ok("Success!");
     }
 
-    @DeleteMapping("/delete/{username}")
-    public ResponseEntity<?>deleteUser(@PathVariable String username){
+    @DeleteMapping("/delete")
+    public ResponseEntity<?>deleteUser(@RequestParam String username){
         User deletedUser = userRepository.findByUsername(username);
         if(deletedUser!=null){
             userRepository.delete(deletedUser);
