@@ -1,7 +1,9 @@
 package com.gamehouse.project.controllers;
 
 import com.gamehouse.project.models.Image;
+import com.gamehouse.project.models.User;
 import com.gamehouse.project.models.data.ImageRepository;
+import com.gamehouse.project.models.data.UserRepository;
 import com.gamehouse.project.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +26,12 @@ public class ImageController {
     @Autowired
     private ImageRepository imageRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping("/saveImage")
-    public ResponseEntity<?> uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
-        String uploadImage = imageService.uploadImageToFileDirectory(file);
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
+        int uploadImage = imageService.uploadImageToFileDirectory(file);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }
@@ -40,6 +45,20 @@ public class ImageController {
                 .body(imageData);
 
     }
+    @GetMapping("image/{username}")
+    public ResponseEntity<?> downloadUserImage(@PathVariable String username) throws IOException {
+        User user = userRepository.findByUsername(username);
+        if(user!=null){
 
+            Image userImage = user.getProfileImage();
+            byte[] imageData=imageService.downloadImageFromFileSystem(userImage.getName());
+            String fileType = imageService.getFileExtension(userImage);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.valueOf(fileType))
+                    .body(imageData);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("no image");
+
+    }
 
 }

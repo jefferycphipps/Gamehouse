@@ -1,5 +1,6 @@
 /* eslint react/prop-types: 0 */
 
+
 // import { useEffect } from "react";
 import { useOutletContext } from "react-router";
 import Card from "../components/Card";
@@ -9,9 +10,12 @@ import Carousel2 from "../components/Carousel";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
 import Pagination from "../components/Pagination";
 
 function Home() {
+
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(12);
 
@@ -27,6 +31,7 @@ function Home() {
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const currentPosts = context.games.slice(firstPostIndex, lastPostIndex);
+
   const slides = [
     {
       id: "152063",
@@ -50,9 +55,11 @@ function Home() {
     },
   ];
 
+
   console.log(context.gamesLength.current);
   console.log(context.searchValue);
   console.log(currentPosts);
+
 
   return (
     <>
@@ -97,7 +104,12 @@ function Home() {
             <div className="w-full aspect-[6/3] my-0 mx-auto">
               <Carousel2 images={slides} />
             </div>
-            <div className="h-[1000px]"></div>
+            <div className="h-[1000px]">
+                                <div className="flex justify-center mt-40 space-x-4 w-full">
+                                      <button type="submit" className="btn btn-primary" onClick={handleSignIn}>Sign In</button>
+                                      <button type="submit" className="btn btn-primary" onClick={handleRegister}>Register</button>
+                                </div></div>
+
           </div>
         ) : (
           <div>
