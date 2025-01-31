@@ -3,27 +3,38 @@ package com.gamehouse.project.models;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Game extends AbstractEntity{
 
     private String gameRating;
 
-    private long IGDBCode;
+    private long igdbCode;
 
+    @Column(length = 1000)
     private String gameDescription;
 
     private String boxArtURL;
 
-    @ManyToMany
+    @OneToMany (cascade = CascadeType.ALL,
+            mappedBy = "game")
     private List<GameReviews> gameReviews;
 
-    //Needs to be changed to list of game categories.
     @ManyToMany
     private List<GameCategory> gameCategories;
 
     @ManyToMany
     private List<GamePlatform> gamePlatforms;
+
+    @OneToMany (cascade = CascadeType.ALL,
+        mappedBy = "game")
+    private List<WishlistGame> wishlistGame;
+
+    @OneToMany (cascade = CascadeType.ALL,
+            mappedBy = "game")
+    private List<OwnedGame> ownedGames;
+
 
     public Game(){}
 
@@ -39,10 +50,10 @@ public class Game extends AbstractEntity{
         this.gamePlatforms = gamePlatforms;
     }
 
-    public Game(String name, int IBGDCode, String boxArtURL){
+    public Game(String name, long igdbCode, String boxArtURL){
         super();
         this.setName(name);
-        this.IGDBCode = IBGDCode;
+        this.igdbCode = igdbCode;
         this.boxArtURL = boxArtURL;
     }
 
@@ -70,12 +81,12 @@ public class Game extends AbstractEntity{
         this.boxArtURL = boxArtURL;
     }
 
-    public long getIGDBCode() {
-        return IGDBCode;
+    public long getIgdbCode() {
+        return igdbCode;
     }
 
-    public void setIGDBCode(long IGDBCode) {
-        this.IGDBCode = IGDBCode;
+    public void setIgdbCode(long igdbCode) {
+        this.igdbCode = igdbCode;
     }
 
     public List<GameReviews> getGameReviews() {
@@ -102,11 +113,27 @@ public class Game extends AbstractEntity{
         this.gamePlatforms = gamePlatforms;
     }
 
+    public List<WishlistGame> getWishlistGame() {
+        return wishlistGame;
+    }
+
+    public void setWishlistGame(List<WishlistGame> wishlistGame) {
+        this.wishlistGame = wishlistGame;
+    }
+
+    public List<OwnedGame> getOwnedGames() {
+        return ownedGames;
+    }
+
+    public void setOwnedGames(List<OwnedGame> ownedGames) {
+        this.ownedGames = ownedGames;
+    }
+
     @Override
     public String toString() {
         return "Game{" +
                 "gameRating='" + gameRating + '\'' +
-                ", IGDBCode=" + IGDBCode +
+                ", igdbCode=" + igdbCode +
                 ", gameDescription='" + gameDescription + '\'' +
                 ", boxArtURL='" + boxArtURL + '\'' +
                 ", gameReviews=" + gameReviews +
