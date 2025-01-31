@@ -1,10 +1,20 @@
 package com.gamehouse.project.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.OneToOne;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
+
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 @Entity
@@ -14,8 +24,19 @@ public class User extends AbstractEntity{
     private String email;
     private String pwHash;
 
+
     @OneToOne
     private Image profileImage;
+
+    @OneToMany (cascade = CascadeType.ALL,
+        mappedBy = "user")
+    private List<GameReviews> gameReviews = new ArrayList<>();
+
+    @OneToMany (cascade = CascadeType.ALL,
+        mappedBy = "user")
+    private List<WishlistGame> gameWishlist = new ArrayList<>();
+
+
 
     public User(String username, String email, String pwHash) {
         super();
@@ -73,4 +94,22 @@ public class User extends AbstractEntity{
     public boolean isMatchingPassword(String password) {
         return passwordEncode.matches(password,pwHash);
     }
+
+
+    public List<GameReviews> getGameReviews() {
+        return gameReviews;
+    }
+
+    public void setGameReviews(List<GameReviews> gameReviews) {
+        this.gameReviews = gameReviews;
+    }
+
+    public List<WishlistGame> getGameWishlist() {
+        return gameWishlist;
+    }
+
+    public void setGameWishlist(List<WishlistGame> gameWishlist) {
+        this.gameWishlist = gameWishlist;
+    }
 }
+

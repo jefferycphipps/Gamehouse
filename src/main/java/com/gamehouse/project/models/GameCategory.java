@@ -18,7 +18,7 @@ public class GameCategory extends AbstractEntity {
             CascadeType.MERGE,
             CascadeType.PERSIST
     })
-    List<Game> gamesList;
+    private List<Game> gamesList;
     @ManyToMany(mappedBy = "gameCategories")
     private List<Game> gamesListCategories;
 
