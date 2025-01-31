@@ -25,6 +25,17 @@ public class User extends AbstractEntity{
         this.pwHash = pwHash;
 
     }
+
+    public User(String username, String email, String pwHash, Image profileImage) {
+        super();
+
+        this.username = username;
+        this.email = email;
+        this.pwHash = pwHash;
+        this.profileImage = profileImage;
+
+    }
+
     public User(){}
 
     public String getUsername() {

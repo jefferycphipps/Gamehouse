@@ -1,4 +1,5 @@
 package com.gamehouse.project.controllers;
+
 import com.gamehouse.project.models.Image;
 import com.gamehouse.project.models.RecaptchaService;
 import com.gamehouse.project.models.data.ImageRepository;
@@ -115,7 +116,8 @@ public class UserController {
         if (!recaptchaService.verifyRecaptcha(recaptchaToken, secretKey)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed reCAPTCHA verification.");
         }
-        User user = userRepository.findByName(loginFormDTO.getUsername());
+
+        User user = userRepository.findByUsername(loginFormDTO.getUsername());
 
         if (user == null || !user.isMatchingPassword(loginFormDTO.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
@@ -177,7 +179,7 @@ public class UserController {
         return ResponseEntity.ok("Success!");
     }
 
-    @PostMapping("/delete/{username}")
+    @DeleteMapping("/delete/{username}")
     public ResponseEntity<?>deleteUser(@PathVariable String username){
         User deletedUser = userRepository.findByUsername(username);
         if(deletedUser!=null){
