@@ -121,7 +121,7 @@ public class OwnedGameController {
 
 
     // Removes Game from ownedGameRepository by Igdb, Username
-    @DeleteMapping("delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> removeGame(@RequestBody GameUsernameDTO gameUsernameDTO) {
 
         // Pulls up list of Owned Games by Username
