@@ -17,6 +17,7 @@ function Card(props) {
             to={`/games/${game?.igdbcode}`}
             className="card rounded-md bg-base-100 relative hover:bg-base-300 hover:cursor-pointer hover:scale-110 hover:z-40 w-52 h-80 mx-auto shadow-xl "
             key={game.igdbcode}
+            onClick={() => window.scrollTo(0, 0)}
           >
             <figure className="w-full h-4/5">
               <img src={game.boxArtUrl} alt="Shoes" className="size-auto" />
