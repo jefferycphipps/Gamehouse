@@ -29,13 +29,16 @@ public class OwnedGame {
 //    @Column(nullable = false)
     private long igdbCode;
 
+    private String boxArtUrl;
+
 
     /* CONSTRUCTORS */
 
-    public OwnedGame(String username, String gameName, long igdbCode) {
+    public OwnedGame(String username, String gameName, long igdbCode, String boxArtUrl) {
         this.username = username;
         this.gameName = gameName;
         this.igdbCode = igdbCode;
+        this.boxArtUrl = boxArtUrl;
     }
 
     public OwnedGame() {}
@@ -87,6 +90,14 @@ public class OwnedGame {
         this.igdbCode = igdbCode;
     }
 
+    public String getBoxArtUrl() {
+        return boxArtUrl;
+    }
+
+    public void setBoxArtUrl(String boxArtUrl) {
+        this.boxArtUrl = boxArtUrl;
+    }
+
 
     /* OVERRIDE METHODS */
 
@@ -112,6 +123,7 @@ public class OwnedGame {
                 ", username='" + username + '\'' +
                 ", gameName='" + gameName + '\'' +
                 ", igdbCode=" + igdbCode +
+                ", boxArtUrl='" + boxArtUrl + '\'' +
                 '}';
     }
 }

@@ -32,13 +32,16 @@ public class WishlistGame {
 //    @Column(nullable = false)
     private long igdbCode;
 
+    private String boxArtUrl;
+
 
     /* CONSTRUCTORS */
 
-    public WishlistGame(String username, String gameName, long igdbCode) {
+    public WishlistGame(String username, String gameName, long igdbCode, String boxArtUrl) {
         this.username = username;
         this.gameName = gameName;
         this.igdbCode = igdbCode;
+        this.boxArtUrl = boxArtUrl;
     }
 
     public WishlistGame() {}
@@ -66,7 +69,6 @@ public class WishlistGame {
         this.game = game;
     }
 
-
     public String getUsername() {
         return username;
     }
@@ -91,6 +93,14 @@ public class WishlistGame {
         this.igdbCode = igdbCode;
     }
 
+    public String getBoxArtUrl() {
+        return boxArtUrl;
+    }
+
+    public void setBoxArtUrl(String boxArtUrl) {
+        this.boxArtUrl = boxArtUrl;
+    }
+
 
     /* OVERRIDE METHODS */
 
@@ -112,9 +122,11 @@ public class WishlistGame {
         return "WishlistGame{" +
                 "id=" + id +
                 ", user=" + user +
+                ", game=" + game +
                 ", username='" + username + '\'' +
                 ", gameName='" + gameName + '\'' +
                 ", igdbCode=" + igdbCode +
+                ", boxArtUrl='" + boxArtUrl + '\'' +
                 '}';
     }
 }
