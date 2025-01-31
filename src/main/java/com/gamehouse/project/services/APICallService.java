@@ -30,7 +30,7 @@ public class APICallService {
         //System.out.println(searchItem);
         try {
 
-            String searchTerm = "fields name, genres.name, platforms.name, age_ratings.rating, summary, cover.url; search \"" + searchItem + "\"; limit 36;";
+            String searchTerm = "fields name, genres.name, platforms.name, age_ratings.rating, summary, cover.url; search \"" + searchItem + "\"; limit 120;";
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://api.igdb.com/v4/games/"))
                     .header("Client-ID", "u069o889u6gzmm9wgbff6n46wduvz4")
