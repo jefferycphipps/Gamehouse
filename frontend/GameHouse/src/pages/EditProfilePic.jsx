@@ -1,6 +1,5 @@
-import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { photo, userPage } from "../services/APIservice";
 import "../App.css";
@@ -11,6 +10,7 @@ function EditProfilePic() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const username = localStorage.getItem("username");
+
   useEffect(() => {
     if (!username) {
       alert("You need to be logged in first.");

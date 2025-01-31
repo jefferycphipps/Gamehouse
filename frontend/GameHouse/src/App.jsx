@@ -7,7 +7,6 @@ import GamePage from "./pages/GamePage";
 import ProfilePage from "./pages/ProfilePage";
 import SignInPage from "./pages/SignInPage";
 import { startup } from "./services/APIservice";
-import Test from "./pages/Test";
 import RegisterPage from "./pages/RegisterPage";
 import EditProfilePic from "./pages/EditProfilePic";
 import DeleteUser from "./pages/DeleteUser";
@@ -33,8 +32,8 @@ const router = createBrowserRouter([
         element: <SignInPage />,
       },
       {
-          path: "/register",
-          element: <RegisterPage />,
+        path: "/register",
+        element: <RegisterPage />,
       },
       {
         path: "/editaccount",
@@ -44,8 +43,6 @@ const router = createBrowserRouter([
         path: "/deleteaccount",
         element: <DeleteUser />,
       },
-
-
     ],
   },
 ]);
@@ -69,7 +66,6 @@ function App() {
       </wishlishContext.Provider>
     </>
   );
-
 }
 
 export default App;

@@ -1,19 +1,20 @@
 /* eslint react/prop-types: 0 */
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
-import axios from "axios";
-import {logOutUser} from "../services/APIservice";
+
+import { logOutUser } from "../services/APIservice";
 import { userPage } from "../services/APIservice";
 
 function Nav(props) {
-    const [theme, setTheme] = useState(
+  const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const username = localStorage.getItem("username");
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
-  const defaultPic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU";
-  const[user, setUser] = useState(null);      
+  const defaultPic =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU";
+  const [user, setUser] = useState(null);
   const handleTheme = (e) => {
     if (e.target.checked) {
       setTheme("dark");
@@ -21,55 +22,45 @@ function Nav(props) {
       setTheme("light");
     }
   };
-   
+
   // set theme state in localstorage on mount & also update localstorage on state change
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.documentElement.setAttribute("data-theme", localTheme);
 
+    const fetchUserData = async () => {
+      try {
+        const response = await userPage(username);
+        setUser(response.data);
 
-  const fetchUserData = async () => {
-
-      try{
-          const response = await userPage(username);
-          setUser(response.data);
-          
-          setErrorMessage("");
-         }catch (error) {
-              setErrorMessage(`An error occurred: ${error.message}`);
-              
-              }
-      };
-  fetchUserData();
-
-
+        setErrorMessage("");
+      } catch (error) {
+        setErrorMessage(`An error occurred: ${error.message}`);
+      }
+    };
+    fetchUserData();
   }, [theme, username]);
-
-
-
-
 
   const handleSearch = (e) => {
     props.setSearchValue(e.target.value);
     navigate("/");
   };
-//   handle logout to clear localStorage.
+  //   handle logout to clear localStorage.
 
-    const handleLogout = async () => {
-        try {
-            const response = await logOutUser({
-                withCredentials: true,
-            });
-            localStorage.removeItem("username");
-            alert("You have been logged out.");
-            navigate("/");
-        } catch (error) {
-            console.error("Error logging out:", error);
-            alert("Failed to log out. Please try again.");
-        }
-    };
-
+  const handleLogout = async () => {
+    try {
+      const response = await logOutUser({
+        withCredentials: true,
+      });
+      localStorage.removeItem("username");
+      alert("You have been logged out.");
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging out:", error);
+      alert("Failed to log out. Please try again.");
+    }
+  };
 
   return (
     <div className="bg-base-200  mx-auto flex justify-center">
@@ -115,88 +106,92 @@ function Nav(props) {
             </label>
           </button>
 
-          {user?( 
+          {user ? (
             <div className="dropdown dropdown-end">
               <div
-                      tabIndex={0}
-                      role="button"
-                      className="btn btn-ghost btn-circle avatar"
-                    >
-                      <div className="w-10 rounded-full">
-                          <img
-                            alt="Profile Picture"
-                            src={user.profileImage ? ("http://localhost:8080/image/"+username):(defaultPic)}
-                          />
-                      </div>
-                      
-                      
-              </div>
-                  
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-            {username ? (
-                <>
-              <li>
-                <Link to={`/profile/${username}`} className="justify-between">
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link to={'/editaccount'}>Edit Profile Pic</Link>
-              </li>
-              <li>
-                <Link to={'/deleteaccount'}>Delete User Account</Link>
-              </li>
-              </>
-              ) : null}
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li>
-            </ul>
-          </div>):(
-          <div className="dropdown dropdown-end">
-          <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost btn-circle avatar"
-                >
-                  <div className="w-10 rounded-full">
-                      <img
-                        alt="Profile Picture"
-                        src={defaultPic}
-                      />
-                    </div>
-                  
-                  
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Profile Picture"
+                    src={
+                      user.profileImage
+                        ? "http://localhost:8080/image/" + username
+                        : defaultPic
+                    }
+                  />
                 </div>
-                
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-          {username ? (
-              <>
-            <li>
-              <Link to={`/profile/${username}`} className="justify-between">
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link to={'/editaccount'}>Edit Profile Pic</Link>
-            </li>
-            <li>
-              <Link to={'/deleteaccount'}>Delete User Account</Link>
-            </li>
-            </>
-            ) : null}
-            <li>
+              </div>
 
-              <button onClick={handleLogout}>Logout</button>
-            </li>
-          </ul>
-        </div>)}
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                {username ? (
+                  <>
+                    <li>
+                      <Link
+                        to={`/profile/${username}`}
+                        className="justify-between"
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={"/editaccount"}>Edit Profile Pic</Link>
+                    </li>
+                    <li>
+                      <Link to={"/deleteaccount"}>Delete User Account</Link>
+                    </li>
+                  </>
+                ) : null}
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img alt="Profile Picture" src={defaultPic} />
+                </div>
+              </div>
+
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                {username ? (
+                  <>
+                    <li>
+                      <Link
+                        to={`/profile/${username}`}
+                        className="justify-between"
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={"/editaccount"}>Edit Profile Pic</Link>
+                    </li>
+                    <li>
+                      <Link to={"/deleteaccount"}>Delete User Account</Link>
+                    </li>
+                  </>
+                ) : null}
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>

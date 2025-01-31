@@ -1,5 +1,4 @@
-import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../services/APIservice";
 import "../App.css";
