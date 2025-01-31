@@ -103,7 +103,7 @@ public class UserController {
         if (!recaptchaService.verifyRecaptcha(recaptchaToken, secretKey)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed reCAPTCHA verification.");
         }
-        User user = userRepository.findByName(loginFormDTO.getUsername());
+        User user = userRepository.findByUsername(loginFormDTO.getUsername());
 
         if (user == null || !user.isMatchingPassword(loginFormDTO.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
