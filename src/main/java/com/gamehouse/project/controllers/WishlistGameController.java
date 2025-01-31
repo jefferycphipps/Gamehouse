@@ -60,6 +60,7 @@ public class WishlistGameController {
             gameWishlist.setGame(getGame.get());
             gameWishlist.setGameName(getGame.get().getName());
             gameWishlist.setIgdbCode(getGame.get().getIgdbCode());
+            gameWishlist.setBoxArtUrl(getGame.get().getBoxArtURL());
 
         } else {
 
@@ -78,6 +79,7 @@ public class WishlistGameController {
             gameWishlist.setGame(wishlistGame);
             gameWishlist.setGameName(wishlistGame.getName());
             gameWishlist.setIgdbCode(wishlistGame.getIgdbCode());
+            gameWishlist.setBoxArtUrl(wishlistGame.getBoxArtURL());
         }
 
         // Search UserRepository to find User based on username
@@ -111,6 +113,7 @@ public class WishlistGameController {
             wishlistGame.setUsername(wishlistByUsername.get(i).getUsername());
             wishlistGame.setGameName(wishlistByUsername.get(i).getGameName());
             wishlistGame.setIgdbCode(wishlistByUsername.get(i).getIgdbCode());
+            wishlistGame.setBoxArtUrl(wishlistByUsername.get(i).getBoxArtUrl());
 
             wishlistByUser.add(wishlistGame);
         }

@@ -60,6 +60,7 @@ public class OwnedGameController {
             gameOwnedlist.setGame(getGame.get());
             gameOwnedlist.setGameName(getGame.get().getName());
             gameOwnedlist.setIgdbCode(getGame.get().getIgdbCode());
+            gameOwnedlist.setBoxArtUrl(getGame.get().getBoxArtURL());
 
         } else {
 
@@ -78,6 +79,7 @@ public class OwnedGameController {
             gameOwnedlist.setGame(ownedListGame);
             gameOwnedlist.setGameName(ownedListGame.getName());
             gameOwnedlist.setIgdbCode(ownedListGame.getIgdbCode());
+            gameOwnedlist.setBoxArtUrl(ownedListGame.getBoxArtURL());
         }
 
         // Search UserRepository to find User based on username
@@ -111,6 +113,7 @@ public class OwnedGameController {
             ownedGame.setUsername(ownedListByUsername.get(i).getUsername());
             ownedGame.setGameName(ownedListByUsername.get(i).getGameName());
             ownedGame.setIgdbCode(ownedListByUsername.get(i).getIgdbCode());
+            ownedGame.setBoxArtUrl(ownedListByUsername.get(i).getBoxArtUrl());
 
             ownedListByUser.add(ownedGame);
         }
