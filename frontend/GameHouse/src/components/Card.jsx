@@ -1,13 +1,57 @@
 /* eslint react/prop-types: 0 */
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import { wishlishContext } from "../App";
+import { addOwnedGame, addWishlistGame } from "../services/APIservice";
 
 function Card(props) {
   const [wishlist, setWishlish] = useState(useContext(wishlishContext));
   console.log(wishlist);
+
   const [saved, setSaved] = useState(useContext(wishlishContext));
   console.log(saved);
+
+  const username = localStorage.getItem("username");
+  
+
+  const handleWishlist = async (username, igdbcode) => {
+
+    try {
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('igdbCode', igdbcode);
+      console.log(formData);
+
+      alert("Game added to Wishlist!");
+
+      const response = await addWishlistGame(formData);
+
+    } catch (error) {
+      console.log("formData: " + formData);
+      console.error('Error adding Wishlist game:', error);
+    }
+  };
+
+
+  const handleSaved = async (username, igdbcode) => {
+
+    try {
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('igdbCode', igdbcode);
+      console.log(formData);
+
+      alert("Game added to Saved List!");
+
+      const response = await addOwnedGame(formData);
+
+    } catch (error) {
+      console.log("formData: " + formData);
+      console.error('Error adding Saved game:', error);
+    }
+  };
+  
+
 
   return (
     <>
@@ -36,6 +80,7 @@ function Card(props) {
                       console.log(props.game?.igdbcode);
                       setSaved([...saved, game?.igdbcode]);
                       console.log(saved);
+                      handleSaved(username, game?.igdbcode);
                     }}
                     className="btn btn-accent btn-sm text-xs "
                   >
@@ -61,12 +106,14 @@ function Card(props) {
                   data-tip="Wishlist Game"
                 >
                   <button
-                    onClick={(e) => {
+                    onClick={
+                      (e) => {
                       e.preventDefault();
                       e.stopPropagation();
                       console.log(game?.igdbcode);
                       setWishlish([...wishlist, game?.igdbcode]);
                       console.log(wishlist);
+                      handleWishlist(username, game?.igdbcode);
                     }}
                     className="btn btn-primary btn-sm text-xs "
                   >
