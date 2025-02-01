@@ -24,9 +24,12 @@ const apiClient2 = axios.create({
     return apiClient.get('/reviews/getReviewsIgdb', data);
   };
 
-  // Save Reviews by igdbCode, username
+  // Save Reviews by igdbCode, username, gameReview
   export const saveReview = (data) => {
-    return apiClient.post('/reviews/save', data);
+    return apiClient.post('/reviews/save', data, {
+      headers: {"Content-Type": "application/json"
+      }
+  }); 
   }
 
   // add game to wishlist by igdbCode, username
