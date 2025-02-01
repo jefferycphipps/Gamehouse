@@ -1,5 +1,6 @@
 import * as fs from 'node:fs/promises';
 import axios from "axios";
+import { data } from 'react-router';
 
 const apiClient = axios.create({
   baseURL: "http://localhost:8080/",
@@ -15,6 +16,37 @@ const apiClient2 = axios.create({
 /*  export const fetchEndpoint1 = () => {
     return apiClient.get('/endpoint1');
   }; this is an example of an endpoint */
+
+
+// Gets Reviews by igdbCode
+  export const getReviewsByIgdb = (data) => {
+    console.log(data);
+    return apiClient.get('/reviews/getReviewsIgdb', data);
+  };
+
+  // Save Reviews by igdbCode, username
+  export const saveReview = (data) => {
+    return apiClient.post('/reviews/save', data);
+  }
+
+  // add game to wishlist by igdbCode, username
+  export const addWishlistGame = (data) => {
+    console.log("ADD TO WISHLIST!!!");
+      return apiClient.post('/wishlist/addGame', data, {
+        headers: {"Content-Type": "application/json"
+        }
+    }); 
+  }
+
+  // add game to Owned by igdbCode, username
+  export const addOwnedGame = (data) => {
+    console.log("ADD TO OWNED!!!");
+      return apiClient.post('/owned/addGame', data, {
+        headers: {"Content-Type": "application/json"
+        }
+    }); 
+  }
+
 
 
 export const logOutUser = (data) => {
