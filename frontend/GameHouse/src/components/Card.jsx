@@ -16,38 +16,55 @@ function Card(props) {
 
   const handleWishlist = async (username, igdbcode) => {
 
-    try {
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('igdbCode', igdbcode);
-      console.log(formData);
+    if (username === null) {
 
-      alert("Game added to Wishlist!");
+      alert("Must Login to add game!");
+      console.log("Username is undefined. Must Login to add game!");
 
-      const response = await addWishlistGame(formData);
+    } else {
 
-    } catch (error) {
-      console.log("formData: " + formData);
-      console.error('Error adding Wishlist game:', error);
+      try {
+        const formData = new FormData();
+  
+        formData.append('username', username);
+        formData.append('igdbCode', igdbcode);
+        console.log(formData);
+  
+        alert("Game added to Wishlist!");
+  
+        const response = await addWishlistGame(formData);
+  
+      } catch (error) {
+        console.log("formData: " + formData);
+        console.error('Error adding Wishlist game:', error);
+      }
     }
   };
 
 
   const handleSaved = async (username, igdbcode) => {
 
-    try {
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('igdbCode', igdbcode);
-      console.log(formData);
+    if (username === null) {
 
-      alert("Game added to Saved List!");
+      alert("Must Login to add game!");
+      console.log("Username is undefined. Must Login to add game!");
 
-      const response = await addOwnedGame(formData);
+    } else {
 
-    } catch (error) {
-      console.log("formData: " + formData);
-      console.error('Error adding Saved game:', error);
+      try {
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('igdbCode', igdbcode);
+        console.log(formData);
+  
+        alert("Game added to Saved List!");
+  
+        const response = await addOwnedGame(formData);
+  
+      } catch (error) {
+        console.log("formData: " + formData);
+        console.error('Error adding Saved game:', error);
+      } 
     }
   };
   
