@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
-import { getbyID } from "../services/APIservice";
+import { addOwnedGame, addWishlistGame, getbyID } from "../services/APIservice";
 import { wishlishContext } from "../App";
 import M from "../assets/M.png";
 import T from "../assets/T.png";
@@ -69,6 +69,46 @@ function GamePage() {
   const [saved, setSaved] = useState(useContext(wishlishContext));
   console.log(saved);
 
+  const username = localStorage.getItem("username");
+
+  const handleAddWishlist = async (username, igdbcode) => {
+
+    try {
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('igdbCode', igdbcode);
+      console.log(formData);
+
+      alert("Game added to Wishlist!");
+
+      const response = await addWishlistGame(formData);
+
+    } catch (error) {
+      console.log("formData: " + formData);
+      console.error('Error adding Wishlist game:', error);
+    }
+  };
+
+
+  const handleAddSaved = async (username, igdbcode) => {
+
+    try {
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('igdbCode', igdbcode);
+      console.log(formData);
+
+      alert("Game added to Saved List!");
+
+      const response = await addOwnedGame(formData);
+
+    } catch (error) {
+      console.log("formData: " + formData);
+      console.error('Error adding Saved game:', error);
+    }
+  };
+
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -128,6 +168,7 @@ function GamePage() {
                     console.log(game?.igdbcode);
                     setWishlish([...wishlist, game?.igdbcode]);
                     console.log(wishlist);
+                    handleAddWishlist(username, game.igdbCode);
                   }}
                   className="btn btn-primary rounded-3xl w-1/2 flex items-center justify-start pl-20"
                 >
@@ -154,6 +195,7 @@ function GamePage() {
                     console.log(game?.igdbcode);
                     setSaved([...saved, game?.igdbcode]);
                     console.log(saved);
+                    handleAddSaved(username, game.igdbCode);
                   }}
                   className="btn btn-accent rounded-3xl w-1/2 flex items-center justify-start pl-20"
                 >
