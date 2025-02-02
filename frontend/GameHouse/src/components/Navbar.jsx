@@ -149,7 +149,7 @@ function Nav(props) {
                 </li>
 
                 <li>
-                  <button onClick={handleLogout}>Logout</button>
+                  <button onClick={handleLogout}>Sign Out</button>
                 </li>
               </ul>
             </div>
