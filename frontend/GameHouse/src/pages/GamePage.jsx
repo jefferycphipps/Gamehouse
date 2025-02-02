@@ -1,6 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
-import { addOwnedGame, addWishlistGame, getbyID, saveReview } from "../services/APIservice";
+import {
+  addOwnedGame,
+  addWishlistGame,
+  getbyID,
+  getReviewsByIgdb,
+  saveReview,
+} from "../services/APIservice";
 import { wishlishContext } from "../App";
 import M from "../assets/M.png";
 import T from "../assets/T.png";
@@ -72,55 +78,46 @@ function GamePage() {
   const username = localStorage.getItem("username");
 
   const handleAddWishlist = async (username, igdbcode) => {
-
     if (username === null) {
       alert("Must Login to add game!");
       console.log("Username is undefined. Must Login to add game!");
-
     } else {
-
       try {
         const formData = new FormData();
-        formData.append('username', username);
-        formData.append('igdbCode', igdbcode);
+        formData.append("username", username);
+        formData.append("igdbCode", igdbcode);
         console.log(formData);
         alert("Game added to Wishlist!");
-        
+
         const response = await addWishlistGame(formData);
-  
       } catch (error) {
         console.log("formData: " + formData);
-        console.error('Error adding Wishlist game:', error);
+        console.error("Error adding Wishlist game:", error);
       }
     }
   };
 
-
   const handleAddSaved = async (username, igdbcode) => {
-
     if (username === null) {
       alert("Must Login to add game!");
       console.log("Username is undefined. Must Login to add game!");
-
     } else {
-
       try {
         const formData = new FormData();
-        formData.append('username', username);
-        formData.append('igdbCode', igdbcode);
+        formData.append("username", username);
+        formData.append("igdbCode", igdbcode);
         console.log(formData);
         alert("Game added to Saved List!");
-        
+
         const response = await addOwnedGame(formData);
-  
       } catch (error) {
         console.log("formData: " + formData);
-        console.error('Error adding Saved game:', error);
+        console.error("Error adding Saved game:", error);
       }
     }
   };
 
-// Moved Christian's original stuff down to the html, in case something is important
+  // Moved Christian's original stuff down to the html, in case something is important
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -132,32 +129,26 @@ function GamePage() {
   }
 
   const handleSaveReview = async (igdbCode, username, gameReview) => {
-
     if (username === null) {
-
       alert("Must Login to add game!");
       console.log("Username is undefined. Must Login to add Game Review!");
-
     } else {
-
       try {
         const formData = new FormData();
-        formData.append('igdbCode', igdbCode);
-        formData.append('username', username);
-        formData.append('gameReview', gameReview);
+        formData.append("igdbCode", igdbCode);
+        formData.append("username", username);
+        formData.append("gameReview", gameReview);
         console.log(formData);
-  
+
         alert("Game Review saved!");
 
         const response = await saveReview(formData);
-
       } catch (error) {
         console.log("formData: " + formData);
-        console.error('Error adding Game Review:', error);
-      }  
+        console.error("Error adding Game Review:", error);
+      }
     }
   };
-
 
   function ratingImg() {
     if (game.gameRating == "M") {
@@ -292,20 +283,19 @@ function GamePage() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-      
+
             const fullReview = { review, name, profilePic };
             console.log(fullReview);
             setFakeReviews([...fakeReviews, fullReview]);
             console.log(fakeReviews);
-            
-            console.log(handleSaveReview (game.igdbCode, username, fullReview.review))
 
-            handleSaveReview (game.igdbCode, username, fullReview.review);
+            console.log(
+              handleSaveReview(game.igdbCode, username, fullReview.review)
+            );
+
+            handleSaveReview(game.igdbCode, username, fullReview.review);
 
             setReview("");
-
-            
-
           }}
           className="ml-auto justify-center w-full max-w-xl flex flex-col"
         >

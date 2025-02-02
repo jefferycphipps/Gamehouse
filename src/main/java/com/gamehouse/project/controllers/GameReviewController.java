@@ -99,8 +99,8 @@ public class GameReviewController {
 
 
     // Get Reviews by Game igdbCode
-    @GetMapping("/getReviewsIgdb")
-    public List<GameReviews> getReviewsByIgdb(@RequestBody long igdbCode) {
+    @GetMapping("/get/{igdbCode}")
+    public List<GameReviews> getReviewsByIgdb(@RequestParam long igdbCode) {
 
         List<GameReviews> reviewsList = new ArrayList<>();
 
