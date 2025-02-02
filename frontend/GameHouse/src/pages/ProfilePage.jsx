@@ -123,7 +123,7 @@ function ProfilePage() {
                 <div className="divider mt-2 mb-4"></div>
                 <div className="flex gap-5 overflow-x-scroll w-full">
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -132,7 +132,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -141,7 +141,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -150,7 +150,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -159,7 +159,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -168,7 +168,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -184,7 +184,7 @@ function ProfilePage() {
                 <div className="divider mt-2 mb-4"></div>
                 <div className="flex gap-5 overflow-x-scroll w-full ">
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -193,7 +193,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -202,7 +202,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -211,7 +211,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -220,7 +220,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
@@ -229,7 +229,7 @@ function ProfilePage() {
                     />
                   </Link>
                   <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
                     to={"/games/"}
                   >
                     <img
