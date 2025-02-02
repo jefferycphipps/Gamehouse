@@ -41,16 +41,16 @@ public class GameReviewController {
     @PostMapping("/save")
     public ResponseEntity<String> saveGameReview (@RequestBody GameReviewsDTO gameReviewsDTO) throws Exception {
 
-        // Checks if Review already added by User
-        List<GameReviews> reviewsListByUser = gameReviewsRepository.findAllByUsername(gameReviewsDTO.getUsername());
-
-        for (GameReviews gameReview : reviewsListByUser) {
-
-            if (gameReview.getGameReview().equals(gameReviewsDTO.getGameReview())) {
-
-                    return ResponseEntity.status(HttpStatus.CONFLICT).body("Game Review by User already exist.");
-            }
-        }
+        // Checks if Review already added by User - commented out the following to fix the 409.Conflict error
+//        List<GameReviews> reviewsListByUser = gameReviewsRepository.findAllByUsername(gameReviewsDTO.getUsername());
+//
+//        for (GameReviews gameReview : reviewsListByUser) {
+//
+//            if (gameReview.getGameReview().equals(gameReviewsDTO.getGameReview())) {
+//
+//                    return ResponseEntity.status(HttpStatus.CONFLICT).body("Game Review by User already exist.");
+//            }
+//        }
 
 
         // Create new Game Review object
