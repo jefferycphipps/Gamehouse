@@ -12,11 +12,9 @@ const apiClient2 = axios.create({
   headers: { "Content-Type": "application/json", accept: "application/json" },
 });
 
-
 /*  export const fetchEndpoint1 = () => {
     return apiClient.get('/endpoint1');
   }; this is an example of an endpoint */
-
 
 // Gets Reviews by igdbCode
   export const getReviewsByIgdb = (data) => {
@@ -32,7 +30,7 @@ const apiClient2 = axios.create({
     return apiClient.post('/reviews/save', data, {
       headers: {"Content-Type": "application/json"
       }
-    }); 
+    });
   };
 
   // add game to wishlist by igdbCode, username
@@ -41,7 +39,7 @@ const apiClient2 = axios.create({
     return apiClient.post('/wishlist/addGame', data, {
         headers: {"Content-Type": "application/json"
         }
-    }); 
+    });
   };
 
   // add game to Owned by igdbCode, username
@@ -60,34 +58,30 @@ export const logOutUser = (data) => {
     };
 
 export const deleteAccount = (data) => {
-  return apiClient.delete('/delete', {data: data});
-};//delete account
-  export const registerUser = (data) => {
-    return apiClient.post('/register', data);
-  };//register user
-  export const loginUser = (data) => {
-    return apiClient.post('/login', data);
-  };//login user
-  export const photo = (data) => {
-    return apiClient.post('/saveUserImage', data);
-  };//save image
-  export const getPhoto = async(data) => {
-    return apiClient.get('/image/'+data);
-  }
-  export const userPage = async(username) => {
-    return apiClient.post(`/getUser`, username, {
-        headers: {"Content-Type": "text/plain"
-            }
-        });
-  };
+  return apiClient.delete("/delete", { data: data });
+}; //delete account
+export const registerUser = (data) => {
+  return apiClient.post("/register", data);
+}; //register user
+export const loginUser = (data) => {
+  return apiClient.post("/login", data);
+}; //login user
+export const photo = (data) => {
+  return apiClient.post("/saveUserImage", data);
+}; //save image
+export const getPhoto = async (data) => {
+  return apiClient.get("/image/" + data);
+};
+export const userPage = async (username) => {
+  return apiClient.post(`/getUser`, username, {
+    headers: { "Content-Type": "text/plain" },
+  });
+};
 
 // added another apiClient but changed the name to apiClients so the start up and search will work
 // const apiClients = axios.create({
 //     baseURL: 'http://localhost:8080'
 //   });
-
-
-
 
 export const getbyID = (data) => {
   const gameID = JSON.stringify(data);

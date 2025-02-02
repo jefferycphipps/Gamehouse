@@ -12,63 +12,49 @@ function Card(props) {
   console.log(saved);
 
   const username = localStorage.getItem("username");
-  
 
   const handleWishlist = async (username, igdbcode) => {
-
     if (username === null) {
-
       alert("Must Login to add game!");
       console.log("Username is undefined. Must Login to add game!");
-
     } else {
-
       try {
         const formData = new FormData();
-  
-        formData.append('username', username);
-        formData.append('igdbCode', igdbcode);
+
+        formData.append("username", username);
+        formData.append("igdbCode", igdbcode);
         console.log(formData);
-  
+
         alert("Game added to Wishlist!");
-  
+
         const response = await addWishlistGame(formData);
-  
       } catch (error) {
         console.log("formData: " + formData);
-        console.error('Error adding Wishlist game:', error);
+        console.error("Error adding Wishlist game:", error);
       }
     }
   };
 
-
   const handleSaved = async (username, igdbcode) => {
-
     if (username === null) {
-
       alert("Must Login to add game!");
       console.log("Username is undefined. Must Login to add game!");
-
     } else {
-
       try {
         const formData = new FormData();
-        formData.append('username', username);
-        formData.append('igdbCode', igdbcode);
+        formData.append("username", username);
+        formData.append("igdbCode", igdbcode);
         console.log(formData);
-  
+
         alert("Game added to Saved List!");
-  
+
         const response = await addOwnedGame(formData);
-  
       } catch (error) {
         console.log("formData: " + formData);
-        console.error('Error adding Saved game:', error);
-      } 
+        console.error("Error adding Saved game:", error);
+      }
     }
   };
-  
-
 
   return (
     <>
@@ -123,8 +109,7 @@ function Card(props) {
                   data-tip="Wishlist Game"
                 >
                   <button
-                    onClick={
-                      (e) => {
+                    onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
                       console.log(game?.igdbcode);

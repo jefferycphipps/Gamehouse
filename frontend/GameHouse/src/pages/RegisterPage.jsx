@@ -1,117 +1,206 @@
-import {Form, Field, ErrorMessage, FormikProvider, Formik} from "formik";
+import { Form, Field, ErrorMessage, FormikProvider, Formik } from "formik";
 import axios from "axios";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import * as Yup from "yup";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/APIservice";
 import { load } from "recaptcha-v3";
 
-function RegisterPage(){
+function RegisterPage() {
+  const navigate = useNavigate();
+  const [recaptchaToken, setRecaptchaToken] = useState("");
+  const siteKey = "6LeD3a8qAAAAAIV1IMOwHogeJq0_Vwt0c6ez9LAO";
 
-const navigate = useNavigate();
-const [recaptchaToken, setRecaptchaToken] = useState("");
-const siteKey = "6LeD3a8qAAAAAIV1IMOwHogeJq0_Vwt0c6ez9LAO";
-
-const  handleSubmit = async (values, {setSubmitting}) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     const recaptchaInstance = await load(siteKey);
-            const token = await recaptchaInstance.execute("Register");
-            setRecaptchaToken(token);
-    try{
-         const response = await registerUser({
-                        name: values.name,
-                        username: values.username,
-                        email: values.email,
-                        password: values.password,
-                        verifyPassword: values.verifyPassword,
-                        recaptcha: token
-                        });
+    const token = await recaptchaInstance.execute("Register");
+    setRecaptchaToken(token);
+    try {
+      const response = await registerUser({
+        name: values.name,
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        verifyPassword: values.verifyPassword,
+        recaptcha: token,
+      });
 
-                    localStorage.setItem("username", values.username)
-                    alert("Register successful");
-                    navigate(`/profile/${values.username}`);
-                    } catch (error) {
-                        console.error("Register Failed", error)
-                        alert("Register failed.")
-                    }finally {
-                        setSubmitting(false)
-        }
-    };
-const validation = Yup.object({
+      localStorage.setItem("username", values.username);
+      alert("Register successful");
+      navigate(`/profile/${values.username}`);
+    } catch (error) {
+      console.error("Register Failed", error);
+      alert("Register failed.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+  const validation = Yup.object({
     name: Yup.string()
-    .required("Name is required")
-    .min(3, "Name must be at least 3 characters long."),
+      .required("Name is required")
+      .min(3, "Name must be at least 3 characters long."),
     username: Yup.string()
-    .required("Username is required")
-    .min(3, "Username must be at least 3 characters"),
+      .required("Username is required")
+      .min(3, "Username must be at least 3 characters"),
     email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
+      .email("Invalid email address")
+      .required("Email is required"),
     password: Yup.string()
-    .required("Password is required")
-    .min(3, "Password must be at least 3 characters"),
+      .required("Password is required")
+      .min(3, "Password must be at least 3 characters"),
     verifyPassword: Yup.string()
-    .required("Please verify your password")
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    });
+      .required("Please verify your password")
+      .oneOf([Yup.ref("password")], "Passwords must match"),
+  });
 
-return (
-    <div className="mt-20 text-2xl mx-auto w-4/5 text-center">
-       <h1>Register</h1>
-       <Formik initialValues={{name:"", username:"", email:"", password:"", verifyPassword:""}}
-       validationSchema={validation}
-       onSubmit={handleSubmit}>
-           {({ isSubmitting }) =>(
-        <Form>
+  return (
+    <div className="mt-20 text-2xl mx-auto w-1/4 text-center bg-base-300 p-5 rounded-lg">
+      <h1 className="my-5">Register</h1>
+      <Formik
+        initialValues={{
+          name: "",
+          username: "",
+          email: "",
+          password: "",
+          verifyPassword: "",
+        }}
+        validationSchema={validation}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting }) => (
+          <Form>
             <div className="mb-5">
-                           <label htmlFor="name">Name: </label>
-                              <Field type="text"
-                                name="name"
-                                id="name"/>
-                                <ErrorMessage name="name" component="div" className="text-red-500" />
-                       </div>
-
-           <div className="mb-5">
-               <label htmlFor="username">Username: </label>
-                  <Field type="text"
-                    name="username"
-                    id="username"/>
-                    <ErrorMessage name="username" component="div" className="text-red-500" />
-           </div>
-
-           <div className="mb-5">
-                          <label htmlFor="email">Email: </label>
-                             <Field type="email"
-                               name="email"
-                               id="email"/>
-                               <ErrorMessage name="email" component="div" className="text-red-500" />
-                      </div>
-
-           <div className="mb-5">
-               <label htmlFor="password">Password: </label>
-                  <Field type="password"
-                    name="password"
-                    id="password"/>
-                    <ErrorMessage name="password" component="div" className="text-red-500" />
-           </div>
-
-           <div className="mb-5">
-                <label htmlFor="verifyPassword">Verify Password: </label>
-                  <Field type="password"
-                     name="verifyPassword"
-                     id="verifyPassword"/>
-                     <ErrorMessage name="verifyPassword" component="div" className="text-red-500" />
+              <label
+                htmlFor="name"
+                className="input input-bordered flex items-center gap-2"
+              >
+                Name:
+                <Field type="text" name="name" id="name" className="grow" />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className="text-red-500"
+                />
+              </label>
             </div>
 
-             <button type="submit"  disabled={isSubmitting} className="btn btn-primary">
-                 {isSubmitting ? "Registering" : "Register"}
-              </button>
-        </Form>
+            <div className="mb-5">
+              <label
+                htmlFor="username"
+                className="input input-bordered flex items-center gap-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="h-4 w-4 opacity-70"
+                >
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                </svg>
+                Username:
+                <Field
+                  type="text"
+                  name="username"
+                  id="username"
+                  className="grow"
+                />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  className="text-red-500"
+                />
+              </label>
+            </div>
+
+            <div className="mb-5">
+              <label
+                htmlFor="email"
+                className="input input-bordered flex items-center gap-2"
+              >
+                {" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="h-4 w-4 opacity-70"
+                >
+                  <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+                  <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+                </svg>
+                Email:
+                <Field type="email" name="email" id="email" className="grow" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500"
+                />
+              </label>
+            </div>
+
+            <div className="mb-5">
+              <label
+                htmlFor="password"
+                className="input input-bordered flex items-center gap-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="h-4 w-4 opacity-70"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Password:
+                <Field
+                  type="password"
+                  name="password"
+                  id="password"
+                  className="grow"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-500"
+                />
+              </label>
+            </div>
+
+            <div className="mb-5">
+              <label
+                htmlFor="verifyPassword"
+                className="input input-bordered flex items-center gap-2"
+              >
+                Verify Password:
+                <Field
+                  type="password"
+                  name="verifyPassword"
+                  id="verifyPassword"
+                  className="grow"
+                />
+                <ErrorMessage
+                  name="verifyPassword"
+                  component="div"
+                  className="text-red-500"
+                />
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="btn btn-primary"
+            >
+              {isSubmitting ? "Registering" : "Register"}
+            </button>
+          </Form>
         )}
-       </Formik>
+      </Formik>
     </div>
-
-    )
+  );
 }
-
 
 export default RegisterPage;

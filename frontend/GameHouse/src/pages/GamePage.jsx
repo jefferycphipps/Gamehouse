@@ -20,8 +20,6 @@ function GamePage() {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU"
   );
   const [isPending, setIsPending] = useState(false);
-  const [gameReviews, setGameReviews] = useState ([]);
-  const [gameReviewSaved, setGameReviewSaved] = useState("");
   
 
   useEffect(() => {
@@ -76,7 +74,6 @@ function GamePage() {
     }
   };
 
-
   const handleSaveReview = async (igdbCode, username, gameReview) => {
 
     if (username === null) {
@@ -92,7 +89,7 @@ function GamePage() {
         formData.append('username', username);
         formData.append('gameReview', gameReview);
         console.log(formData);
-  
+
         alert("Game Review saved!");
 
         const responseSaveReview = await saveReview(formData);
@@ -104,7 +101,7 @@ function GamePage() {
 
         const response = await getReviewsByIgdb(igdbCode);
         console.log(response.data);
-  
+
         setGameReviews(response.data);
         console.log(gameReviews);
 
@@ -112,7 +109,7 @@ function GamePage() {
       } catch (error) {
         // console.log("formData: " + formData);
         console.error('Error adding Game Review:', error);
-      }  
+      }
     }
   };
 
@@ -122,10 +119,10 @@ function GamePage() {
       try {
         const response = await getReviewsByIgdb(gameID);
         console.log(response.data);
-  
+
         setGameReviews(response.data);
         console.log(gameReviews);
-  
+
       } catch (error) {
         // console.log(response.data);
         console.log(error);
@@ -133,9 +130,9 @@ function GamePage() {
     }
     fetchReviews(gameID).catch(console.error);
   }, [gameReviewSaved]);
-  
 
-  
+
+
   useEffect(() => {
     console.log("Updated Reviews:", gameReviews);
   }, [gameReviews]);
@@ -155,7 +152,7 @@ function GamePage() {
         formData.append('igdbCode', igdbcode);
         console.log(formData);
         alert("Game added to Saved List!");
-        
+
         const response = await addOwnedGame(formData);
   
       } catch (error) {
@@ -171,13 +168,13 @@ function GamePage() {
 
       const fullReview = { review, name, profilePic };
       console.log(fullReview);
-      
+
       handleSaveReview (game.igdbCode, username, fullReview.review);
 
       setReview("");
   }
 
-  
+
 
 
   function ratingImg() {
