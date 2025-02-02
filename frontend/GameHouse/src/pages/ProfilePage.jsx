@@ -2,8 +2,10 @@ import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { getPhoto, userPage } from "../services/APIservice";
+import { getPhoto, getSavedlist, getWishlist, userPage } from "../services/APIservice";
 import "../App.css";
+
+
 function ProfilePage() {
   const defaultPic =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU";
@@ -11,6 +13,9 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const username = localStorage.getItem("username");
+  const [wishlist, setWishlist] = useState([]);
+  const [savedList, setSavedList] = useState([]);
+
 
   useEffect(() => {
     if (!username) {
@@ -34,6 +39,49 @@ function ProfilePage() {
     };
     fetchUserData();
   }, [username, navigate]);
+
+
+  useEffect(() => {
+    const getUserWishlist = async(username) => {
+      try {
+        const responseWishlist = await getWishlist(username);
+        console.log(typeof responseWishlist.data);
+        console.log(responseWishlist.data);
+        
+        setWishlist(responseWishlist.data);
+        console.log(wishlist);
+        console.log(typeof wishlist);
+  
+      } catch (error) {
+        console.error("Error getting Wishlist:", error);
+      }
+    };
+    
+    const getUserSavedList = async(username) => {
+      try {
+        const responseSavedList = await getSavedlist(username);
+        console.log(typeof responseSavedList.data);
+        console.log(responseSavedList.data);
+        
+        setSavedList(responseSavedList.data);
+        console.log(savedList);
+        console.log(typeof savedList);
+
+      } catch (error) {
+        console.error("Error getting Saved List:",error);
+      }
+    };
+    getUserWishlist(username).catch(console.error);
+    getUserSavedList(username).catch(console.error);
+  }, []);
+
+
+  useEffect(() => {
+    console.log("Updated Wishlist:", wishlist);
+    console.log("Updated Saved List:", savedList);
+  }, [wishlist, savedList]);
+  
+
 
   return (
     <div className="flex flex-col mx-auto w-1/2 h-full bg-primary bg-opacity-5 mt-auto mb-20 gap-7 pb-20 rounded-md">
@@ -100,121 +148,40 @@ function ProfilePage() {
                 <p className="text-xl ">Saved Games</p>
                 <div className="divider mt-2 mb-4"></div>
                 <div className="flex gap-5 overflow-x-scroll w-full">
-                  <Link
+
+                  {savedList.map((game, i) => (
+                    <Link
                     className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
+                    to={"/games/" + game.igdbCode}
                   >
                     <img
                       className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
+                      src={game.boxArtUrl}
                     />
                   </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://i.imgur.com/m3eOjFP.jpg"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://www.giantbomb.com/a/uploads/original/3/39947/2116251-Dead-Space-Cover.jpg"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://i.redd.it/lmm320ubju4a1.jpg"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://m.media-amazon.com/images/I/71G5OYo5x1L.jpg"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://preview.redd.it/princess-peach-showtime-box-art-quietly-changed-v0-wxnxk93ltotb1.jpg?width=618&format=pjpg&auto=webp&s=7f2427281cba56163050ca9592b72cf02fab293e"
-                    />
-                  </Link>
+                  ))}
+
                 </div>
               </div>
+
+
               <div className="mx-auto my-10 w-11/12 bg-base-200 p-5 rounded-md h-full shadow-md  shadow-black/40">
                 <p className="text-xl">Wishlisted Games </p>
-
                 <div className="divider mt-2 mb-4"></div>
                 <div className="flex gap-5 overflow-x-scroll w-full ">
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
-                    />
-                  </Link>
-                  <Link
-                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
-                    to={"/games/"}
-                  >
-                    <img
-                      className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
-                    />
-                  </Link>
+
+                  {wishlist.map((game, i) => (
+                      <Link
+                      className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80"
+                      to={"/games/" + game.igdbCode}
+                    >
+                      <img
+                        className="h-52 w-40 block rounded-sm"
+                        src={game.boxArtUrl}
+                      />
+                    </Link>
+                  ))}
+
                 </div>
               </div>
             </>

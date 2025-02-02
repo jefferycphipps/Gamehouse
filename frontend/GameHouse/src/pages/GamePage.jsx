@@ -329,7 +329,7 @@ function GamePage() {
               <div className="flex p-5 justify-between ">
                 <div className="flex flex-col justify-start items-start gap-3">
                   <Link
-                    to={"/profile/:username"}
+                    to={`/profile/${r.username}`}
                     tabIndex={0}
                     role="button"
                     className="btn btn-ghost btn-circle avatar"

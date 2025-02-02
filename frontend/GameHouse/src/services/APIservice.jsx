@@ -16,6 +16,7 @@ const apiClient2 = axios.create({
     return apiClient.get('/endpoint1');
   }; this is an example of an endpoint */
 
+
 // Gets Reviews by igdbCode
   export const getReviewsByIgdb = (data) => {
     console.log("Fetch Reviews!");
@@ -33,6 +34,7 @@ const apiClient2 = axios.create({
     });
   };
 
+
   // add game to wishlist by igdbCode, username
   export const addWishlistGame = (data) => {
     console.log("ADD TO WISHLIST!!!");
@@ -42,6 +44,13 @@ const apiClient2 = axios.create({
     });
   };
 
+  // GET wishlist by username
+  export const getWishlist = (username) => {
+    console.log("FETCH WISHLIST by Username!!!");
+    return apiClient.get('/wishlist/'+ username) 
+  };
+
+
   // add game to Owned by igdbCode, username
   export const addOwnedGame = (data) => {
     console.log("ADD TO OWNED!!!");
@@ -49,6 +58,12 @@ const apiClient2 = axios.create({
         headers: {"Content-Type": "application/json"
         }
     }); 
+  };
+
+  // GET saved list by username
+  export const getSavedlist = (username) => {
+    console.log("FETCH SAVED LIST by Username!!!");
+    return apiClient.get('/owned/'+ username) 
   };
 
 
