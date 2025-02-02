@@ -1,13 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
-import {
-  addOwnedGame,
-  addWishlistGame,
-  getbyID,
-  getReviewsByIgdb,
-  saveReview,
-} from "../services/APIservice";
-import { wishlishContext } from "../App";
+import { addOwnedGame, addWishlistGame, getbyID, getReviewsByIgdb, saveReview } from "../services/APIservice";
+import { response, wishlishContext } from "../App";
 import M from "../assets/M.png";
 import T from "../assets/T.png";
 import E from "../assets/E.png";
@@ -26,29 +20,9 @@ function GamePage() {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU"
   );
   const [isPending, setIsPending] = useState(false);
-  const [fakeReviews, setFakeReviews] = useState([
-    {
-      review:
-        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat. Mi phasellus porta cras et, tristique leo scelerisque phasellus. Himenaeos in suscipit curae diam; ridiculus nec nisl. Interdum platea per sodales tristique felis ad.",
-      name: "GoldenBoy69",
-      profilePic:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHT1bbUhvtq8v-AegejdrqfFAzLNiGqiNaeQ&s",
-    },
-    {
-      review:
-        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. ",
-      name: "SuperFuture",
-      profilePic:
-        "https://i.pinimg.com/736x/30/d5/c0/30d5c013ba8971b621b782e003ef0153.jpg",
-    },
-    {
-      review:
-        "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat.",
-      name: "BigPizza",
-      profilePic:
-        "https://www.simplyrecipes.com/thmb/pjYMLcsKHkr8D8tYixmaFNxppPw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg",
-    },
-  ]);
+  const [gameReviews, setGameReviews] = useState ([]);
+  const [gameReviewSaved, setGameReviewSaved] = useState("");
+
 
   useEffect(() => {
     const getGameRequest = async (gameID) => {
@@ -70,6 +44,7 @@ function GamePage() {
     getGameRequest(gameID).catch(console.error);
   }, [gameID]);
 
+
   const [wishlist, setWishlish] = useState(useContext(wishlishContext));
   console.log(wishlist);
   const [saved, setSaved] = useState(useContext(wishlishContext));
@@ -78,77 +53,131 @@ function GamePage() {
   const username = localStorage.getItem("username");
 
   const handleAddWishlist = async (username, igdbcode) => {
+
     if (username === null) {
       alert("Must Login to add game!");
       console.log("Username is undefined. Must Login to add game!");
+
     } else {
+
       try {
         const formData = new FormData();
-        formData.append("username", username);
-        formData.append("igdbCode", igdbcode);
+        formData.append('username', username);
+        formData.append('igdbCode', igdbcode);
         console.log(formData);
         alert("Game added to Wishlist!");
-
+        
         const response = await addWishlistGame(formData);
+  
       } catch (error) {
         console.log("formData: " + formData);
-        console.error("Error adding Wishlist game:", error);
+        console.error('Error adding Wishlist game:', error);
       }
     }
   };
-
-  const handleAddSaved = async (username, igdbcode) => {
-    if (username === null) {
-      alert("Must Login to add game!");
-      console.log("Username is undefined. Must Login to add game!");
-    } else {
-      try {
-        const formData = new FormData();
-        formData.append("username", username);
-        formData.append("igdbCode", igdbcode);
-        console.log(formData);
-        alert("Game added to Saved List!");
-
-        const response = await addOwnedGame(formData);
-      } catch (error) {
-        console.log("formData: " + formData);
-        console.error("Error adding Saved game:", error);
-      }
-    }
-  };
-
-  // Moved Christian's original stuff down to the html, in case something is important
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const fullReview = { review, name, profilePic };
-    console.log(fullReview);
-    setFakeReviews([...fakeReviews, fullReview]);
-    console.log(fakeReviews);
-    setReview("");
-  }
 
   const handleSaveReview = async (igdbCode, username, gameReview) => {
+
     if (username === null) {
+
       alert("Must Login to add game!");
       console.log("Username is undefined. Must Login to add Game Review!");
+
     } else {
+
       try {
         const formData = new FormData();
-        formData.append("igdbCode", igdbCode);
-        formData.append("username", username);
-        formData.append("gameReview", gameReview);
+        formData.append('igdbCode', igdbCode);
+        formData.append('username', username);
+        formData.append('gameReview', gameReview);
         console.log(formData);
 
         alert("Game Review saved!");
 
-        const response = await saveReview(formData);
+        const responseSaveReview = await saveReview(formData);
+
+        setGameReviewSaved(responseSaveReview.data);
+        console.log(typeof responseSaveReview.data);
+        console.log(responseSaveReview.data);
+        console.log(gameReviewSaved);
+
+        const response = await getReviewsByIgdb(igdbCode);
+        console.log(response.data);
+
+        setGameReviews(response.data);
+        console.log(gameReviews);
+
+
       } catch (error) {
-        console.log("formData: " + formData);
-        console.error("Error adding Game Review:", error);
+        // console.log("formData: " + formData);
+        console.error('Error adding Game Review:', error);
       }
     }
   };
+
+
+  useEffect(() => {
+    const fetchReviews = async (gameID) => {
+      try {
+        const response = await getReviewsByIgdb(gameID);
+        console.log(response.data);
+
+        setGameReviews(response.data);
+        console.log(gameReviews);
+
+      } catch (error) {
+        // console.log(response.data);
+        console.log(error);
+      }
+    }
+    fetchReviews(gameID).catch(console.error);
+  }, [gameReviewSaved]);
+
+
+
+  useEffect(() => {
+    console.log("Updated Reviews:", gameReviews);
+  }, [gameReviews]);
+
+
+  const handleAddSaved = async (username, igdbcode) => {
+
+    if (username === null) {
+      alert("Must Login to add game!");
+      console.log("Username is undefined. Must Login to add game!");
+
+    } else {
+
+      try {
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('igdbCode', igdbcode);
+        console.log(formData);
+        alert("Game added to Saved List!");
+
+        const response = await addOwnedGame(formData);
+  
+      } catch (error) {
+        console.log("formData: " + formData);
+        console.error('Error adding Saved game:', error);
+      }
+    }
+  };
+
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+      const fullReview = { review, name, profilePic };
+      console.log(fullReview);
+
+      handleSaveReview (game.igdbCode, username, fullReview.review);
+
+      setReview("");
+  }
+
+
+
 
   function ratingImg() {
     if (game.gameRating == "M") {
@@ -173,7 +202,7 @@ function GamePage() {
   return (
     <>
       <div
-        className="hero bg-base-200 min-h-[80vh] "
+        className="hero bg-base-200 min-h-[80vh]"
         style={{
           backgroundImage: `url(${game.boxArtURL})`,
         }}
@@ -201,7 +230,7 @@ function GamePage() {
                     console.log(wishlist);
                     handleAddWishlist(username, game.igdbCode);
                   }}
-                  className="btn btn-primary rounded-3xl w-1/2 flex items-center justify-start pl-20 "
+                  className="btn btn-primary rounded-3xl w-1/2 flex items-center justify-start pl-20"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -228,7 +257,7 @@ function GamePage() {
                     console.log(saved);
                     handleAddSaved(username, game.igdbCode);
                   }}
-                  className="btn btn-accent rounded-3xl w-1/2 flex items-center justify-start pl-20 "
+                  className="btn btn-accent rounded-3xl w-1/2 flex items-center justify-start pl-20"
                 >
                   <svg
                     className="h-6 w-6"
@@ -281,22 +310,7 @@ function GamePage() {
           className="input input-bordered input-primary h-48 w-full my-10 max-w-xl mx-auto justify-center"
           /> */}
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-
-            const fullReview = { review, name, profilePic };
-            console.log(fullReview);
-            setFakeReviews([...fakeReviews, fullReview]);
-            console.log(fakeReviews);
-
-            console.log(
-              handleSaveReview(game.igdbCode, username, fullReview.review)
-            );
-
-            handleSaveReview(game.igdbCode, username, fullReview.review);
-
-            setReview("");
-          }}
+          onSubmit={handleSubmit}
           className="ml-auto justify-center w-full max-w-xl flex flex-col"
         >
           <textarea
@@ -310,25 +324,25 @@ function GamePage() {
           </button>
         </form>
         <div className="flex flex-col gap-5 my-10">
-          {fakeReviews.map((r, i) => (
+          {gameReviews.map((r, i) => (
             <>
               <div className="flex p-5 justify-between ">
                 <div className="flex flex-col justify-start items-start gap-3">
                   <Link
-                    to={"/profile/:username"}
+                    to={`/profile/${r.username}`}
                     tabIndex={0}
                     role="button"
                     className="btn btn-ghost btn-circle avatar"
                   >
                     <div className="w-10 rounded-full">
-                      <img alt="Profile Picture" src={r.profilePic} />
+                      <img alt="Profile Picture" src={("http://localhost:8080/image/"+r.username) ? ("http://localhost:8080/image/"+r.username):(profilePic)} />
                     </div>
                   </Link>
-                  <div className="text-sm">{r.name}</div>
+                  <div className="text-sm">{r.username}</div>
                 </div>
                 <div className="flex flex-col basis-3/4 justify-between">
                   <p key={i} className=" mb-10">
-                    {r.review}
+                    {r.gameReview}
                   </p>
                   <div className="divider"></div>
                 </div>

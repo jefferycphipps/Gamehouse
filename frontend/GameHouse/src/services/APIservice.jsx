@@ -1,6 +1,6 @@
-import * as fs from "node:fs/promises";
+import * as fs from 'node:fs/promises';
 import axios from "axios";
-import { data } from "react-router";
+import { data } from 'react-router';
 
 const apiClient = axios.create({
   baseURL: "http://localhost:8080/",
@@ -16,38 +16,61 @@ const apiClient2 = axios.create({
     return apiClient.get('/endpoint1');
   }; this is an example of an endpoint */
 
+
 // Gets Reviews by igdbCode
-export const getReviewsByIgdb = (data) => {
-  console.log(data);
-  return apiClient.get("/reviews/getReviewsIgdb", data);
-};
+  export const getReviewsByIgdb = (data) => {
+    console.log("Fetch Reviews!");
+    return apiClient.post('/reviews/getReviewsIgdb', data, {
+      headers: {"Content-Type": "application/json"
+      }
+    });
+  };
 
-// Save Reviews by igdbCode, username, gameReview
-export const saveReview = (data) => {
-  return apiClient.post("/reviews/save", data, {
-    headers: { "Content-Type": "application/json" },
-  });
-};
+  // Save Reviews by igdbCode, username, gameReview
+  export const saveReview = (data) => {
+    return apiClient.post('/reviews/save', data, {
+      headers: {"Content-Type": "application/json"
+      }
+    });
+  };
 
-// add game to wishlist by igdbCode, username
-export const addWishlistGame = (data) => {
-  console.log("ADD TO WISHLIST!!!");
-  return apiClient.post("/wishlist/addGame", data, {
-    headers: { "Content-Type": "application/json" },
-  });
-};
 
-// add game to Owned by igdbCode, username
-export const addOwnedGame = (data) => {
-  console.log("ADD TO OWNED!!!");
-  return apiClient.post("/owned/addGame", data, {
-    headers: { "Content-Type": "application/json" },
-  });
-};
+  // add game to wishlist by igdbCode, username
+  export const addWishlistGame = (data) => {
+    console.log("ADD TO WISHLIST!!!");
+    return apiClient.post('/wishlist/addGame', data, {
+        headers: {"Content-Type": "application/json"
+        }
+    });
+  };
+
+  // GET wishlist by username
+  export const getWishlist = (username) => {
+    console.log("FETCH WISHLIST by Username!!!");
+    return apiClient.get('/wishlist/'+ username) 
+  };
+
+
+  // add game to Owned by igdbCode, username
+  export const addOwnedGame = (data) => {
+    console.log("ADD TO OWNED!!!");
+      return apiClient.post('/owned/addGame', data, {
+        headers: {"Content-Type": "application/json"
+        }
+    }); 
+  };
+
+  // GET saved list by username
+  export const getSavedlist = (username) => {
+    console.log("FETCH SAVED LIST by Username!!!");
+    return apiClient.get('/owned/'+ username) 
+  };
+
+
 
 export const logOutUser = (data) => {
-  return apiClient.get(`/logout`);
-};
+    return apiClient.get(`/logout`);
+    };
 
 export const deleteAccount = (data) => {
   return apiClient.delete("/delete", { data: data });
