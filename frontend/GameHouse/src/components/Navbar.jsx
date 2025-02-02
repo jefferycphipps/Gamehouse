@@ -145,7 +145,7 @@ function Nav(props) {
                   </Link>
                 </li>
                 <li>
-                  <Link to={"/deleteaccount"}>Delete User Account</Link>
+                  <Link to={"/deleteaccount"}>Delete Account</Link>
                 </li>
 
                 <li>

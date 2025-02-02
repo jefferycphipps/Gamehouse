@@ -176,6 +176,15 @@ function ProfilePage() {
                       src="https://preview.redd.it/princess-peach-showtime-box-art-quietly-changed-v0-wxnxk93ltotb1.jpg?width=618&format=pjpg&auto=webp&s=7f2427281cba56163050ca9592b72cf02fab293e"
                     />
                   </Link>
+                  <Link
+                    className="flex-grow-0 flex-shrink-0 mb-5 hover:scale-105 hover:opacity-80 shadow-md shadow-black/50"
+                    to={"/games/"}
+                  >
+                    <img
+                      className="h-52 w-40 block rounded-sm"
+                      src="https://assetsio.gnwcdn.com/co24v0.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp"
+                    />
+                  </Link>
                 </div>
               </div>
               <div className="mx-auto my-10 w-11/12 bg-base-200 p-5 rounded-md h-full shadow-md  shadow-black/40">
