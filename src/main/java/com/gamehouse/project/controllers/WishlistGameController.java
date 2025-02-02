@@ -25,6 +25,9 @@ public class WishlistGameController {
     private WishlistGameRepository wishlistGameRepository;
 
     @Autowired
+    private OwnedGameRepository ownedGameRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -41,12 +44,23 @@ public class WishlistGameController {
     @PostMapping("/addGame")
     public ResponseEntity<String> addGameToWishlist (@RequestBody GameUsernameDTO gameUsernameDTO) throws Exception {
 
+
         // Checks if Game already added by user
         List<WishlistGame> wishlistByUser = wishlistGameRepository.findAllByUsername(gameUsernameDTO.getUsername());
 
         for (WishlistGame game : wishlistByUser) {
             if (game.getIgdbCode() == gameUsernameDTO.getIgdbCode()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Game already added to Wishlist.");
+            }
+        }
+
+
+        // Checks if Game already added to ownedGameRepository, if so, will remove
+        List<OwnedGame> ownedGameListByUser = ownedGameRepository.findAllByUsername(gameUsernameDTO.getUsername());
+
+        for (OwnedGame game : ownedGameListByUser) {
+            if (game.getIgdbCode() == gameUsernameDTO.getIgdbCode()) {
+                ownedGameRepository.deleteById(game.getId());
             }
         }
 

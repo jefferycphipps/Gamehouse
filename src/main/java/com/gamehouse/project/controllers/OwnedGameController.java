@@ -3,6 +3,7 @@ package com.gamehouse.project.controllers;
 import com.gamehouse.project.models.Game;
 import com.gamehouse.project.models.OwnedGame;
 import com.gamehouse.project.models.User;
+import com.gamehouse.project.models.WishlistGame;
 import com.gamehouse.project.models.data.*;
 import com.gamehouse.project.models.dto.GameUsernameDTO;
 import com.gamehouse.project.services.APICallService;
@@ -22,6 +23,9 @@ public class OwnedGameController {
 
     @Autowired
     private OwnedGameRepository ownedGameRepository;
+
+    @Autowired
+    private WishlistGameRepository wishlistGameRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -47,6 +51,16 @@ public class OwnedGameController {
         for (OwnedGame game : OwnedListByUser) {
             if (game.getIgdbCode() == gameUsernameDTO.getIgdbCode()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Game already added to Owned List.");
+            }
+        }
+
+
+        // Checks if Game already added to wishlistGameRepository, if so, will remove
+        List<WishlistGame> WishlistByUser = wishlistGameRepository.findAllByUsername(gameUsernameDTO.getUsername());
+
+        for (WishlistGame game : WishlistByUser) {
+            if (game.getIgdbCode() == gameUsernameDTO.getIgdbCode()) {
+                wishlistGameRepository.deleteById(game.getId());
             }
         }
 
