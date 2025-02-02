@@ -21,29 +21,8 @@ function GamePage() {
   );
   const [isPending, setIsPending] = useState(false);
   const [gameReviews, setGameReviews] = useState ([]);
-  // const [fakeReviews, setFakeReviews] = useState([
-  //   {
-  //     review:
-  //       "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat. Mi phasellus porta cras et, tristique leo scelerisque phasellus. Himenaeos in suscipit curae diam; ridiculus nec nisl. Interdum platea per sodales tristique felis ad.",
-  //     name: "GoldenBoy69",
-  //     profilePic:
-  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHT1bbUhvtq8v-AegejdrqfFAzLNiGqiNaeQ&s",
-  //   },
-  //   {
-  //     review:
-  //       "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. ",
-  //     name: "SuperFuture",
-  //     profilePic:
-  //       "https://i.pinimg.com/736x/30/d5/c0/30d5c013ba8971b621b782e003ef0153.jpg",
-  //   },
-  //   {
-  //     review:
-  //       "Lorem ipsum odor amet, consectetuer adipiscing elit. Accumsan habitant bibendum suspendisse felis conubia parturient risus. Sollicitudin laoreet mus ante accumsan, bibendum nulla sagittis. Vulputate feugiat inceptos curae accumsan efficitur ultrices efficitur nunc ad. Duis mus laoreet sodales, inceptos orci iaculis justo? Ad mauris litora placerat pulvinar erat aliquam. Dolor pharetra suspendisse cursus vitae senectus donec pulvinar ipsum. Maximus donec volutpat etiam in pulvinar erat.",
-  //     name: "BigPizza",
-  //     profilePic:
-  //       "https://www.simplyrecipes.com/thmb/pjYMLcsKHkr8D8tYixmaFNxppPw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg",
-  //   },
-  // ]);
+  const [gameReviewSaved, setGameReviewSaved] = useState("");
+  
 
   useEffect(() => {
     const getGameRequest = async (gameID) => {
@@ -116,13 +95,22 @@ function GamePage() {
   
         alert("Game Review saved!");
 
-        const response = await saveReview(formData);
+        const responseSaveReview = await saveReview(formData);
 
-        setGameReviewObj(formData);
-        console.log(gameReviewObj);
+        setGameReviewSaved(responseSaveReview.data);
+        console.log(typeof responseSaveReview.data);
+        console.log(responseSaveReview.data);
+        console.log(gameReviewSaved);
+
+        const response = await getReviewsByIgdb(igdbCode);
+        console.log(response.data);
+  
+        setGameReviews(response.data);
+        console.log(gameReviews);
+
 
       } catch (error) {
-        console.log("formData: " + formData);
+        // console.log("formData: " + formData);
         console.error('Error adding Game Review:', error);
       }  
     }
@@ -139,13 +127,19 @@ function GamePage() {
         console.log(gameReviews);
   
       } catch (error) {
-        console.log(response.data);
+        // console.log(response.data);
         console.log(error);
       }
     }
     fetchReviews(gameID).catch(console.error);
-  }, []);
+  }, [gameReviewSaved]);
   
+
+  
+  useEffect(() => {
+    console.log("Updated Reviews:", gameReviews);
+  }, [gameReviews]);
+
 
   const handleAddSaved = async (username, igdbcode) => {
 
@@ -171,15 +165,16 @@ function GamePage() {
     }
   };
 
-// Moved Christian's original stuff down to the html, in case something is important
+
   function handleSubmit(e) {
     e.preventDefault();
 
-    const fullReview = { review, name, profilePic };
-    console.log(fullReview);
-    // setFakeReviews([...fakeReviews, fullReview]);
-    console.log(fakeReviews);
-    setReview("");
+      const fullReview = { review, name, profilePic };
+      console.log(fullReview);
+      
+      handleSaveReview (game.igdbCode, username, fullReview.review);
+
+      setReview("");
   }
 
   
@@ -316,29 +311,7 @@ function GamePage() {
           className="input input-bordered input-primary h-48 w-full my-10 max-w-xl mx-auto justify-center"
           /> */}
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-      
-            const fullReview = { review, name, profilePic };
-            console.log(fullReview);
-            // setFakeReviews([...fakeReviews, fullReview]);
-            // console.log(fakeReviews);
-            
-            console.log(handleSaveReview (game.igdbCode, username, fullReview.review))
-
-            handleSaveReview (game.igdbCode, username, fullReview.review);
-
-            console.log(gameID);
-
-            fetchReviews(gameID);
-            
-            location.reload();
-
-            setReview("");
-
-            
-
-          }}
+          onSubmit={handleSubmit}
           className="ml-auto justify-center w-full max-w-xl flex flex-col"
         >
           <textarea
