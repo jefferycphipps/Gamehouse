@@ -11,6 +11,7 @@ function EditProfilePic() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const username = localStorage.getItem("username");
+
   useEffect(() => {
     if (!username) {
       alert("You need to be logged in first.");
