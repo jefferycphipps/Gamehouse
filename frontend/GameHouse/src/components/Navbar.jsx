@@ -145,11 +145,11 @@ function Nav(props) {
                   </Link>
                 </li>
                 <li>
-                  <Link to={"/deleteaccount"}>Delete User Account</Link>
+                  <Link to={"/deleteaccount"}>Delete Account</Link>
                 </li>
 
                 <li>
-                  <button onClick={handleLogout}>Logout</button>
+                  <button onClick={handleLogout}>Sign Out</button>
                 </li>
               </ul>
             </div>

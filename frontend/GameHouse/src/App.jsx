@@ -11,6 +11,7 @@ import Test from "./pages/Test";
 import RegisterPage from "./pages/RegisterPage";
 import EditProfilePic from "./pages/EditProfilePic";
 import DeleteUser from "./pages/DeleteUser";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -33,8 +34,8 @@ const router = createBrowserRouter([
         element: <SignInPage />,
       },
       {
-          path: "/register",
-          element: <RegisterPage />,
+        path: "/register",
+        element: <RegisterPage />,
       },
       {
         path: "/editaccount",
@@ -44,8 +45,10 @@ const router = createBrowserRouter([
         path: "/deleteaccount",
         element: <DeleteUser />,
       },
-
-
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
   },
 ]);
@@ -69,7 +72,6 @@ function App() {
       </wishlishContext.Provider>
     </>
   );
-
 }
 
 export default App;

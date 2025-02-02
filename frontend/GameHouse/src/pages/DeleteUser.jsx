@@ -1,13 +1,34 @@
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteAccount } from "../services/APIservice";
+import { deleteAccount, userPage } from "../services/APIservice";
 import "../App.css";
 
 function DeleteUser() {
   const [errorMessage, setErrorMessage] = useState("");
   const username = localStorage.getItem("username");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!username) {
+      alert("You need to be logged in first.");
+      navigate("/welcome");
+      console.log("you got me");
+      return;
+    }
+
+    const fetchUserData = async () => {
+      try {
+        const response = await userPage(username);
+        setErrorMessage("");
+      } catch (error) {
+        setErrorMessage(`An error occurred: ${error.message}`);
+        navigate("/welcome");
+        console.log("you got me too");
+      }
+    };
+    fetchUserData();
+  }, [username, navigate]);
 
   const deleteAcc = async () => {
     try {
