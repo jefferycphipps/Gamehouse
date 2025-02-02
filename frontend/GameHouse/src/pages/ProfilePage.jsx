@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getPhoto, userPage } from "../services/APIservice";
 import "../App.css";
+import NotFound from "./NotFound";
 function ProfilePage() {
   const defaultPic =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU";
@@ -251,11 +252,8 @@ function ProfilePage() {
               </div>
             </>
           ) : (
-            <div className="m-auto flex flex-col gap-5">
-              <h1 className="text-3xl">User Not Found</h1>
-              <Link to={"/"}>
-                <button className="btn btn-info">Go back home</button>
-              </Link>
+            <div className="m-auto">
+              <NotFound className="m-auto" />
             </div>
           )}
         </>
