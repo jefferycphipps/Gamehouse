@@ -55,7 +55,7 @@ function EditProfilePic() {
         <img
           alt="Profile Picture"
           src={"http://localhost:8080/image/" + username}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover shadow-md shadow-indigo-500/50"
         />
       </div>
       <label className="form-control w-full max-w-xs">

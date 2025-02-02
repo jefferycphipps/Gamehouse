@@ -173,7 +173,7 @@ function GamePage() {
   return (
     <>
       <div
-        className="hero bg-base-200 min-h-[80vh]"
+        className="hero bg-base-200 min-h-[80vh] "
         style={{
           backgroundImage: `url(${game.boxArtURL})`,
         }}
@@ -201,7 +201,7 @@ function GamePage() {
                     console.log(wishlist);
                     handleAddWishlist(username, game.igdbCode);
                   }}
-                  className="btn btn-primary rounded-3xl w-1/2 flex items-center justify-start pl-20"
+                  className="btn btn-primary rounded-3xl w-1/2 flex items-center justify-start pl-20 "
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -228,7 +228,7 @@ function GamePage() {
                     console.log(saved);
                     handleAddSaved(username, game.igdbCode);
                   }}
-                  className="btn btn-accent rounded-3xl w-1/2 flex items-center justify-start pl-20"
+                  className="btn btn-accent rounded-3xl w-1/2 flex items-center justify-start pl-20 "
                 >
                   <svg
                     className="h-6 w-6"

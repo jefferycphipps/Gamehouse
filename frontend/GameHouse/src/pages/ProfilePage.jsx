@@ -44,7 +44,7 @@ function ProfilePage() {
           {user ? (
             <>
               <div className="flex gap-20 my-14">
-                <div className=" ml-14 w-40 h-40 rounded-full overflow-hidden">
+                <div className=" ml-14 w-40 h-40 rounded-full overflow-hidden shadow-lg shadow-indigo-500/50">
                   <img
                     alt="Profile Picture"
                     src={
@@ -56,7 +56,7 @@ function ProfilePage() {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-lg">Welcome, {user.username}</p>
+                  <p className="text-lg">Welcome, {user.username}!</p>
                   <p className="text-lg">Email: {user.email}</p>
                   <Link to={"/editaccount"}>
                     <button className="btn btn-primary">
@@ -96,7 +96,7 @@ function ProfilePage() {
                 </div>
               </div>
 
-              <div className="mx-auto my-auto w-11/12 bg-base-300 p-5 rounded-md h-full">
+              <div className="mx-auto my-auto w-11/12 bg-base-200 p-5 rounded-md h-full shadow-md shadow-black/40">
                 <p className="text-xl ">Saved Games</p>
                 <div className="divider mt-2 mb-4"></div>
                 <div className="flex gap-5 overflow-x-scroll w-full">
@@ -115,7 +115,7 @@ function ProfilePage() {
                   >
                     <img
                       className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
+                      src="https://i.imgur.com/m3eOjFP.jpg"
                     />
                   </Link>
                   <Link
@@ -124,7 +124,7 @@ function ProfilePage() {
                   >
                     <img
                       className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
+                      src="https://www.giantbomb.com/a/uploads/original/3/39947/2116251-Dead-Space-Cover.jpg"
                     />
                   </Link>
                   <Link
@@ -133,7 +133,7 @@ function ProfilePage() {
                   >
                     <img
                       className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
+                      src="https://i.redd.it/lmm320ubju4a1.jpg"
                     />
                   </Link>
                   <Link
@@ -142,7 +142,7 @@ function ProfilePage() {
                   >
                     <img
                       className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
+                      src="https://m.media-amazon.com/images/I/71G5OYo5x1L.jpg"
                     />
                   </Link>
                   <Link
@@ -151,12 +151,12 @@ function ProfilePage() {
                   >
                     <img
                       className="h-52 w-40 block rounded-sm"
-                      src="https://www.cnet.com/a/img/resize/d7c9ed8cf09ba8f3c806ebd6f88e1347472b1f5b/hub/2016/06/10/de63df86-8173-40a4-bc8b-86e40df7121a/fallout.jpg?auto=webp&width=1200"
+                      src="https://preview.redd.it/princess-peach-showtime-box-art-quietly-changed-v0-wxnxk93ltotb1.jpg?width=618&format=pjpg&auto=webp&s=7f2427281cba56163050ca9592b72cf02fab293e"
                     />
                   </Link>
                 </div>
               </div>
-              <div className="mx-auto my-10 w-11/12 bg-base-300 p-5 rounded-md h-full">
+              <div className="mx-auto my-10 w-11/12 bg-base-200 p-5 rounded-md h-full shadow-md  shadow-black/40">
                 <p className="text-xl">Wishlisted Games </p>
 
                 <div className="divider mt-2 mb-4"></div>
