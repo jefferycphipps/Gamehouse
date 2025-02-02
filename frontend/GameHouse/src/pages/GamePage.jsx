@@ -20,7 +20,9 @@ function GamePage() {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IGztaTnh0lfC-HfbBGq_62Q47LFbLePQjMk1jgEZgBcgwVgkE9CzPQAb-NXECLkWrHQ&usqp=CAU"
   );
   const [isPending, setIsPending] = useState(false);
-  
+  const [gameReviews, setGameReviews] = useState ([]);
+  const [gameReviewSaved, setGameReviewSaved] = useState("");
+
 
   useEffect(() => {
     const getGameRequest = async (gameID) => {
