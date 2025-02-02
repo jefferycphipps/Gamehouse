@@ -252,7 +252,7 @@ function ProfilePage() {
             </>
           ) : (
             <div className="m-auto flex flex-col gap-5">
-              <h1 className="text-3xl">This user does not exist</h1>
+              <h1 className="text-3xl">User Not Found</h1>
               <Link to={"/"}>
                 <button className="btn btn-info">Go back home</button>
               </Link>
