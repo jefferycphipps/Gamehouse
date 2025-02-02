@@ -96,7 +96,7 @@ function ProfilePage() {
                 </div>
               </div>
 
-              <div className="mx-auto my-auto w-11/12 bg-base-200 p-5 rounded-md h-full">
+              <div className="mx-auto my-auto w-11/12 bg-base-300 p-5 rounded-md h-full">
                 <p className="text-xl ">Saved Games</p>
                 <div className="divider mt-2 mb-4"></div>
                 <div className="flex gap-5 overflow-x-scroll w-full">
@@ -156,7 +156,7 @@ function ProfilePage() {
                   </Link>
                 </div>
               </div>
-              <div className="mx-auto my-10 w-11/12 bg-base-200 p-5 rounded-md h-full">
+              <div className="mx-auto my-10 w-11/12 bg-base-300 p-5 rounded-md h-full">
                 <p className="text-xl">Wishlisted Games </p>
 
                 <div className="divider mt-2 mb-4"></div>

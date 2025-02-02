@@ -19,7 +19,7 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    private final String FOLDER_PATH = "C:\\Users\\j_inf\\OneDrive\\Desktop\\images\\";
+    private final String FOLDER_PATH = "C:\\Users\\Christian\\Pictures\\";
     //private final Path ROOT = Paths.get("images/");
     public int uploadImageToFileDirectory(MultipartFile file) throws IOException {
         Image tempImage = imageRepository.findByName(file.getOriginalFilename());
