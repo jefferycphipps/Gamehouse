@@ -20,8 +20,11 @@ const apiClient2 = axios.create({
 
 // Gets Reviews by igdbCode
   export const getReviewsByIgdb = (data) => {
-    console.log(data);
-    return apiClient.get('/reviews/getReviewsIgdb', data);
+    console.log("Fetch Reviews!");
+    return apiClient.post('/reviews/getReviewsIgdb', data, {
+      headers: {"Content-Type": "application/json"
+      }
+    });
   };
 
   // Save Reviews by igdbCode, username, gameReview
@@ -29,17 +32,17 @@ const apiClient2 = axios.create({
     return apiClient.post('/reviews/save', data, {
       headers: {"Content-Type": "application/json"
       }
-  }); 
-  }
+    }); 
+  };
 
   // add game to wishlist by igdbCode, username
   export const addWishlistGame = (data) => {
     console.log("ADD TO WISHLIST!!!");
-      return apiClient.post('/wishlist/addGame', data, {
+    return apiClient.post('/wishlist/addGame', data, {
         headers: {"Content-Type": "application/json"
         }
     }); 
-  }
+  };
 
   // add game to Owned by igdbCode, username
   export const addOwnedGame = (data) => {
@@ -48,7 +51,7 @@ const apiClient2 = axios.create({
         headers: {"Content-Type": "application/json"
         }
     }); 
-  }
+  };
 
 
 
