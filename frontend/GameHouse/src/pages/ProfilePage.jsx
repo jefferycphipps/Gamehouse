@@ -11,6 +11,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const currentUser = localStorage.getItem("username");
+
   const [copied, setCopied] = useState(false);
   const router = useParams();
   const { username } = router;
@@ -250,7 +251,7 @@ function ProfilePage() {
               </div>
             </>
           ) : (
-            <h1>Loading...</h1>
+            <h1 className="m-auto text-5xl">This user does not exist</h1>
           )}
         </>
       )}
