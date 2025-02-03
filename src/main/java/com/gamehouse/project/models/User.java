@@ -28,14 +28,13 @@ public class User extends AbstractEntity{
     @OneToOne
     private Image profileImage;
 
-    @OneToMany (cascade = CascadeType.ALL,
-        mappedBy = "user")
-    private List<GameReviews> gameReviews = new ArrayList<>();
+//    @OneToMany (cascade = CascadeType.ALL,
+//        mappedBy = "user")
+//    private List<GameReviews> gameReviews = new ArrayList<>();
 
-    @OneToMany (cascade = CascadeType.ALL,
-        mappedBy = "user")
-    private List<WishlistGame> gameWishlist = new ArrayList<>();
-
+//    @OneToMany (cascade = CascadeType.ALL)
+//    private List<WishlistGame> gameWishlist = new ArrayList<>();
+//
 
 
     public User(String username, String email, String pwHash) {
@@ -96,20 +95,20 @@ public class User extends AbstractEntity{
     }
 
 
-    public List<GameReviews> getGameReviews() {
-        return gameReviews;
-    }
+//    public List<GameReviews> getGameReviews() {
+//        return gameReviews;
+//    }
+//
+//    public void setGameReviews(List<GameReviews> gameReviews) {
+//        this.gameReviews = gameReviews;
+//    }
 
-    public void setGameReviews(List<GameReviews> gameReviews) {
-        this.gameReviews = gameReviews;
-    }
-
-    public List<WishlistGame> getGameWishlist() {
-        return gameWishlist;
-    }
-
-    public void setGameWishlist(List<WishlistGame> gameWishlist) {
-        this.gameWishlist = gameWishlist;
-    }
+//    public List<WishlistGame> getGameWishlist() {
+//        return gameWishlist;
+//    }
+//
+//    public void setGameWishlist(List<WishlistGame> gameWishlist) {
+//        this.gameWishlist = gameWishlist;
+//    }
 }
 

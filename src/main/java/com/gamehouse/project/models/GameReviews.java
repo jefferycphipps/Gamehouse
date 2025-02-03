@@ -23,9 +23,9 @@ public class GameReviews {
     private int id;
 
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     // still need to configure mapping
     @ManyToOne
@@ -73,13 +73,13 @@ public class GameReviews {
         this.gameReview = gameReview;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public Game getGame() {
         return game;

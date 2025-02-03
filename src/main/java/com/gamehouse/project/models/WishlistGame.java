@@ -16,9 +16,9 @@ public class WishlistGame {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
@@ -53,13 +53,13 @@ public class WishlistGame {
         return id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public Game getGame() {
         return game;
@@ -121,7 +121,6 @@ public class WishlistGame {
     public String toString() {
         return "WishlistGame{" +
                 "id=" + id +
-                ", user=" + user +
                 ", game=" + game +
                 ", username='" + username + '\'' +
                 ", gameName='" + gameName + '\'' +

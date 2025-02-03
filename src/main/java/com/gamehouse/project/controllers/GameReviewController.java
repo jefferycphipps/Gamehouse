@@ -81,9 +81,9 @@ public class GameReviewController {
 
 
         // Search UserRepository to find User based on username
-        User getUser = userRepository.findByUsername(gameReviewsDTO.getUsername());
-
-        newGameReview.setUser(getUser);
+//        User getUser = userRepository.findByUsername(gameReviewsDTO.getUsername());
+//
+//        newGameReview.setUser(getUser);
         newGameReview.setUsername(gameReviewsDTO.getUsername());
 
 

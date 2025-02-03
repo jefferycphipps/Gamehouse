@@ -97,10 +97,10 @@ public class OwnedGameController {
         }
 
         // Search UserRepository to find User based on username
-        User getUser = userRepository.findByUsername(gameUsernameDTO.getUsername());
-
-        gameOwnedlist.setUser(getUser);
-        gameOwnedlist.setUsername(getUser.getUsername());
+//        User getUser = userRepository.findByUsername(gameUsernameDTO.getUsername());
+//
+//        gameOwnedlist.setUser(getUser);
+        gameOwnedlist.setUsername(gameUsernameDTO.getUsername());
 
         // Saves Owned game to repo
         ownedGameRepository.save(gameOwnedlist);

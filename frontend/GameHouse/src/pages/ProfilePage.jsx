@@ -1,8 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { getPhoto, getSavedlist, getWishlist, userPage } from "../services/APIservice";
+import { getSavedlist, getWishlist, userPage } from "../services/APIservice";
 import "../App.css";
 
 
@@ -17,7 +16,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
-  const username = localStorage.getItem("username");
+  //const username = localStorage.getItem("username");
   const [wishlist, setWishlist] = useState([]);
   const [savedList, setSavedList] = useState([]);
 
@@ -41,8 +40,12 @@ function ProfilePage() {
     const fetchUserData = async () => {
       try {
         const response = await userPage(username);
+       const responseWishlist = await getWishlist(username);
+        const responseSavedList = await getSavedlist(username);
         setUser(response.data);
-        console.log(response.data);
+        setWishlist(responseWishlist.data);
+        setSavedList(responseSavedList.data);
+        //console.log(response.data);
         setErrorMessage("");
       } catch (error) {
         setErrorMessage(`An error occurred: ${error.message}`);
@@ -54,46 +57,6 @@ function ProfilePage() {
   }, [username, navigate]);
 
 
-
-  useEffect(() => {
-    const getUserWishlist = async(username) => {
-      try {
-        const responseWishlist = await getWishlist(username);
-        console.log(typeof responseWishlist.data);
-        console.log(responseWishlist.data);
-        
-        setWishlist(responseWishlist.data);
-        console.log(wishlist);
-        console.log(typeof wishlist);
-  
-      } catch (error) {
-        console.error("Error getting Wishlist:", error);
-      }
-    };
-    
-    const getUserSavedList = async(username) => {
-      try {
-        const responseSavedList = await getSavedlist(username);
-        console.log(typeof responseSavedList.data);
-        console.log(responseSavedList.data);
-        
-        setSavedList(responseSavedList.data);
-        console.log(savedList);
-        console.log(typeof savedList);
-
-      } catch (error) {
-        console.error("Error getting Saved List:",error);
-      }
-    };
-    getUserWishlist(username).catch(console.error);
-    getUserSavedList(username).catch(console.error);
-  }, []);
-
-
-  useEffect(() => {
-    console.log("Updated Wishlist:", wishlist);
-    console.log("Updated Saved List:", savedList);
-  }, [wishlist, savedList]);
   
 
 

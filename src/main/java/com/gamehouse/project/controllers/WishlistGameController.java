@@ -97,10 +97,10 @@ public class WishlistGameController {
         }
 
         // Search UserRepository to find User based on username
-        User getUser = userRepository.findByUsername(gameUsernameDTO.getUsername());
-
-        gameWishlist.setUser(getUser);
-        gameWishlist.setUsername(getUser.getUsername());
+//        User getUser = userRepository.findByUsername(gameUsernameDTO.getUsername());
+//
+//        gameWishlist.setUser(getUser);
+        gameWishlist.setUsername(gameUsernameDTO.getUsername());
 
         // Saves wishlisted game to repo
         wishlistGameRepository.save(gameWishlist);
