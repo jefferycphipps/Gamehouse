@@ -13,7 +13,7 @@ function DeleteUser() {
     if (!username) {
       alert("You need to be logged in first.");
       navigate("/welcome");
-      console.log("you got me");
+      //console.log("you got me");
       return;
     }
 
@@ -24,7 +24,7 @@ function DeleteUser() {
       } catch (error) {
         setErrorMessage(`An error occurred: ${error.message}`);
         navigate("/welcome");
-        console.log("you got me too");
+        //console.log("you got me too");
       }
     };
     fetchUserData();

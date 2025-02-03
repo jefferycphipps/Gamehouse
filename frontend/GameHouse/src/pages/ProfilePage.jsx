@@ -50,7 +50,7 @@ function ProfilePage() {
       } catch (error) {
         setErrorMessage(`An error occurred: ${error.message}`);
         navigate("/welcome");
-        console.log("you got me too");
+       // console.log("you got me too");
       }
     };
     fetchUserData();

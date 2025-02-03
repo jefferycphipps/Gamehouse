@@ -9,6 +9,7 @@ import RP from "../assets/RP.png";
 import E10 from "../assets/E10+.png";
 import EC from "../assets/EC.png";
 import A from "../assets/A.png";
+import { HttpStatusCode } from "axios";
 
 function GamePage() {
   const router = useParams();
@@ -56,7 +57,7 @@ function GamePage() {
 
     if (username === null) {
       alert("Must Login to add game!");
-      console.log("Username is undefined. Must Login to add game!");
+     // console.log("Username is undefined. Must Login to add game!");
 
     } else {
 
@@ -64,13 +65,15 @@ function GamePage() {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('igdbCode', igdbcode);
-        console.log(formData);
-        alert("Game added to Wishlist!");
+       // console.log(formData);
+       
         
         const response = await addWishlistGame(formData);
-  
+        
+          alert("Game added to Wish List!");
       } catch (error) {
-        console.log("formData: " + formData);
+        alert("Game already on Wish List!");
+        //console.log("formData: " + formData);
         console.error('Error adding Wishlist game:', error);
       }
     }
@@ -81,7 +84,7 @@ function GamePage() {
     if (username === null) {
 
       alert("Must Login to add game!");
-      console.log("Username is undefined. Must Login to add Game Review!");
+     // console.log("Username is undefined. Must Login to add Game Review!");
 
     } else {
 
@@ -90,22 +93,22 @@ function GamePage() {
         formData.append('igdbCode', igdbCode);
         formData.append('username', username);
         formData.append('gameReview', gameReview);
-        console.log(formData);
+       // console.log(formData);
 
         alert("Game Review saved!");
 
         const responseSaveReview = await saveReview(formData);
 
         setGameReviewSaved(responseSaveReview.data);
-        console.log(typeof responseSaveReview.data);
-        console.log(responseSaveReview.data);
-        console.log(gameReviewSaved);
+        //console.log(typeof responseSaveReview.data);
+       // console.log(responseSaveReview.data);
+        //console.log(gameReviewSaved);
 
         const response = await getReviewsByIgdb(igdbCode);
-        console.log(response.data);
+        //console.log(response.data);
 
         setGameReviews(response.data);
-        console.log(gameReviews);
+        //console.log(gameReviews);
 
 
       } catch (error) {
@@ -120,10 +123,10 @@ function GamePage() {
     const fetchReviews = async (gameID) => {
       try {
         const response = await getReviewsByIgdb(gameID);
-        console.log(response.data);
+        //console.log(response.data);
 
         setGameReviews(response.data);
-        console.log(gameReviews);
+        //console.log(gameReviews);
 
       } catch (error) {
         // console.log(response.data);
@@ -144,7 +147,7 @@ function GamePage() {
 
     if (username === null) {
       alert("Must Login to add game!");
-      console.log("Username is undefined. Must Login to add game!");
+      //console.log("Username is undefined. Must Login to add game!");
 
     } else {
 
@@ -152,13 +155,14 @@ function GamePage() {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('igdbCode', igdbcode);
-        console.log(formData);
+       // console.log(formData);
         alert("Game added to Saved List!");
 
         const response = await addOwnedGame(formData);
   
       } catch (error) {
-        console.log("formData: " + formData);
+       // console.log("formData: " + formData);
+       alert("Game already on Saved List!");
         console.error('Error adding Saved game:', error);
       }
     }
@@ -169,7 +173,7 @@ function GamePage() {
     e.preventDefault();
 
       const fullReview = { review, name, profilePic };
-      console.log(fullReview);
+      //console.log(fullReview);
 
       handleSaveReview (game.igdbCode, username, fullReview.review);
 

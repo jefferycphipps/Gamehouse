@@ -6,10 +6,10 @@ import { addOwnedGame, addWishlistGame } from "../services/APIservice";
 
 function Card(props) {
   const [wishlist, setWishlish] = useState(useContext(wishlishContext));
-  console.log(wishlist);
+  //console.log(wishlist);
 
   const [saved, setSaved] = useState(useContext(wishlishContext));
-  console.log(saved);
+  //console.log(saved);
 
   const username = localStorage.getItem("username");
 
@@ -23,13 +23,14 @@ function Card(props) {
 
         formData.append("username", username);
         formData.append("igdbCode", igdbcode);
-        console.log(formData);
+        //console.log(formData);
 
         alert("Game added to Wishlist!");
 
         const response = await addWishlistGame(formData);
       } catch (error) {
-        console.log("formData: " + formData);
+       // console.log("formData: " + formData);
+       alert("Game already on Wishlist!");
         console.error("Error adding Wishlist game:", error);
       }
     }
@@ -44,13 +45,14 @@ function Card(props) {
         const formData = new FormData();
         formData.append("username", username);
         formData.append("igdbCode", igdbcode);
-        console.log(formData);
+        //console.log(formData);
 
         alert("Game added to Saved List!");
 
         const response = await addOwnedGame(formData);
       } catch (error) {
-        console.log("formData: " + formData);
+        //console.log("formData: " + formData);
+        alert("Game already on Saved List!");
         console.error("Error adding Saved game:", error);
       }
     }

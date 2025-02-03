@@ -25,7 +25,7 @@ public class ImageService {
         Image tempImage = imageRepository.findByName(file.getOriginalFilename());
 
         String filePath = FOLDER_PATH+file.getOriginalFilename();
-        System.out.println(filePath);
+        //System.out.println(filePath);
         Image imageData = imageRepository.save(new Image( file.getOriginalFilename(), file.getContentType(), filePath ));
         int id = imageData.getId();
         file.transferTo(new File(filePath));

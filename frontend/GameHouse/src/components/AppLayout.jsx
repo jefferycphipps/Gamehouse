@@ -15,11 +15,11 @@ function AppLayout() {
         const response = await search(searchVal);
 
         const responseJSON = await response.data;
-        console.log(responseJSON);
+        //console.log(responseJSON);
         setGames(responseJSON);
         gamesLength.current = responseJSON.length;
 
-        console.log(responseJSON.length);
+       // console.log(responseJSON.length);
       } catch (error) {
         console.log(error);
       }
@@ -27,7 +27,7 @@ function AppLayout() {
     getSearchRequest(searchValue).catch(console.error);
   }, [searchValue]);
 
-  console.log(Number(gamesLength.current));
+ // console.log(Number(gamesLength.current));
   return (
     <>
       {/* <div className="flex-col items-center w-full justify-center h-max"> */}

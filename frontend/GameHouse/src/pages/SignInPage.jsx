@@ -18,7 +18,7 @@ function SignInPage() {
     const recaptchaInstance = await load(siteKey);
     const token = await recaptchaInstance.execute("login");
     setRecaptchaToken(token);
-    console.log(token);
+    //console.log(token);
     try {
       const response = await loginUser({
         username: values.username,

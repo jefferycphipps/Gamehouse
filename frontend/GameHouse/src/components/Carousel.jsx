@@ -21,7 +21,7 @@ function Carousel2({ images }) {
     });
   }
 
-  console.log(images);
+  //console.log(images);
 
   useEffect(() => {
     if (!autoslide) return;

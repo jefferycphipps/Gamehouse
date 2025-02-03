@@ -19,7 +19,7 @@ const apiClient2 = axios.create({
 
 // Gets Reviews by igdbCode
   export const getReviewsByIgdb = (data) => {
-    console.log("Fetch Reviews!");
+   // console.log("Fetch Reviews!");
     return apiClient.post('/reviews/getReviewsIgdb', data, {
       headers: {"Content-Type": "application/json"
       }
@@ -37,7 +37,7 @@ const apiClient2 = axios.create({
 
   // add game to wishlist by igdbCode, username
   export const addWishlistGame = (data) => {
-    console.log("ADD TO WISHLIST!!!");
+    //console.log("ADD TO WISHLIST!!!");
     return apiClient.post('/wishlist/addGame', data, {
         headers: {"Content-Type": "application/json"
         }
@@ -46,14 +46,14 @@ const apiClient2 = axios.create({
 
   // GET wishlist by username
   export const getWishlist = (username) => {
-    console.log("FETCH WISHLIST by Username!!!");
+   // console.log("FETCH WISHLIST by Username!!!");
     return apiClient.get('/wishlist/'+ username) 
   };
 
 
   // add game to Owned by igdbCode, username
   export const addOwnedGame = (data) => {
-    console.log("ADD TO OWNED!!!");
+    //console.log("ADD TO OWNED!!!");
       return apiClient.post('/owned/addGame', data, {
         headers: {"Content-Type": "application/json"
         }
@@ -62,7 +62,7 @@ const apiClient2 = axios.create({
 
   // GET saved list by username
   export const getSavedlist = (username) => {
-    console.log("FETCH SAVED LIST by Username!!!");
+    //console.log("FETCH SAVED LIST by Username!!!");
     return apiClient.get('/owned/'+ username) 
   };
 
@@ -100,19 +100,19 @@ export const userPage = async (username) => {
 
 export const getbyID = (data) => {
   const gameID = JSON.stringify(data);
-  console.log(data);
+  //console.log(data);
   return apiClient2.post("search/getGamebyID", gameID);
 }; //get game by id
 
 export const startup = () => {
   const starter = "go";
-  console.log(starter);
+  //console.log(starter);
   return apiClient.post("search/startup");
 };
 
 export const search = (data) => {
-  console.log("im here");
-  console.log(data);
+ // console.log("im here");
+ // console.log(data);
   return apiClient.post("search/getGames", data);
 };
 

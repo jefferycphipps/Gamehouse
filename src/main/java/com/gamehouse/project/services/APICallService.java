@@ -45,7 +45,7 @@ public class APICallService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(response.body());
+        //System.out.println(response.body());
         return response.body();
     }
 
@@ -109,7 +109,7 @@ public class APICallService {
             tempGame.setGameDescription(gameJsons.get(x).getSummary());
             tempGame.setGamePlatforms(getPlatforms(gameJsons.get(x).getPlatforms()));
             games.add(tempGame);
-            System.out.println(tempGame);
+            //System.out.println(tempGame);
         }
         return games; //return the list of games
     }
@@ -126,7 +126,7 @@ public class APICallService {
             tempGame.setIGDBCode(gameJsons.get(x).getId());
             tempGame.setBoxArtUrl(getCover(gameJsons.get(x).getCover()));
             games.add(tempGame);
-            System.out.println(tempGame);
+            //System.out.println(tempGame);
         }
         return games; //return the list of games
     }

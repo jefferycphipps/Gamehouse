@@ -52,9 +52,9 @@ function Home() {
     },
   ];
 
-  console.log(context.gamesLength.current);
-  console.log(context.searchValue);
-  console.log(currentPosts);
+  //console.log(context.gamesLength.current);
+  //console.log(context.searchValue);
+  //console.log(currentPosts);
 
   return (
     <>
